@@ -491,7 +491,7 @@ export default function Home() {
           </div>
 
           {/* Infinite Logos Carousel */}
-          <div className="w-full bg-[#FF6A00] py-12 md:py-16 overflow-hidden relative flex items-center">
+          <div className="w-full bg-[#bb1c3c] py-12 md:py-16 overflow-hidden relative flex items-center">
             {/* 
               To achieve a perfect infinite scroll, we translate a container that is exactly twice the width
               by -50%. That means it needs two identical blocks inside it. 
