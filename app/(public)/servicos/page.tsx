@@ -135,7 +135,30 @@ export default function ServicosPage() {
 
   return (
     <div className="bg-white min-h-screen">
-      <p>TODO</p>
+      {/* ─── HERO ─── */}
+      <section className="pt-24 pb-16 px-6 md:px-12 lg:px-24">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center min-h-[70vh]">
+          <h1
+            className="text-[2.8rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] leading-none font-black uppercase tracking-tight text-black"
+            style={{ fontFamily: 'Aileron, sans-serif' }}
+          >
+            Estratégia,<br />
+            Criação e<br />
+            Performance<br />
+            em um só lugar.
+          </h1>
+          <p
+            className="text-base md:text-lg text-gray-700 leading-relaxed"
+            style={{ fontFamily: 'Aileron, sans-serif' }}
+          >
+            A agência Brinde oferece serviços de branding, performance, conteúdo,
+            relacionamento, dados e CRM para marcas que desejam crescer com
+            estratégia, criatividade e tecnologia.
+          </p>
+        </div>
+      </section>
+
+      {/* cards e modal vêm nas próximas tasks */}
     </div>
   );
 }
