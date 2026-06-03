@@ -378,8 +378,8 @@ export default function SobreNos() {
           </div>
 
           <motion.div
-            style={{ scale: logoMarkScale }}
-            className="w-24 h-24 md:w-28 md:h-28 rounded-full flex items-center justify-center" style={{ backgroundColor: '#050a30' }}
+            style={{ scale: logoMarkScale, backgroundColor: '#050a30' }}
+            className="w-24 h-24 md:w-28 md:h-28 rounded-full flex items-center justify-center"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
