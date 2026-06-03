@@ -288,7 +288,7 @@ function ServiceCard({
       <iframe
         src={service.videoSrc}
         className="absolute inset-0 w-full h-full pointer-events-none"
-        style={{ border: 'none', transform: 'scale(1.15)', transformOrigin: 'center' }}
+        style={{ border: 'none', transform: 'scale(1.4)', transformOrigin: 'center' }}
         allow="autoplay; mute"
         title={service.title}
       />
