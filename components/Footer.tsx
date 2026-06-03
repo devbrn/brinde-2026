@@ -102,7 +102,7 @@ export function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/10 px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-2 text-sm text-white/50">
+      <div className="border-t border-white/10 px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-2 text-sm text-white font-bold">
         <div className="flex gap-6">
           <span>Agência full-service</span>
           <span>|</span>
