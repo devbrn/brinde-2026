@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Playfair_Display, Inter } from 'next/font/google';
+import { Playfair_Display, Inter, Poppins } from 'next/font/google';
 import './globals.css';
 import { LenisProvider } from '@/components/LenisProvider';
 
@@ -13,6 +13,12 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['700'],
+  variable: '--font-poppins',
+});
+
 export const metadata: Metadata = {
   title: 'Brinde — Marketing & Publicidade',
   description: 'Agência full-service de estratégia, criação e execução',
@@ -24,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className={`${playfair.variable} ${inter.variable}`}>
+    <html lang="pt-BR" className={`${playfair.variable} ${inter.variable} ${poppins.variable}`}>
       <body className="font-sans bg-white text-black antialiased">
         <LenisProvider>{children}</LenisProvider>
       </body>
