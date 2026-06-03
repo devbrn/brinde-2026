@@ -147,7 +147,6 @@ function ServiceModal({
 
   return (
     <motion.div
-      key="modal-backdrop"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -354,6 +353,8 @@ export default function ServicosPage() {
     };
   }, [activeId]);
 
+  const activeService = activeId ? (services.find((s) => s.id === activeId) ?? null) : null;
+
   return (
     <div className="bg-white min-h-screen">
       {/* ─── HERO ─── */}
@@ -394,17 +395,13 @@ export default function ServicosPage() {
 
       {/* ─── MODAL ─── */}
       <AnimatePresence>
-        {activeId && (() => {
-          const service = services.find((s) => s.id === activeId);
-          if (!service) return null;
-          return (
-            <ServiceModal
-              key={activeId}
-              service={service}
-              onClose={() => setActiveId(null)}
-            />
-          );
-        })()}
+        {activeService && (
+          <ServiceModal
+            key={activeService.id}
+            service={activeService}
+            onClose={() => setActiveId(null)}
+          />
+        )}
       </AnimatePresence>
     </div>
   );
