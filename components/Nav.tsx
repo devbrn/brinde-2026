@@ -5,10 +5,13 @@ import Link from 'next/link';
 export function Nav() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black text-white px-6 py-4 flex items-center justify-between">
-      <Link href="/" className="flex items-center gap-2 shrink-0">
-        <span className="text-2xl font-playfair font-bold">
-          BRINDE
-        </span>
+      <Link href="/" className="flex items-center shrink-0">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://res.cloudinary.com/dyezpmorm/image/upload/v1780502461/Site-Brinde-LOGO-1024x316_xtnbj8.webp"
+          alt="Brinde"
+          className="h-8 w-auto"
+        />
       </Link>
 
       <div className="hidden md:flex items-center gap-8 ml-auto" style={{ fontFamily: 'var(--font-poppins), sans-serif', fontWeight: 700 }}>
