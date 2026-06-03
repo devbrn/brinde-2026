@@ -25,7 +25,7 @@ export default function Brindamos() {
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-playfair mb-12 text-center">Nossos Clientes</h2>
 
-          <div className="bg-orange-500 py-16 px-8 rounded overflow-hidden">
+          <div className="bg-[#bb1c3c] py-16 px-8 rounded overflow-hidden">
             <div className="flex gap-8 animate-marquee whitespace-nowrap">
               {clients.concat(clients).map((client, idx) => (
                 <div

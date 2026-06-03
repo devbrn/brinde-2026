@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <footer className="bg-[#0a0a1a] text-white">
+    <footer className="bg-[#050a30] text-white">
       {/* CTA */}
       <div className="text-center py-20 px-6 border-b border-white/10">
         <h2 className="text-5xl md:text-7xl font-bold mb-6">

@@ -57,13 +57,13 @@ const services: ServiceData[] = [
   {
     id: 'reserva-especial',
     tag: 'Reserva Especial',
-    tagColor: '#ff6b35',
+    tagColor: '#bb1c3c',
     tagTextColor: '#ffffff',
     category: 'mal?',
     title: 'Reserva Especial',
     shortDesc:
       'Vendas, gestão de leads, alcance, reconhecimento. Não importa a finalidade, fazemos mensagens serem ouvidas e produtos serem vendidos. Sempre com um olhar para performance e dados.',
-    modalBg: '#ff6b35',
+    modalBg: '#bb1c3c',
     modalTextColor: '#ffffff',
     subtitle: 'Impacto',
     body: [
