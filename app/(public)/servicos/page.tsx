@@ -361,7 +361,7 @@ export default function ServicosPage() {
       <section className="pt-24 pb-16 px-6 md:px-12 lg:px-24">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center min-h-[70vh]">
           <h1
-            className="text-[2.8rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] leading-none font-black uppercase tracking-tight text-black"
+            className="text-[2.8rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[4.6rem] leading-none font-black uppercase tracking-tight text-black"
             style={{ fontFamily: 'Aileron, sans-serif' }}
           >
             Estratégia,<br />
@@ -370,7 +370,7 @@ export default function ServicosPage() {
             em um só lugar.
           </h1>
           <p
-            className="text-base md:text-lg text-gray-700 leading-relaxed"
+            className="text-[20px] text-gray-700 leading-relaxed"
             style={{ fontFamily: 'Aileron, sans-serif' }}
           >
             A agência Brinde oferece serviços de branding, performance, conteúdo,
