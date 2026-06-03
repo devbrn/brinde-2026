@@ -152,9 +152,9 @@ export default function SobreNos() {
     offset: ['start end', 'end start'],
   });
   // Sequence finishes by ~0.5 (section ~100% visible)
-  const perfCenterOpacity = useTransform(perfProgress, [0.10, 0.22], [0, 1]);
-  const perfCenterScale = useTransform(perfProgress, [0.10, 0.22], [0.92, 1]);
-  const perfRingOpacity = useTransform(perfProgress, [0.20, 0.30], [0, 1]);
+  const perfCenterOpacity = useTransform(perfProgress, [0.05, 0.18], [0, 1]);
+  const perfCenterScale = useTransform(perfProgress, [0.05, 0.18], [0.92, 1]);
+  const perfRingOpacity = useTransform(perfProgress, [0.08, 0.20], [0, 1]);
 
   // Método Brinde (pg 13)
   const metodoRef = useRef<HTMLElement>(null);
@@ -443,8 +443,8 @@ export default function SobreNos() {
                   rowIndex={rowIndex}
                   totalRows={totalRows}
                   progress={perfProgress}
-                  startProgress={0.28}
-                  endProgress={0.48}
+                  startProgress={0.15}
+                  endProgress={0.40}
                 />
               );
             });
