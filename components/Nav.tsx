@@ -10,7 +10,7 @@ export function Nav() {
         <img
           src="https://res.cloudinary.com/dyezpmorm/image/upload/v1780502461/Site-Brinde-LOGO-1024x316_xtnbj8.webp"
           alt="Brinde"
-          className="h-8 w-auto"
+          className="h-11 w-auto"
         />
       </Link>
 
