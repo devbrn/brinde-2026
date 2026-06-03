@@ -106,7 +106,7 @@ export function Footer() {
         <div className="flex gap-6">
           <span>Agência full-service</span>
           <span>|</span>
-          <span>Produtora audiovisual</span>
+          <a href="/produtora" className="hover:opacity-70 transition-opacity">Produtora audiovisual</a>
         </div>
         <span>Todos os direitos reservados agência Brinde</span>
       </div>

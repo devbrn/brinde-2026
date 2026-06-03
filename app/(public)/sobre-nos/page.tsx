@@ -131,18 +131,18 @@ export default function SobreNos() {
     target: planRef,
     offset: ['start end', 'end start'],
   });
-  const leftImgOpacity = useTransform(planProgress, [0.1, 0.45], [0, 1]);
-  const leftImgX = useTransform(planProgress, [0.1, 0.45], [-200, 0]);
-  const rightImgOpacity = useTransform(planProgress, [0.1, 0.45], [0, 1]);
-  const rightImgX = useTransform(planProgress, [0.1, 0.45], [200, 0]);
-  const headlineOpacity = useTransform(planProgress, [0.25, 0.5], [0, 1]);
-  const headlineY = useTransform(planProgress, [0.25, 0.5], [40, 0]);
-  const onOpacity = useTransform(planProgress, [0.35, 0.6], [0, 1]);
-  const onY = useTransform(planProgress, [0.35, 0.6], [40, 0]);
-  const offOpacity = useTransform(planProgress, [0.42, 0.65], [0, 1]);
-  const offY = useTransform(planProgress, [0.42, 0.65], [40, 0]);
-  const logoMarkOpacity = useTransform(planProgress, [0.55, 0.75], [0, 1]);
-  const logoMarkScale = useTransform(planProgress, [0.55, 0.75], [0.6, 1]);
+  const leftImgOpacity = useTransform(planProgress, [0.05, 0.28], [0, 1]);
+  const leftImgX = useTransform(planProgress, [0.05, 0.28], [-200, 0]);
+  const rightImgOpacity = useTransform(planProgress, [0.05, 0.28], [0, 1]);
+  const rightImgX = useTransform(planProgress, [0.05, 0.28], [200, 0]);
+  const headlineOpacity = useTransform(planProgress, [0.15, 0.35], [0, 1]);
+  const headlineY = useTransform(planProgress, [0.15, 0.35], [40, 0]);
+  const onOpacity = useTransform(planProgress, [0.22, 0.40], [0, 1]);
+  const onY = useTransform(planProgress, [0.22, 0.40], [40, 0]);
+  const offOpacity = useTransform(planProgress, [0.28, 0.45], [0, 1]);
+  const offY = useTransform(planProgress, [0.28, 0.45], [40, 0]);
+  const logoMarkOpacity = useTransform(planProgress, [0.35, 0.50], [0, 1]);
+  const logoMarkScale = useTransform(planProgress, [0.35, 0.50], [0.6, 1]);
 
   // Performance (pg 12)
   // Triggers when section fully visible (~0.4 = centered)
@@ -306,7 +306,7 @@ export default function SobreNos() {
       </section>
 
       {/* ─── PLANEJAMOS E EXECUTAMOS (pg 11) ─── */}
-      <section ref={planRef} className="relative bg-white py-24 md:py-32 px-6 md:px-12 overflow-hidden">
+      <section ref={planRef} className="relative bg-white py-24 md:py-32 overflow-hidden">
         {/* Imagem esquerda */}
         <motion.div
           style={{ opacity: leftImgOpacity, x: leftImgX }}
@@ -314,7 +314,7 @@ export default function SobreNos() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800"
+            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800"
             alt="Online"
             className="w-full h-auto object-contain"
           />
@@ -334,7 +334,7 @@ export default function SobreNos() {
         </motion.div>
 
         {/* Conteúdo central */}
-        <div className="relative z-10 max-w-[900px] mx-auto flex flex-col items-center text-center gap-10">
+        <div className="relative z-10 w-full flex flex-col items-center text-center gap-16 md:gap-20">
           <motion.h2
             style={{ opacity: headlineOpacity, y: headlineY }}
             className="text-[1.8rem] sm:text-[2.4rem] md:text-[3rem] lg:text-[3.5rem] leading-tight uppercase text-[#050a30]"
@@ -345,7 +345,7 @@ export default function SobreNos() {
             </span>
           </motion.h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 w-full">
+          <div className="grid grid-cols-2 gap-10 md:gap-16 max-w-[600px] mx-auto">
             <motion.div
               style={{ opacity: onOpacity, y: onY }}
               className="flex flex-col items-end text-right gap-2"
@@ -378,12 +378,15 @@ export default function SobreNos() {
           </div>
 
           <motion.div
-            style={{ opacity: logoMarkOpacity, scale: logoMarkScale }}
-            className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-[#050a30] flex items-center justify-center mt-4"
+            style={{ scale: logoMarkScale }}
+            className="w-24 h-24 md:w-28 md:h-28 rounded-full flex items-center justify-center" style={{ backgroundColor: '#050a30' }}
           >
-            <span className="text-white text-xs md:text-sm font-bold uppercase tracking-wider" style={{ fontFamily: 'Aileron, sans-serif' }}>
-              Brinde
-            </span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://res.cloudinary.com/dyezpmorm/image/upload/v1780502461/Site-Brinde-LOGO-1024x316_xtnbj8.webp"
+              alt="Brinde"
+              className="h-7 w-auto"
+            />
           </motion.div>
         </div>
       </section>

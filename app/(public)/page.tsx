@@ -289,11 +289,6 @@ export default function Home() {
 
   return (
     <div className="pt-20 bg-[#050a30] min-h-screen w-full">
-      <style dangerouslySetInnerHTML={{
-        __html: `
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-      `}} />
 
       <div
         ref={scrollRef}

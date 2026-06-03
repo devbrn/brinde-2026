@@ -24,6 +24,9 @@ export function Nav() {
         <Link href="/servicos" className="hover:text-white/70 transition text-sm">
           Serviços
         </Link>
+        <Link href="/produtora" className="hover:text-white/70 transition text-sm">
+          Produtora
+        </Link>
 
         <span className="text-white/40">|</span>
 
