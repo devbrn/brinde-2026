@@ -130,6 +130,144 @@ const services: ServiceData[] = [
   },
 ];
 
+function ServiceModal({
+  service,
+  onClose,
+}: {
+  service: ServiceData;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [onClose]);
+
+  return (
+    <motion.div
+      key="modal-backdrop"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      className="fixed inset-0 z-50 overflow-y-auto"
+      style={{ backgroundColor: service.modalBg, color: service.modalTextColor }}
+    >
+      {/* Botão fechar */}
+      <button
+        onClick={onClose}
+        className="fixed top-6 right-6 z-[60] w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold transition-opacity hover:opacity-60"
+        style={{ backgroundColor: service.modalTextColor, color: service.modalBg }}
+        aria-label="Fechar"
+      >
+        ✕
+      </button>
+
+      <div className="min-h-screen px-6 md:px-16 lg:px-24 py-24">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
+
+          {/* Coluna esquerda */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="flex flex-col gap-6"
+          >
+            <p
+              className="text-sm uppercase tracking-widest opacity-60"
+              style={{ fontFamily: 'Aileron, sans-serif' }}
+            >
+              {service.subtitle}
+            </p>
+            <h2
+              className="text-[3rem] md:text-[5rem] font-black leading-none uppercase"
+              style={{ fontFamily: 'Aileron, sans-serif' }}
+            >
+              {service.title}
+            </h2>
+            <div className="flex flex-col gap-4">
+              {service.body.map((paragraph, i) => (
+                <p
+                  key={i}
+                  className="text-base md:text-lg leading-relaxed opacity-90"
+                  style={{ fontFamily: 'Aileron, sans-serif' }}
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+            <p
+              className="text-sm font-bold mt-4 opacity-70"
+              style={{ fontFamily: 'Aileron, sans-serif' }}
+            >
+              Metodologia Brinde®
+            </p>
+          </motion.div>
+
+          {/* Coluna direita */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex flex-col gap-8"
+          >
+            {/* Círculo decorativo */}
+            <div
+              className="w-20 h-20 rounded-full self-end"
+              style={{ backgroundColor: '#f5d020' }}
+            />
+
+            {/* Planejamento */}
+            <div className="flex flex-col gap-3">
+              <h3
+                className="text-base font-bold"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
+              >
+                Planejamento / Validação de Tráfego
+              </h3>
+              <ul className="flex flex-col gap-1">
+                {service.planning.map((item, i) => (
+                  <li
+                    key={i}
+                    className="text-sm leading-relaxed opacity-80"
+                    style={{ fontFamily: 'Aileron, sans-serif' }}
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Execução */}
+            <div className="flex flex-col gap-3">
+              <h3
+                className="text-base font-bold"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
+              >
+                Execução / Mensuração
+              </h3>
+              <ul className="flex flex-col gap-1">
+                {service.execution.map((item, i) => (
+                  <li
+                    key={i}
+                    className="text-sm leading-relaxed opacity-80"
+                    style={{ fontFamily: 'Aileron, sans-serif' }}
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 function ServiceCard({
   service,
   onClick,
@@ -205,6 +343,17 @@ function ServiceCard({
 export default function ServicosPage() {
   const [activeId, setActiveId] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (activeId) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [activeId]);
+
   return (
     <div className="bg-white min-h-screen">
       {/* ─── HERO ─── */}
@@ -243,7 +392,20 @@ export default function ServicosPage() {
         </div>
       </section>
 
-      {/* modal vem na próxima task */}
+      {/* ─── MODAL ─── */}
+      <AnimatePresence>
+        {activeId && (() => {
+          const service = services.find((s) => s.id === activeId);
+          if (!service) return null;
+          return (
+            <ServiceModal
+              key={activeId}
+              service={service}
+              onClose={() => setActiveId(null)}
+            />
+          );
+        })()}
+      </AnimatePresence>
     </div>
   );
 }
