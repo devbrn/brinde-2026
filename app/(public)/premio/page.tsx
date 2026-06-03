@@ -53,7 +53,7 @@ function CardItem({
       ) : (
         <div
           style={{ height: card.height }}
-          className="w-full rounded-2xl overflow-hidden border border-red-900/50 bg-black"
+          className="w-full rounded-2xl overflow-hidden border border-red-900/50 bg-[#050a30]"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -133,7 +133,7 @@ export default function Premio() {
   const bgColor = useTransform(
     scrollYProgress,
     [0.55, 0.65],
-    ['#000000', '#ffffff']
+    ['#050a30', '#ffffff']
   );
   const titleColor = useTransform(
     scrollYProgress,
@@ -166,7 +166,7 @@ export default function Premio() {
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: 1.2, ease: 'easeOut' } }}
-        className="pt-20 relative min-h-screen bg-black flex items-center justify-center overflow-hidden"
+        className="pt-20 relative min-h-screen bg-[#050a30] flex items-center justify-center overflow-hidden"
       >
         <video
           autoPlay
@@ -180,7 +180,7 @@ export default function Premio() {
             type="video/mp4"
           />
         </video>
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-[#050a30]/40" />
         <motion.h1
           initial={{ opacity: 0, y: 40, filter: 'blur(12px)' }}
           animate={{
@@ -227,7 +227,7 @@ export default function Premio() {
           >
             <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 w-full pt-32">
               <p
-                className="text-2xl md:text-3xl lg:text-4xl text-black leading-snug"
+                className="text-2xl md:text-3xl lg:text-4xl text-[#050a30] leading-snug"
                 style={{ fontFamily: 'Aileron, sans-serif' }}
               >
                 O 35º Mídia Festival reconheceu o que acreditamos desde o primeiro dia: estratégia, criação e consistência constroem marcas fortes.
@@ -266,7 +266,7 @@ export default function Premio() {
             />
             <div className="flex flex-col">
               <span
-                className="text-2xl md:text-3xl text-black italic"
+                className="text-2xl md:text-3xl text-[#050a30] italic"
                 style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}
               >
                 OURO
@@ -287,12 +287,12 @@ export default function Premio() {
             className="flex flex-col items-center text-center gap-6"
           >
             <p
-              className="text-sm md:text-base tracking-[0.2em] uppercase text-black"
+              className="text-sm md:text-base tracking-[0.2em] uppercase text-[#050a30]"
               style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 700 }}
             >
               Branding Identidade Visual Marca
             </p>
-            <div className="bg-black text-white rounded-full px-10 py-8 inline-flex flex-col items-center">
+            <div className="bg-[#050a30] text-white rounded-full px-10 py-8 inline-flex flex-col items-center">
               <span className="text-2xl md:text-3xl font-bold" style={{ fontFamily: 'Aileron, sans-serif' }}>
                 a Mídia FESTIVAL
               </span>

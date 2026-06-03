@@ -57,7 +57,7 @@ export default function Contato() {
   return (
     <div className="pt-20">
       {/* Hero */}
-      <section className="bg-black text-white py-24 px-6">
+      <section className="bg-[#050a30] text-white py-24 px-6">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-playfair mb-8">
             Solicite um orçamento
@@ -81,7 +81,7 @@ export default function Contato() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-cyan-400"
+                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#bb1c3c]"
                 placeholder="Seu nome"
               />
             </div>
@@ -95,7 +95,7 @@ export default function Contato() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-cyan-400"
+                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#bb1c3c]"
                 placeholder="seu@email.com"
               />
             </div>
@@ -108,7 +108,7 @@ export default function Contato() {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-cyan-400"
+                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#bb1c3c]"
                 placeholder="(11) 99999-9999"
               />
             </div>
@@ -121,7 +121,7 @@ export default function Contato() {
                 name="company"
                 value={formData.company}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-cyan-400"
+                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#bb1c3c]"
                 placeholder="Sua empresa"
               />
             </div>
@@ -134,7 +134,7 @@ export default function Contato() {
                 value={formData.service}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-cyan-400"
+                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#bb1c3c]"
               >
                 <option value="">Selecione um serviço</option>
                 <option value="branding">Branding</option>
@@ -155,7 +155,7 @@ export default function Contato() {
                 onChange={handleChange}
                 required
                 rows={6}
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-cyan-400"
+                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#bb1c3c]"
                 placeholder="Conte mais sobre seu projeto"
               />
             </div>
@@ -176,7 +176,7 @@ export default function Contato() {
             <button
               type="submit"
               disabled={status.type === 'loading'}
-              className="w-full bg-cyan-400 hover:bg-cyan-500 disabled:bg-gray-400 text-black px-6 py-3 rounded font-semibold transition"
+              className="w-full bg-[#bb1c3c] hover:bg-[#bb1c3c] disabled:bg-gray-400 text-white px-6 py-3 rounded font-semibold transition"
             >
               {status.type === 'loading' ? 'Enviando...' : 'Solicitar Orçamento'}
             </button>
@@ -188,19 +188,19 @@ export default function Contato() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div>
                 <p className="text-sm text-gray-500 mb-2">Comercial</p>
-                <a href="mailto:comercial@agenciabrinde.com.br" className="text-lg font-semibold text-cyan-400 hover:underline">
+                <a href="mailto:comercial@agenciabrinde.com.br" className="text-lg font-semibold text-[#bb1c3c] hover:underline">
                   comercial@agenciabrinde.com.br
                 </a>
               </div>
               <div>
                 <p className="text-sm text-gray-500 mb-2">Relacionamento</p>
-                <a href="mailto:contato@agenciabrinde.com.br" className="text-lg font-semibold text-cyan-400 hover:underline">
+                <a href="mailto:contato@agenciabrinde.com.br" className="text-lg font-semibold text-[#bb1c3c] hover:underline">
                   contato@agenciabrinde.com.br
                 </a>
               </div>
               <div>
                 <p className="text-sm text-gray-500 mb-2">Carreiras</p>
-                <a href="mailto:rh@agenciabrinde.com.br" className="text-lg font-semibold text-cyan-400 hover:underline">
+                <a href="mailto:rh@agenciabrinde.com.br" className="text-lg font-semibold text-[#bb1c3c] hover:underline">
                   rh@agenciabrinde.com.br
                 </a>
               </div>

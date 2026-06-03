@@ -25,7 +25,7 @@ export default function Produtora() {
   return (
     <div className="pt-20">
       {/* Hero */}
-      <section className="bg-black text-white py-24 px-6">
+      <section className="bg-[#050a30] text-white py-24 px-6">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-playfair mb-8">Produtora Audiovisual</h1>
           <p className="text-xl text-gray-300">
@@ -50,7 +50,7 @@ export default function Produtora() {
             {services.map((service, idx) => (
               <div
                 key={idx}
-                className="border-2 border-gray-200 rounded p-8 hover:border-cyan-400 transition"
+                className="border-2 border-gray-200 rounded p-8 hover:border-[#bb1c3c] transition"
               >
                 <h4 className="text-xl font-playfair mb-3">{service.title}</h4>
                 <p className="text-gray-600">{service.description}</p>

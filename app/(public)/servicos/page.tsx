@@ -294,7 +294,7 @@ function ServiceCard({
       />
 
       {/* Overlay gradiente permanente */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#050a30]/80 via-[#050a30]/20 to-transparent" />
 
       {/* Overlay colorido no hover */}
       <div
@@ -349,7 +349,7 @@ export default function ServicosPage() {
       <section className="pt-24 pb-16 px-6 md:px-12 lg:px-24">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center min-h-[70vh]">
           <h1
-            className="text-[2.8rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[4.6rem] leading-none font-black uppercase tracking-tight text-black"
+            className="text-[2.8rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[4.6rem] leading-none font-black uppercase tracking-tight text-[#050a30]"
             style={{ fontFamily: 'Aileron, sans-serif' }}
           >
             Estratégia,<br />

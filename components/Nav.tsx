@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export function Nav() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-black text-white px-6 py-4 flex items-center justify-between">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#050a30] text-white px-6 py-4 flex items-center justify-between">
       <Link href="/" className="flex items-center shrink-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img

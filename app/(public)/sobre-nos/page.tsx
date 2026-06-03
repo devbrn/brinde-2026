@@ -181,7 +181,7 @@ export default function SobreNos() {
   const ruidoTextY = useTransform(ruidoProgress, [0.3, 0.55], [30, 0]);
 
   return (
-    <div className="pt-20 bg-white text-black">
+    <div className="pt-20 bg-white text-[#050a30]">
       {/* ─── HERO (pg 8) ─── */}
       <motion.section
         ref={heroRef}
@@ -204,7 +204,7 @@ export default function SobreNos() {
                 transition: { duration: 1.1, ease: [0.22, 1, 0.36, 1] },
               },
             }}
-            className="uppercase tracking-tight text-black text-[1.6rem] sm:text-[2.2rem] md:text-[3rem] lg:text-[4rem] xl:text-[4.6rem] leading-[1.05] mb-12"
+            className="uppercase tracking-tight text-[#050a30] text-[1.6rem] sm:text-[2.2rem] md:text-[3rem] lg:text-[4rem] xl:text-[4.6rem] leading-[1.05] mb-12"
           >
             <span style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}>
               Brinde, uma agência de publicidade{' '}
@@ -225,7 +225,7 @@ export default function SobreNos() {
                   transition: { duration: 1, ease: [0.22, 1, 0.36, 1] },
                 },
               }}
-              className="text-xl md:text-2xl lg:text-3xl text-black leading-snug font-medium"
+              className="text-xl md:text-2xl lg:text-3xl text-[#050a30] leading-snug font-medium"
             >
               <span style={{ fontFamily: 'Aileron, sans-serif' }}>
                 A empresa nasceu para unir estratégia, criação e performance em entregas que elevam marcas e revelam seu verdadeiro potencial.
@@ -292,7 +292,7 @@ export default function SobreNos() {
             y: videoY,
             height: '50vh',
           }}
-          className="relative w-screen left-1/2 right-1/2 -mx-[50vw] bg-black overflow-hidden shadow-2xl"
+          className="relative w-screen left-1/2 right-1/2 -mx-[50vw] bg-[#050a30] overflow-hidden shadow-2xl"
         >
           <video
             controls
@@ -337,7 +337,7 @@ export default function SobreNos() {
         <div className="relative z-10 max-w-[900px] mx-auto flex flex-col items-center text-center gap-10">
           <motion.h2
             style={{ opacity: headlineOpacity, y: headlineY }}
-            className="text-[1.8rem] sm:text-[2.4rem] md:text-[3rem] lg:text-[3.5rem] leading-tight uppercase text-black"
+            className="text-[1.8rem] sm:text-[2.4rem] md:text-[3rem] lg:text-[3.5rem] leading-tight uppercase text-[#050a30]"
             data-aileron
           >
             <span style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}>
@@ -403,7 +403,7 @@ export default function SobreNos() {
             className="absolute inset-0 flex flex-col items-center justify-center text-center px-[20%] z-10"
           >
             <p
-              className="text-base md:text-xl lg:text-2xl text-black leading-snug mb-2"
+              className="text-base md:text-xl lg:text-2xl text-[#050a30] leading-snug mb-2"
               style={{ fontFamily: 'Aileron, sans-serif' }}
             >
               Integramos dados, mídia e<br />
@@ -477,7 +477,7 @@ export default function SobreNos() {
           >
             <Link
               href="/contato"
-              className="inline-flex items-center gap-3 bg-black text-[#fff8d6] px-8 py-4 md:px-10 md:py-5 rounded-full text-lg md:text-xl font-bold hover:bg-gray-900 transition"
+              className="inline-flex items-center gap-3 bg-[#050a30] text-[#fff8d6] px-8 py-4 md:px-10 md:py-5 rounded-full text-lg md:text-xl font-bold hover:bg-[#050a30] transition"
               style={{ fontFamily: 'Aileron, sans-serif' }}
             >
               Solicite um orçamento
@@ -488,7 +488,7 @@ export default function SobreNos() {
           <div className="flex flex-col gap-8">
             <motion.h2
               style={{ opacity: metodoTitleOpacity, y: metodoTitleY }}
-              className="uppercase tracking-tight text-black text-[2rem] sm:text-[2.8rem] md:text-[3.6rem] lg:text-[4.5rem] leading-[1.05]"
+              className="uppercase tracking-tight text-[#050a30] text-[2rem] sm:text-[2.8rem] md:text-[3.6rem] lg:text-[4.5rem] leading-[1.05]"
             >
               <span style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}>
                 CRIATIVIDADE + MÉTODO
@@ -517,7 +517,7 @@ export default function SobreNos() {
         <div className="max-w-[1400px] mx-auto flex flex-col items-end text-right gap-8">
           <motion.h2
             style={{ opacity: ruidoTitleOpacity, y: ruidoTitleY }}
-            className="uppercase tracking-tight text-black text-[2rem] sm:text-[2.8rem] md:text-[3.6rem] lg:text-[4.5rem] leading-[1.05]"
+            className="uppercase tracking-tight text-[#050a30] text-[2rem] sm:text-[2.8rem] md:text-[3.6rem] lg:text-[4.5rem] leading-[1.05]"
           >
             <span style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}>
               MENOS RUÍDO,

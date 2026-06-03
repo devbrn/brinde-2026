@@ -31,7 +31,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className={`${playfair.variable} ${inter.variable} ${poppins.variable}`}>
-      <body className="font-sans bg-white text-black antialiased">
+      <body className="font-sans bg-white text-[#050a30] antialiased">
         <LenisProvider>{children}</LenisProvider>
       </body>
     </html>

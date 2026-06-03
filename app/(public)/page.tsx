@@ -353,7 +353,7 @@ export default function Home() {
             viewport={{ once: true, amount: 0.3 }}
             className="w-full max-w-[1500px] mx-auto h-full flex flex-col justify-center"
           >
-            <h2 className="mb-16 uppercase tracking-tight text-black flex flex-col gap-2 md:gap-3">
+            <h2 className="mb-16 uppercase tracking-tight text-[#050a30] flex flex-col gap-2 md:gap-3">
               <div className="flex flex-wrap items-baseline gap-x-2 md:gap-x-4 text-[1.5rem] sm:text-[2rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3.5rem] leading-none">
                 <motion.span variants={fadeUp} className="text-[1.3em]" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 800 }}>BRINDE É</motion.span>
                 <motion.span variants={fadeUp} style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>PUBLICIDADE</motion.span>
@@ -369,7 +369,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 lg:gap-24">
               <motion.div variants={fadeUp} className="md:col-span-7">
                 <p
-                  className="text-2xl md:text-3xl lg:text-4xl text-black leading-snug font-medium"
+                  className="text-2xl md:text-3xl lg:text-4xl text-[#050a30] leading-snug font-medium"
                   style={{ fontFamily: 'Aileron, sans-serif' }}
                 >
                   Mais que uma agência full-service, a Brinde transforma negócios por meio de ideias que unem lógica, estética e impacto. Criamos marcas conscientes, relevantes e prontas para competir.
@@ -462,7 +462,7 @@ export default function Home() {
 
             {/* Right Side: Static Text */}
             <div className="lg:col-span-5 flex flex-col justify-center pl-0 lg:pl-8">
-              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] leading-none mb-6 tracking-tight text-black flex flex-col gap-1 md:gap-2 uppercase">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] leading-none mb-6 tracking-tight text-[#050a30] flex flex-col gap-1 md:gap-2 uppercase">
                 <span style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}>SOLUÇÕES</span>
                 <span style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>COMPLETAS</span>
               </h2>
@@ -543,7 +543,7 @@ export default function Home() {
         </section>
 
         {/* ─── 6. UM BRINDE E BONS NEGÓCIOS ─── */}
-        <section ref={videosSectionRef} className="min-w-full shrink-0 bg-black py-32 md:py-40 px-6 md:px-12">
+        <section ref={videosSectionRef} className="min-w-full shrink-0 bg-[#050a30] py-32 md:py-40 px-6 md:px-12">
           <div className="w-full max-w-[1300px] mx-auto">
             <div className="grid grid-cols-12 gap-2 md:gap-3 items-end justify-items-center">
               {/* Vídeo 1 */}
