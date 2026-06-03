@@ -298,24 +298,8 @@ function ServiceCard({
       {/* Overlay gradiente */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-      {/* Tag colorida */}
-      <div className="absolute top-5 left-5 z-10">
-        <span
-          className="px-3 py-1 rounded text-xs font-black uppercase tracking-wide"
-          style={{ backgroundColor: service.tagColor, color: service.tagTextColor }}
-        >
-          {service.tag}
-        </span>
-      </div>
-
       {/* Conteúdo inferior */}
       <div className="absolute bottom-0 left-0 right-0 p-6 z-10 flex flex-col gap-2">
-        <span
-          className="text-white/60 text-xs uppercase tracking-widest"
-          style={{ fontFamily: 'Aileron, sans-serif' }}
-        >
-          {service.category}
-        </span>
         <h2
           className="text-white text-2xl md:text-3xl font-black leading-tight"
           style={{ fontFamily: 'Aileron, sans-serif' }}
