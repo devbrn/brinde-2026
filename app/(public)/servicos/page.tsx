@@ -52,7 +52,7 @@ const services: ServiceData[] = [
       'Relatórios de desempenho',
       'Análise de métricas essenciais',
     ],
-    videoSrc: '/videos/rotulo-branco.mp4',
+    videoSrc: 'https://www.youtube.com/embed/pa_L30Q43Ac?autoplay=1&mute=1&loop=1&playlist=pa_L30Q43Ac&controls=0&showinfo=0&rel=0&modestbranding=1',
   },
   {
     id: 'reserva-especial',
@@ -90,7 +90,7 @@ const services: ServiceData[] = [
       'Configuração de funil inicial',
       'Integração de campanhas',
     ],
-    videoSrc: '/videos/reserva-especial.mp4',
+    videoSrc: 'https://www.youtube.com/embed/A0HrPWRULx0?autoplay=1&mute=1&loop=1&playlist=A0HrPWRULx0&controls=0&showinfo=0&rel=0&modestbranding=1',
   },
   {
     id: 'edicao-limitada',
@@ -126,7 +126,7 @@ const services: ServiceData[] = [
       'Integração entre campanhas e funil',
       'Relatórios estratégicos de conversão',
     ],
-    videoSrc: '/videos/edicao-limitada.mp4',
+    videoSrc: 'https://www.youtube.com/embed/t6z1j6IY0sU?autoplay=1&mute=1&loop=1&playlist=t6z1j6IY0sU&controls=0&showinfo=0&rel=0&modestbranding=1',
   },
 ];
 
@@ -284,19 +284,23 @@ function ServiceCard({
       className="relative overflow-hidden rounded-2xl cursor-pointer group"
       style={{ height: '70vh' }}
     >
-      {/* Vídeo de fundo */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-      >
-        <source src={service.videoSrc} type="video/mp4" />
-      </video>
+      {/* Vídeo de fundo via iframe YouTube */}
+      <iframe
+        src={service.videoSrc}
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        style={{ border: 'none', transform: 'scale(1.15)', transformOrigin: 'center' }}
+        allow="autoplay; mute"
+        title={service.title}
+      />
 
-      {/* Overlay gradiente */}
+      {/* Overlay gradiente permanente */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+      {/* Overlay colorido no hover */}
+      <div
+        className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500"
+        style={{ backgroundColor: service.tagColor }}
+      />
 
       {/* Conteúdo inferior */}
       <div className="absolute bottom-0 left-0 right-0 p-6 z-10 flex flex-col gap-2">
