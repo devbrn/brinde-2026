@@ -62,10 +62,10 @@ export function Footer() {
             <p>
               Negócios:{' '}
               <a
-                href="mailto:comercial@agenciabrinde.com.br"
+                href="mailto:camila.alfaro@agenciabrinde.com.br"
                 className="hover:text-white transition-colors"
               >
-                comercial@agenciabrinde.com.br
+                camila.alfaro@agenciabrinde.com.br
               </a>
             </p>
             <p>

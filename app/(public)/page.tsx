@@ -1,127 +1,7 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { VideoModal } from '@/components/VideoModal';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
-
-const plans = [
-  {
-    id: 'rotulo-branco',
-    title: 'Rótulo Branco',
-    tagline: 'Personalização Total',
-    description:
-      'Bebida exclusiva sob sua marca. Design completo, produção e distribuição.',
-    price: 'Sob demanda',
-    highlights: [
-      'Design do rótulo customizado',
-      'Produção mínima 500 unidades',
-      'Suporte em branding e packaging',
-      'Distribuição e logística inclusos',
-    ],
-    fullDescription:
-      'Nosso serviço de Rótulo Branco oferece uma solução completa para empresas que desejam criar uma bebida premium com sua marca. Desde o design do rótulo até a distribuição, cuidamos de cada detalhe.',
-    features: [
-      {
-        title: 'Design Customizado',
-        description:
-          'Equipe de designers experientes cria rótulos únicos alinhados com sua marca',
-      },
-      {
-        title: 'Produção Dedicada',
-        description: 'Mínimo de 500 unidades com controle de qualidade rigoroso',
-      },
-      {
-        title: 'Suporte em Branding',
-        description:
-          'Consultoria completa em positioning, messaging e estratégia comercial',
-      },
-      {
-        title: 'Logística Integrada',
-        description: 'Distribuição, armazenagem e atendimento ao cliente inclusos',
-      },
-    ],
-    videoUrl: '',
-    videoThumbnail: '',
-  },
-  {
-    id: 'reserva-especial',
-    title: 'Reserva Especial',
-    tagline: 'Edição Premium',
-    description:
-      'Bebida premium para momentos únicos. Seleção especial com toque artesanal.',
-    price: 'A partir de R$ 250/garrafa',
-    highlights: [
-      'Seleção premium de ingredientes',
-      'Envelhecimento em barris especiais',
-      'Embalagem de luxo',
-      'Disponibilidade limitada',
-    ],
-    fullDescription:
-      'A Reserva Especial é nossa coleção de bebidas premium, resultado de seleção cuidadosa de ingredientes e envelhecimento em barris especiais. Perfeita para presentes executivos e eventos exclusivos.',
-    features: [
-      {
-        title: 'Ingredientes Premium',
-        description:
-          'Seleção rigorosa dos melhores ingredientes disponíveis no mercado',
-      },
-      {
-        title: 'Envelhecimento Especial',
-        description:
-          'Processo de envelhecimento em barris de carvalho por 8+ anos',
-      },
-      {
-        title: 'Embalagem Luxuosa',
-        description:
-          'Apresentação em caixa artesanal com certificado de autenticidade',
-      },
-      {
-        title: 'Disponibilidade Limitada',
-        description:
-          'Produção controlada para manter exclusividade e qualidade',
-      },
-    ],
-    videoUrl: '',
-    videoThumbnail: '',
-  },
-  {
-    id: 'edicao-limitada',
-    title: 'Edição Limitada',
-    tagline: 'Raridade Exclusiva',
-    description:
-      'Coleção exclusiva de bebidas raras. Produção ultra-limitada para colecionadores.',
-    price: 'A partir de R$ 500/garrafa',
-    highlights: [
-      'Numeração individual',
-      'Produção restrita a 100 unidades',
-      'Certificado de autenticidade',
-      'Apresentação em caixa artesanal',
-    ],
-    fullDescription:
-      'A Edição Limitada é nossa coleção mais exclusiva, destinada a colecionadores e entusiastas de bebidas premium. Cada garrafa é numerada e acompanhada de certificado de autenticidade.',
-    features: [
-      {
-        title: 'Numeração Individual',
-        description:
-          'Cada garrafa numerada e registrada em banco de dados de autenticidade',
-      },
-      {
-        title: 'Produção Ultra-Limitada',
-        description: 'Máximo de 100 unidades por coleção de Edição Limitada',
-      },
-      {
-        title: 'Certificado de Autenticidade',
-        description: 'Documento exclusivo verificável online com QR code',
-      },
-      {
-        title: 'Caixa Artesanal Premium',
-        description:
-          'Apresentação em caixa de madeira artesanal com acabamento premium',
-      },
-    ],
-    videoUrl: '',
-    videoThumbnail: '',
-  },
-];
 
 const cases = [
   { id: 1, name: 'Infomídia', category: 'Branding', year: 2021 },
@@ -130,11 +10,22 @@ const cases = [
 ];
 
 const clients = [
-  { name: 'BRINDE', subtitle: 'Marketing e Publicidade' },
-  { name: 'DHL', subtitle: 'Coleta e Análise de Dados' },
-  { name: 'DARIN OMELETES', subtitle: 'Estratégias de Marketing' },
-  { name: 'ISLA OLIVEIRA', subtitle: 'Branding' },
-  { name: 'ME,UP VIAGENS', subtitle: 'Estratégias de Marketing' },
+  { name: 'Meli', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016237/meli_luehqu.png' },
+  { name: 'DHL', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016234/dhl_hkriql.png' },
+  { name: 'MegaFrio', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016725/megafrio_c5fiya.webp' },
+  { name: 'Josana Monteiro', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016235/josana-monteiro_wsxfbb.png' },
+  { name: 'MeUp', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016386/meup_q74vzq.png' },
+  { name: 'Luiz Kind', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016235/luiz-kind_yao5sy.png' },
+  { name: 'D\'Boy', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016235/dboy_cvlagf.png' },
+  { name: 'CADI', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016736/cadi_pcjqzk.webp' },
+  { name: 'Armazém das Tintas', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016234/armazem-das-tintas_flgesk.png' },
+  { name: 'Adrielli Massaro', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016234/adrielli-massaro_pnefzr.png' },
+  { name: 'Sherali', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016238/sherali_j6aazv.png' },
+  { name: 'Isla', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016235/isla_icfutv.png' },
+  { name: 'Darin', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016234/darin_ii1wm6.png' },
+  { name: 'MBPS', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016236/mbps_z32olt.webp' },
+  { name: 'PedraShop', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016237/pedrashop_qxp3fe.png' },
+  { name: 'RMG', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016238/rmg_ozpwr2.png' },
 ];
 
 const clientStories = [
@@ -183,41 +74,112 @@ const solucoes = [
   }
 ];
 
+const videoItems = [
+  { id: 't6z1j6IY0sU', title: 'Edição Limitada' },
+  { id: 'pa_L30Q43Ac', title: 'Rótulo Branco' },
+  { id: 'A0HrPWRULx0', title: 'Reserva Especial' },
+];
+
+function ClickableVideo({ videoId, title }: { videoId: string; title: string }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="relative w-full h-full group cursor-pointer"
+      >
+        <img
+          src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+          alt={title}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+          <div className="w-14 h-14 md:w-18 md:h-18 bg-[#bb1c3c] rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+            <svg className="w-6 h-6 md:w-8 md:h-8 text-white ml-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+            </svg>
+          </div>
+        </div>
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setOpen(false)}
+            className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-4xl aspect-video bg-black rounded-lg overflow-hidden"
+            >
+              <iframe
+                src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
+                className="absolute inset-0 w-full h-full"
+                style={{ border: 'none' }}
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+                title={title}
+              />
+              <button
+                onClick={() => setOpen(false)}
+                className="absolute top-3 right-3 bg-black/60 hover:bg-black/80 p-2 rounded-full text-white transition-colors text-xl z-10"
+                aria-label="Fechar"
+              >
+                ✕
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
 export default function Home() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isScrolling = useRef(false);
+  const arrivedFromBelow = useRef(false);
   const [hoveredSolucao, setHoveredSolucao] = useState<number | null>(null);
 
-  // Scroll-linked reveal for "Um Brinde e Bons Negócios" section
   const videosSectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress: videosProgress } = useScroll({
     target: videosSectionRef,
     offset: ['start end', 'end start'],
   });
 
-  // Each item reveals at a different portion of scroll progress
-  // All three fully visible by ~0.55 (when section is centered in viewport)
-  const v1Opacity = useTransform(videosProgress, [0.15, 0.35], [0, 1]);
-  const v1X = useTransform(videosProgress, [0.15, 0.35], [-120, 0]);
+  const v1Opacity = useTransform(videosProgress, [0.12, 0.30], [0, 1]);
+  const v1X = useTransform(videosProgress, [0.12, 0.30], [-100, 0]);
 
-  const v2Opacity = useTransform(videosProgress, [0.28, 0.45], [0, 1]);
-  const v2X = useTransform(videosProgress, [0.28, 0.45], [120, 0]);
+  const v2Opacity = useTransform(videosProgress, [0.22, 0.40], [0, 1]);
+  const v2X = useTransform(videosProgress, [0.22, 0.40], [-100, 0]);
 
-  const logoOpacity = useTransform(videosProgress, [0.38, 0.55], [0, 1]);
-  const logoScale = useTransform(videosProgress, [0.38, 0.55], [0.6, 1]);
+  const v3Opacity = useTransform(videosProgress, [0.32, 0.50], [0, 1]);
+  const v3X = useTransform(videosProgress, [0.32, 0.50], [-100, 0]);
+
+  const logoOpacity = useTransform(videosProgress, [0.42, 0.58], [0, 1]);
+  const logoX = useTransform(videosProgress, [0.42, 0.58], [-100, 0]);
 
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
 
     const handleWheel = (e: WheelEvent) => {
-      // If we are vertically scrolled down the page, don't intercept wheel events for horizontal scrolling!
-      if (window.scrollY > 5) return;
+      if (window.scrollY > 5) {
+        arrivedFromBelow.current = true;
+        return;
+      }
 
-      // Check if we're scrolling horizontally already (trackpad horizontal swipe)
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
 
-      // Find closest scrollable parent
       let target = e.target as HTMLElement | null;
       let isVerticallyScrollable = false;
       let isAtTop = false;
@@ -237,17 +199,25 @@ export default function Home() {
       }
 
       if (isVerticallyScrollable) {
-        if (e.deltaY > 0 && !isAtBottom) return; // Allow natural scroll down
-        if (e.deltaY < 0 && !isAtTop) return;    // Allow natural scroll up
+        if (e.deltaY > 0 && !isAtBottom) return;
+        if (e.deltaY < 0 && !isAtTop) return;
       }
 
-      // Check if we are at the end of horizontal container
       const isAtRightEnd = el.scrollLeft >= el.scrollWidth - el.clientWidth - 10;
-      
-      // If scrolling down and at the rightmost slide, let it scroll down the page natively!
-      if (e.deltaY > 0 && isAtRightEnd) return;
 
-      // Convert vertical scroll to horizontal scroll
+      if (e.deltaY > 0 && isAtRightEnd) {
+        arrivedFromBelow.current = false;
+        return;
+      }
+
+      if (arrivedFromBelow.current && e.deltaY < 0 && isAtRightEnd) {
+        arrivedFromBelow.current = false;
+        e.preventDefault();
+        return;
+      }
+
+      arrivedFromBelow.current = false;
+
       e.preventDefault();
 
       if (isScrolling.current) return;
@@ -259,7 +229,6 @@ export default function Home() {
         behavior: 'smooth'
       });
 
-      // Release lock after smooth scroll animation completes
       setTimeout(() => {
         isScrolling.current = false;
       }, 700);
@@ -267,18 +236,15 @@ export default function Home() {
 
     el.addEventListener('wheel', handleWheel, { passive: false });
 
-    // Ensure horizontal container is at the end if we are scrolled down vertically
-    // This fixes the bug where refreshing the page or jumping down leaves the container at Slide 1
     const handleScroll = () => {
-      if (window.scrollY > window.innerHeight * 0.8 && el) {
+      if (window.scrollY > window.innerHeight * 0.5 && el) {
         if (el.scrollLeft < el.scrollWidth - el.clientWidth - 10) {
           el.scrollLeft = el.scrollWidth;
         }
       }
     };
-    
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    // Trigger once on mount to handle page refreshes restoring the vertical scroll position
     handleScroll();
 
     return () => {
@@ -288,16 +254,15 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="pt-20 bg-[#050a30] min-h-screen w-full">
+    <div className="bg-[#050a30] min-h-screen w-full">
 
       <div
         ref={scrollRef}
         data-lenis-prevent
-        className="flex w-full h-[calc(100vh-80px)] overflow-x-auto overflow-y-hidden snap-x snap-mandatory hide-scrollbar"
+        className="flex w-full h-screen overflow-x-auto overflow-y-hidden snap-x snap-mandatory hide-scrollbar"
       >
         {/* ─── 1. HERO ─── */}
         <section className="min-w-full h-full shrink-0 snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
-          {/* Background Video */}
           <video
             autoPlay
             loop
@@ -308,31 +273,29 @@ export default function Home() {
             <source src="https://agenciabrinde.com.br/wp-content/uploads/2024/07/Video-do-WhatsApp-de-2024-07-22-as-13.46.45_7689d559.mp4" type="video/mp4" />
           </video>
 
-          {/* Overlay to ensure text readability */}
           <div className="absolute inset-0 bg-[#050a30]/40" />
 
-          {/* Text Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="relative z-10 flex flex-col items-center justify-center text-center w-full px-4 gap-2 md:gap-6"
+            className="relative z-10 flex flex-col items-center justify-center text-center w-full px-4 gap-1 md:gap-4"
           >
             <p
-              className="text-lg md:text-2xl text-white drop-shadow-md"
-              style={{ fontFamily: 'Aileron, sans-serif' }}
+              className="text-white drop-shadow-md"
+              style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(1rem, 2vw, 1.5rem)' }}
             >
               publicidade e estratégia em
             </p>
             <h1
-              className="text-[3.5rem] sm:text-[6rem] md:text-[9rem] lg:text-[11rem] font-black text-white leading-none tracking-tighter drop-shadow-xl uppercase"
-              style={{ fontFamily: 'Aileron, sans-serif' }}
+              className="font-black text-white leading-none tracking-tighter drop-shadow-xl uppercase"
+              style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(3rem, 10vw, 11rem)' }}
             >
               Estado de
             </h1>
             <span
-              className="text-white text-4xl sm:text-6xl md:text-[7rem] lg:text-[9rem] drop-shadow-xl"
-              style={{ fontFamily: '"Tan Pearl", serif' }}
+              className="text-white drop-shadow-xl"
+              style={{ fontFamily: '"Tan Pearl", serif', fontSize: 'clamp(2.5rem, 8vw, 9rem)' }}
             >
               Criatividade
             </span>
@@ -340,48 +303,48 @@ export default function Home() {
         </section>
 
         {/* ─── 2. SOBRE NÓS ─── */}
-        <section className="min-w-full h-full shrink-0 snap-start overflow-y-auto bg-white py-20 px-6 md:px-12">
+        <section className="min-w-full h-full shrink-0 snap-start overflow-y-auto bg-white px-4 md:px-8 lg:px-12" style={{ paddingTop: 'clamp(2rem, 5vh, 5rem)', paddingBottom: 'clamp(2rem, 5vh, 5rem)' }}>
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
-            className="w-full max-w-[1500px] mx-auto h-full flex flex-col justify-center"
+            className="w-full max-w-[1200px] mx-auto h-full flex flex-col justify-center"
           >
-            <h2 className="mb-16 uppercase tracking-tight text-[#050a30] flex flex-col gap-2 md:gap-3">
-              <div className="flex flex-wrap items-baseline gap-x-2 md:gap-x-4 text-[1.5rem] sm:text-[2rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3.5rem] leading-none">
+            <h2 className="uppercase tracking-tight text-[#050a30] flex flex-col gap-1 md:gap-2" style={{ marginBottom: 'clamp(1.5rem, 4vh, 4rem)' }}>
+              <div className="flex flex-wrap items-baseline gap-x-2 md:gap-x-4 gap-y-1 leading-snug" style={{ fontSize: 'clamp(1.3rem, 3vw, 3.5rem)' }}>
                 <motion.span variants={fadeUp} className="text-[1.3em]" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 800 }}>BRINDE É</motion.span>
                 <motion.span variants={fadeUp} style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>PUBLICIDADE</motion.span>
                 <motion.span variants={fadeUp} className="text-[1.3em]" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 800 }}>E</motion.span>
                 <motion.span variants={fadeUp} style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>ESTRATÉGIA</motion.span>
               </div>
-              <div className="flex flex-wrap items-baseline gap-x-2 md:gap-x-4 text-[1.5rem] sm:text-[2rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3.5rem] leading-none">
+              <div className="flex flex-wrap items-baseline gap-x-2 md:gap-x-4 leading-none" style={{ fontSize: 'clamp(1.3rem, 3vw, 3.5rem)' }}>
                 <motion.span variants={fadeUp} className="text-[1.3em]" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 800 }}>EM ESTADO DE</motion.span>
                 <motion.span variants={fadeUp} style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>CRIATIVIDADE</motion.span>
               </div>
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 lg:gap-24">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 lg:gap-16">
               <motion.div variants={fadeUp} className="md:col-span-7">
                 <p
-                  className="text-2xl md:text-3xl lg:text-4xl text-[#050a30] leading-snug font-medium"
-                  style={{ fontFamily: 'Aileron, sans-serif' }}
+                  className="text-[#050a30] leading-snug font-medium"
+                  style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(1.1rem, 2vw, 2.4rem)' }}
                 >
                   Mais que uma agência full-service, a Brinde transforma negócios por meio de ideias que unem lógica, estética e impacto. Criamos marcas conscientes, relevantes e prontas para competir.
                 </p>
               </motion.div>
-              <div className="md:col-span-5 flex flex-col gap-6 lg:gap-8 justify-start pt-2">
+              <div className="md:col-span-5 flex flex-col gap-4 lg:gap-6 justify-start pt-2">
                 <motion.p
                   variants={fadeUp}
-                  className="text-lg md:text-xl text-gray-800 leading-relaxed"
-                  style={{ fontFamily: 'Aileron, sans-serif' }}
+                  className="text-gray-800 leading-relaxed"
+                  style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(0.9rem, 1.3vw, 1.25rem)' }}
                 >
                   Na Brinde, cada projeto nasce de uma lógica clara: entender o negócio, traduzir a intenção da marca e criar soluções que movem o mercado com consistência.
                 </motion.p>
                 <motion.p
                   variants={fadeUp}
-                  className="text-lg md:text-xl text-gray-800 leading-relaxed"
-                  style={{ fontFamily: 'Aileron, sans-serif' }}
+                  className="text-gray-800 leading-relaxed"
+                  style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(0.9rem, 1.3vw, 1.25rem)' }}
                 >
                   Combinamos análise, criação e execução para que a comunicação seja resultado de método e sensibilidade. Aqui, estratégia ganha forma, criatividade ganha propósito e marcas ganham presença.
                 </motion.p>
@@ -392,7 +355,6 @@ export default function Home() {
 
         {/* ─── 3. PRÊMIO ─── */}
         <section className="min-w-full h-full shrink-0 snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
-          {/* Background Video Temporário */}
           <video
             autoPlay
             loop
@@ -413,55 +375,69 @@ export default function Home() {
             className="relative z-10 flex flex-col items-center justify-center w-full px-6 text-center"
           >
             <h2
-              className="text-white text-[3rem] sm:text-[5rem] md:text-[7rem] lg:text-[9rem] leading-none uppercase tracking-tighter drop-shadow-2xl"
-              style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}
+              className="text-white leading-none uppercase tracking-tighter drop-shadow-2xl"
+              style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900, fontSize: 'clamp(2.5rem, 8vw, 9rem)' }}
             >
               Vídeo do Prêmio
             </h2>
           </motion.div>
         </section>
-      </div> {/* END HORIZONTAL SCROLL WRAPPER */}
+      </div>
 
       <div className="flex flex-col w-full">
         {/* ─── 4. SOLUÇÕES COMPLETAS ─── */}
-        <section className="min-w-full min-h-screen shrink-0 bg-white py-20 px-6 md:px-12 flex items-center">
-          <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <section className="min-w-full min-h-screen shrink-0 bg-white px-4 md:px-8 lg:px-12 flex items-center" style={{ paddingTop: 'clamp(2rem, 5vh, 5rem)', paddingBottom: 'clamp(2rem, 5vh, 5rem)' }}>
+          <div className="w-full max-w-[1100px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
-            {/* Left Side: Items */}
             <div className="lg:col-span-7 flex flex-col bg-[#050a30] rounded-xl overflow-hidden shadow-2xl">
               {solucoes.map((item, index) => (
                 <div
                   key={index}
-                  className={`group border-b border-white/20 last:border-b-0 transition-all duration-300 cursor-pointer bg-[#050a30] text-white`}
+                  className="group border-b border-white/20 last:border-b-0 cursor-pointer bg-[#050a30] text-white relative h-[90px] md:h-[110px] overflow-hidden"
+                  style={{ perspective: 1000 }}
                   onMouseEnter={() => setHoveredSolucao(index)}
                   onMouseLeave={() => setHoveredSolucao(null)}
                 >
-                  <div className="flex flex-col justify-center min-h-[100px] px-6 py-6 md:px-8">
-                    <h3 
-                      className={`text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-tight transition-all duration-300 ${hoveredSolucao === index ? 'mb-3' : 'mb-0'}`} 
-                      style={{ fontFamily: 'Aileron, sans-serif' }}
+                  <div className="w-full h-full relative" style={{ transformStyle: 'preserve-3d' }}>
+                    {/* Front Face: Title */}
+                    <motion.div
+                      className="absolute inset-0 flex items-center px-4 md:px-6"
+                      initial={{ rotateX: 0, y: 0, opacity: 1 }}
+                      animate={hoveredSolucao === index ? { rotateX: -90, y: -40, opacity: 0 } : { rotateX: 0, y: 0, opacity: 1 }}
+                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      style={{ transformOrigin: 'center', backfaceVisibility: 'hidden' }}
                     >
-                      {item.title}
-                    </h3>
-                    <div 
-                      className={`overflow-hidden transition-all duration-500 ease-in-out ${hoveredSolucao === index ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'}`}
+                      <h3 
+                        className="font-bold uppercase tracking-tight text-2xl sm:text-3xl md:text-4xl" 
+                        style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(1.2rem, 2.5vw, 2.4rem)' }}
+                      >
+                        {item.title}
+                      </h3>
+                    </motion.div>
+
+                    {/* Bottom Face: Description */}
+                    <motion.div
+                      className="absolute inset-0 flex items-center px-4 md:px-6"
+                      initial={{ rotateX: 90, y: 40, opacity: 0 }}
+                      animate={hoveredSolucao === index ? { rotateX: 0, y: 0, opacity: 1 } : { rotateX: 90, y: 40, opacity: 0 }}
+                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      style={{ transformOrigin: 'center', backfaceVisibility: 'hidden' }}
                     >
-                      <p className="text-base md:text-lg leading-relaxed opacity-90" style={{ fontFamily: 'Aileron, sans-serif' }}>
+                      <p className="leading-relaxed opacity-90" style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(0.85rem, 1.2vw, 1.1rem)' }}>
                         {item.text}
                       </p>
-                    </div>
+                    </motion.div>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Right Side: Static Text */}
-            <div className="lg:col-span-5 flex flex-col justify-center pl-0 lg:pl-8">
-              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] leading-none mb-6 tracking-tight text-[#050a30] flex flex-col gap-1 md:gap-2 uppercase">
-                <span style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}>SOLUÇÕES</span>
-                <span style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>COMPLETAS</span>
+            <div className="lg:col-span-5 flex flex-col justify-center pl-0 lg:pl-6">
+              <h2 className="leading-none tracking-tight text-[#050a30] flex flex-col gap-1 md:gap-2 uppercase" style={{ marginBottom: 'clamp(0.75rem, 2vh, 1.5rem)' }}>
+                <span style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900, fontSize: 'clamp(2rem, 4vw, 4.5rem)' }}>SOLUÇÕES</span>
+                <span style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal', fontSize: 'clamp(2rem, 4vw, 4.5rem)' }}>COMPLETAS</span>
               </h2>
-              <p className="text-lg md:text-xl text-gray-800 leading-snug font-medium" style={{ fontFamily: 'Aileron, sans-serif' }}>
+              <p className="text-gray-800 leading-snug font-medium" style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(0.9rem, 1.3vw, 1.25rem)' }}>
                 Uma estrutura completa para transformar objetivos de marca em comunicação sólida, coerente e eficaz.
               </p>
             </div>
@@ -470,66 +446,44 @@ export default function Home() {
         </section>
 
         {/* ─── 5. BRINDAMOS ─── */}
-        <section className="min-w-full min-h-[60vh] shrink-0 bg-[#050a30] flex flex-col justify-center pb-24">
-          <div className="w-full max-w-[1200px] mx-auto flex flex-col items-start px-6 pt-24 pb-16">
+        <section className="min-w-full min-h-[50vh] shrink-0 bg-[#050a30] flex flex-col justify-center overflow-hidden" style={{ paddingBottom: 'clamp(2rem, 4vh, 6rem)' }}>
+          <div className="w-full max-w-[1100px] mx-auto flex flex-col items-start px-4 md:px-8" style={{ paddingTop: 'clamp(4rem, 8vh, 6rem)', paddingBottom: 'clamp(2rem, 4vh, 4rem)' }}>
             <h2 
-              className="text-[3rem] sm:text-[4rem] md:text-[5rem] text-white mb-6 tracking-tight uppercase"
-              style={{ fontFamily: '"Tan Pearl", serif' }}
+              className="text-white mb-4 tracking-tight uppercase"
+              style={{ fontFamily: '"Tan Pearl", serif', fontSize: 'clamp(2.5rem, 6vw, 5rem)' }}
             >
               BRINDAMOS
             </h2>
-            <div className="ml-0 md:ml-12 max-w-lg">
-              <p className="text-xl md:text-2xl text-white leading-relaxed font-medium" style={{ fontFamily: 'Aileron, sans-serif' }}>
+            <div className="ml-0 md:ml-8 max-w-lg">
+              <p className="text-white leading-relaxed font-medium" style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(1rem, 1.6vw, 1.5rem)' }}>
                 Desde 2023, caminhamos com marcas que escolhem estratégia e criatividade. Cada entrega vira história e mais um motivo para brindar.
               </p>
             </div>
           </div>
 
-          {/* Infinite Logos Carousel */}
-          <div className="w-full bg-[#bb1c3c] py-12 md:py-16 overflow-hidden relative flex items-center">
-            {/* 
-              To achieve a perfect infinite scroll, we translate a container that is exactly twice the width
-              by -50%. That means it needs two identical blocks inside it. 
-              We use 10 items per block so it spans wider than any ultrawide monitor, eliminating white space.
-            */}
+          <div className="w-full bg-[#bb1c3c] py-6 md:py-8 relative flex items-center">
             <div className="flex w-max animate-marquee items-center">
-              {/* First Set */}
-              <div className="flex gap-16 md:gap-24 pr-16 md:pr-24 items-start">
+              <div className="flex gap-8 md:gap-12 pr-8 md:pr-12 items-center">
                 {[...clients, ...clients].map((client, idx) => (
-                  <div key={`set1-${idx}`} className="flex items-start gap-3 w-[180px] md:w-[220px] flex-shrink-0">
-                    <svg className="flex-shrink-0 mt-[2px]" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                      <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                      <line x1="12" y1="22.08" x2="12" y2="12"/>
-                    </svg>
-                    <div className="flex flex-col items-start justify-start whitespace-normal">
-                      <span className="text-lg md:text-[1.3rem] font-bold text-white uppercase tracking-wider leading-tight" style={{ fontFamily: 'Aileron, sans-serif' }}>
-                        {client.name}
-                      </span>
-                      <span className="text-[0.75rem] md:text-[0.85rem] text-white/90 tracking-wide mt-1.5 leading-snug" style={{ fontFamily: 'Aileron, sans-serif' }}>
-                        {client.subtitle}
-                      </span>
-                    </div>
+                  <div key={`set1-${idx}`} className="h-40 md:h-56 w-[250px] md:w-[350px] -mt-[20px] md:-mt-[40px] -mb-[20px] md:-mb-[40px] flex-shrink-0 flex items-center justify-center">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={client.logo}
+                      alt={client.name}
+                      className="max-h-full max-w-full object-contain brightness-0 invert opacity-85 hover:opacity-100 transition-opacity duration-300"
+                    />
                   </div>
                 ))}
               </div>
-              {/* Second Set (identical duplicate for seamless loop) */}
-              <div className="flex gap-16 md:gap-24 pr-16 md:pr-24 items-start">
+              <div className="flex gap-8 md:gap-12 pr-8 md:pr-12 items-center">
                 {[...clients, ...clients].map((client, idx) => (
-                  <div key={`set2-${idx}`} className="flex items-start gap-3 w-[180px] md:w-[220px] flex-shrink-0">
-                    <svg className="flex-shrink-0 mt-[2px]" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                      <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                      <line x1="12" y1="22.08" x2="12" y2="12"/>
-                    </svg>
-                    <div className="flex flex-col items-start justify-start whitespace-normal">
-                      <span className="text-lg md:text-[1.3rem] font-bold text-white uppercase tracking-wider leading-tight" style={{ fontFamily: 'Aileron, sans-serif' }}>
-                        {client.name}
-                      </span>
-                      <span className="text-[0.75rem] md:text-[0.85rem] text-white/90 tracking-wide mt-1.5 leading-snug" style={{ fontFamily: 'Aileron, sans-serif' }}>
-                        {client.subtitle}
-                      </span>
-                    </div>
+                  <div key={`set2-${idx}`} className="h-40 md:h-56 w-[250px] md:w-[350px] -mt-[20px] md:-mt-[40px] -mb-[20px] md:-mb-[40px] flex-shrink-0 flex items-center justify-center">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={client.logo}
+                      alt={client.name}
+                      className="max-h-full max-w-full object-contain brightness-0 invert opacity-85 hover:opacity-100 transition-opacity duration-300"
+                    />
                   </div>
                 ))}
               </div>
@@ -538,49 +492,37 @@ export default function Home() {
         </section>
 
         {/* ─── 6. UM BRINDE E BONS NEGÓCIOS ─── */}
-        <section ref={videosSectionRef} className="min-w-full shrink-0 bg-[#050a30] py-32 md:py-40 px-6 md:px-12">
-          <div className="w-full max-w-[1300px] mx-auto">
+        <section ref={videosSectionRef} className="min-w-full shrink-0 bg-[#050a30] px-4 md:px-8" style={{ paddingTop: 'clamp(4rem, 10vh, 10rem)', paddingBottom: 'clamp(4rem, 10vh, 10rem)' }}>
+          <div className="w-full max-w-[1100px] mx-auto">
             <div className="grid grid-cols-12 gap-2 md:gap-3 items-end justify-items-center">
-              {/* Vídeo 1 */}
               <motion.div
                 style={{ opacity: v1Opacity, x: v1X }}
-                className="col-span-12 md:col-span-5 relative aspect-[9/16] max-w-[360px] md:max-w-[420px] w-full rounded-2xl overflow-hidden bg-[#050a30] shadow-2xl"
+                className="col-span-12 md:col-span-3 relative aspect-[9/16] w-full rounded-2xl overflow-hidden bg-[#050a30] shadow-2xl"
               >
-                <video
-                  controls
-                  loop
-                  playsInline
-                  preload="metadata"
-                  className="w-full h-full object-cover"
-                >
-                  <source src="https://agenciabrinde.com.br/wp-content/uploads/2024/07/Video-do-WhatsApp-de-2024-07-22-as-13.46.45_7689d559.mp4" type="video/mp4" />
-                </video>
+                <ClickableVideo videoId={videoItems[0].id} title={videoItems[0].title} />
               </motion.div>
 
-              {/* Vídeo 2 */}
               <motion.div
                 style={{ opacity: v2Opacity, x: v2X }}
-                className="col-span-12 md:col-span-5 relative aspect-[9/16] max-w-[360px] md:max-w-[420px] w-full rounded-2xl overflow-hidden bg-[#050a30] shadow-2xl"
+                className="col-span-12 md:col-span-3 relative aspect-[9/16] w-full rounded-2xl overflow-hidden bg-[#050a30] shadow-2xl"
               >
-                <video
-                  controls
-                  loop
-                  playsInline
-                  preload="metadata"
-                  className="w-full h-full object-cover"
-                >
-                  <source src="https://agenciabrinde.com.br/wp-content/uploads/2024/07/Video-do-WhatsApp-de-2024-07-22-as-13.46.45_7689d559.mp4" type="video/mp4" />
-                </video>
+                <ClickableVideo videoId={videoItems[1].id} title={videoItems[1].title} />
               </motion.div>
 
-              {/* Logo lateral */}
               <motion.div
-                style={{ opacity: logoOpacity, scale: logoScale }}
-                className="col-span-12 md:col-span-2 flex items-end justify-center md:justify-end"
+                style={{ opacity: v3Opacity, x: v3X }}
+                className="col-span-12 md:col-span-3 relative aspect-[9/16] w-full rounded-2xl overflow-hidden bg-[#050a30] shadow-2xl"
+              >
+                <ClickableVideo videoId={videoItems[2].id} title={videoItems[2].title} />
+              </motion.div>
+
+              <motion.div
+                style={{ opacity: logoOpacity, x: logoX }}
+                className="col-span-12 md:col-span-3 flex items-end justify-center md:justify-end"
               >
                 <h3
-                  className="text-white text-3xl md:text-3xl lg:text-4xl leading-tight tracking-tight uppercase text-right"
-                  style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}
+                  className="text-white leading-tight tracking-tight uppercase text-right"
+                  style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900, fontSize: 'clamp(1.5rem, 2.5vw, 2.5rem)' }}
                 >
                   UM<br />
                   <span className="border-b-2 border-red-600">Brinde</span><br />

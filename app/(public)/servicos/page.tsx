@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 
 type ServiceData = {
   id: string;
@@ -52,7 +53,7 @@ const services: ServiceData[] = [
       'Relatórios de desempenho',
       'Análise de métricas essenciais',
     ],
-    videoSrc: 'https://www.youtube.com/embed/pa_L30Q43Ac?autoplay=1&mute=1&loop=1&playlist=pa_L30Q43Ac&controls=0&showinfo=0&rel=0&modestbranding=1',
+    videoSrc: 'https://www.youtube.com/embed/BCk9qP7w1Ss?autoplay=1&mute=1&loop=1&playlist=BCk9qP7w1Ss&controls=0&showinfo=0&rel=0&modestbranding=1',
   },
   {
     id: 'reserva-especial',
@@ -90,7 +91,7 @@ const services: ServiceData[] = [
       'Configuração de funil inicial',
       'Integração de campanhas',
     ],
-    videoSrc: 'https://www.youtube.com/embed/A0HrPWRULx0?autoplay=1&mute=1&loop=1&playlist=A0HrPWRULx0&controls=0&showinfo=0&rel=0&modestbranding=1',
+    videoSrc: 'https://www.youtube.com/embed/Ncpn5cD_oGg?autoplay=1&mute=1&loop=1&playlist=Ncpn5cD_oGg&controls=0&showinfo=0&rel=0&modestbranding=1',
   },
   {
     id: 'edicao-limitada',
@@ -126,7 +127,7 @@ const services: ServiceData[] = [
       'Integração entre campanhas e funil',
       'Relatórios estratégicos de conversão',
     ],
-    videoSrc: 'https://www.youtube.com/embed/t6z1j6IY0sU?autoplay=1&mute=1&loop=1&playlist=t6z1j6IY0sU&controls=0&showinfo=0&rel=0&modestbranding=1',
+    videoSrc: 'https://www.youtube.com/embed/48Tg9kbDKyI?autoplay=1&mute=1&loop=1&playlist=48Tg9kbDKyI&controls=0&showinfo=0&rel=0&modestbranding=1',
   },
 ];
 
@@ -152,13 +153,13 @@ function ServiceModal({
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
       className="fixed inset-0 z-50 overflow-y-auto"
-      style={{ backgroundColor: service.modalBg, color: service.modalTextColor }}
+      style={{ backgroundColor: '#ffffff', color: '#050a30' }}
     >
       {/* Botão fechar */}
       <button
         onClick={onClose}
         className="fixed top-6 right-6 z-[60] w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold transition-opacity hover:opacity-60"
-        style={{ backgroundColor: service.modalTextColor, color: service.modalBg }}
+        style={{ backgroundColor: '#050a30', color: '#ffffff' }}
         aria-label="Fechar"
       >
         ✕
@@ -197,8 +198,17 @@ function ServiceModal({
                 </p>
               ))}
             </div>
+
+            <Link
+              href="/contato"
+              className="inline-flex items-center justify-center px-6 py-3 mt-4 rounded-full text-sm font-bold transition-transform hover:scale-[1.02] active:scale-[0.98] w-fit shadow-md"
+              style={{ backgroundColor: '#bb1c3c', color: '#ffffff', fontFamily: 'Aileron, sans-serif' }}
+            >
+              Entrar em contato
+            </Link>
+
             <p
-              className="text-sm font-bold mt-4 opacity-70"
+              className="text-sm font-bold mt-2 opacity-70"
               style={{ fontFamily: 'Aileron, sans-serif' }}
             >
               Metodologia Brinde®
@@ -212,12 +222,6 @@ function ServiceModal({
             transition={{ duration: 0.5, delay: 0.2 }}
             className="flex flex-col gap-8"
           >
-            {/* Círculo decorativo */}
-            <div
-              className="w-20 h-20 rounded-full self-end"
-              style={{ backgroundColor: '#f5d020' }}
-            />
-
             {/* Planejamento */}
             <div className="flex flex-col gap-3">
               <h3

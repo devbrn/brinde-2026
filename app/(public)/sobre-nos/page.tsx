@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 type PerfNode = {
   label: string;
@@ -97,6 +97,82 @@ function PerfNodeItem({
   );
 }
 
+function SpecialMidiOffNodeItem({
+  node,
+  progress,
+  logoTranslateY,
+  logoScale,
+  logoOpacity,
+  textOpacity,
+  descOpacity,
+}: {
+  node: PerfNode;
+  progress: ReturnType<typeof useScroll>['scrollYProgress'];
+  logoTranslateY: any;
+  logoScale: any;
+  logoOpacity: any;
+  textOpacity: any;
+  descOpacity: any;
+}) {
+  const rad = ((node.angle - 90) * Math.PI) / 180;
+  const radiusPct = 34;
+  const x = 50 + radiusPct * Math.cos(rad);
+  const y = 50 + radiusPct * Math.sin(rad);
+
+  return (
+    <>
+      <motion.div
+        style={{
+          left: `${x}%`,
+          top: `${y}%`,
+          y: logoTranslateY,
+          scale: logoScale,
+        }}
+        className="absolute -translate-x-1/2 -translate-y-1/2 w-[110px] h-[110px] md:w-[140px] md:h-[140px] rounded-full bg-[#050a30] flex items-center justify-center text-center px-2 z-20 shadow-lg"
+      >
+        {/* Logo image (visible initially) */}
+        <motion.div
+          style={{ opacity: logoOpacity }}
+          className="absolute inset-0 flex items-center justify-center"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://res.cloudinary.com/dyezpmorm/image/upload/v1780502461/Site-Brinde-LOGO-1024x316_xtnbj8.webp"
+            alt="Brinde"
+            className="h-6 md:h-7 w-auto"
+          />
+        </motion.div>
+
+        {/* Node text (visible at the end) */}
+        <motion.span
+          style={{ opacity: textOpacity, fontFamily: 'Aileron, sans-serif' }}
+          className="text-[#fff8d6] text-xs md:text-sm font-bold whitespace-pre-line leading-tight absolute inset-0 flex items-center justify-center px-2"
+        >
+          {node.label}
+        </motion.span>
+      </motion.div>
+
+      {/* Description text (visible at the end) */}
+      <motion.div
+        style={{
+          opacity: descOpacity,
+          left: `${x}%`,
+          top: `${y - 12}%`,
+          textAlign: 'center',
+        }}
+        className="absolute w-[260px] md:w-[280px] hidden md:block z-10 -translate-x-1/2 -translate-y-full"
+      >
+        <p
+          className="text-xs md:text-sm text-gray-800 whitespace-pre-line leading-snug"
+          style={{ fontFamily: 'Aileron, sans-serif' }}
+        >
+          {node.description}
+        </p>
+      </motion.div>
+    </>
+  );
+}
+
 const perfNodes: PerfNode[] = [
   { label: 'Mídia Off', angle: 0, description: 'Jingle\nOOH\nEvento Corporativo', descAlign: 'center' },
   { label: 'CRM', angle: 51, description: 'Implementação e\nestruturação', descAlign: 'right' },
@@ -131,9 +207,9 @@ export default function SobreNos() {
     target: planRef,
     offset: ['start end', 'end start'],
   });
-  const leftImgOpacity = useTransform(planProgress, [0.05, 0.28], [0, 1]);
+  const leftImgOpacity = useTransform(planProgress, [0.05, 0.28, 0.7, 0.85], [0, 1, 1, 0]);
   const leftImgX = useTransform(planProgress, [0.05, 0.28], [-200, 0]);
-  const rightImgOpacity = useTransform(planProgress, [0.05, 0.28], [0, 1]);
+  const rightImgOpacity = useTransform(planProgress, [0.05, 0.28, 0.7, 0.85], [0, 1, 1, 0]);
   const rightImgX = useTransform(planProgress, [0.05, 0.28], [200, 0]);
   const headlineOpacity = useTransform(planProgress, [0.15, 0.35], [0, 1]);
   const headlineY = useTransform(planProgress, [0.15, 0.35], [40, 0]);
@@ -155,6 +231,24 @@ export default function SobreNos() {
   const perfCenterOpacity = useTransform(perfProgress, [0.05, 0.18], [0, 1]);
   const perfCenterScale = useTransform(perfProgress, [0.05, 0.18], [0.92, 1]);
   const perfRingOpacity = useTransform(perfProgress, [0.08, 0.20], [0, 1]);
+
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const logoTranslateY = useTransform(
+    perfProgress,
+    [0.01, 0.20],
+    [isMobile ? -250 : -380, 0]
+  );
+  const logoScale = useTransform(perfProgress, [0.01, 0.20], [0.8, 1.0]);
+  const logoOpacity = useTransform(perfProgress, [0.01, 0.10], [1, 0]);
+  const textOpacity = useTransform(perfProgress, [0.08, 0.20], [0, 1]);
+  const descOpacity = useTransform(perfProgress, [0.18, 0.30], [0, 1]);
 
   // Método Brinde (pg 13)
   const metodoRef = useRef<HTMLElement>(null);
@@ -305,16 +399,16 @@ export default function SobreNos() {
         </motion.div>
       </section>
 
-      {/* ─── PLANEJAMOS E EXECUTAMOS (pg 11) ─── */}
-      <section ref={planRef} className="relative bg-white py-24 md:py-32 overflow-hidden">
+      {/* ─── FOTOS FIXAS (overlay) ─── */}
+      <div className="fixed inset-0 pointer-events-none z-30">
         {/* Imagem esquerda */}
         <motion.div
           style={{ opacity: leftImgOpacity, x: leftImgX }}
-          className="absolute left-0 top-1/2 -translate-y-1/2 w-[28%] md:w-[24%] lg:w-[22%] pointer-events-none select-none"
+          className="absolute left-0 top-1/2 -translate-y-1/2 w-[28%] md:w-[24%] lg:w-[22%] select-none"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800"
+            src="https://res.cloudinary.com/dyezpmorm/image/upload/v1781110899/1_vdykwp.webp"
             alt="Online"
             className="w-full h-auto object-contain"
           />
@@ -323,17 +417,19 @@ export default function SobreNos() {
         {/* Imagem direita */}
         <motion.div
           style={{ opacity: rightImgOpacity, x: rightImgX }}
-          className="absolute right-0 top-1/2 -translate-y-1/2 w-[28%] md:w-[24%] lg:w-[22%] pointer-events-none select-none"
+          className="absolute right-0 top-1/2 -translate-y-1/2 w-[28%] md:w-[24%] lg:w-[22%] select-none"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800"
+            src="https://res.cloudinary.com/dyezpmorm/image/upload/v1781110899/2_gvnnte.webp"
             alt="Offline"
-            className="w-full h-auto object-contain scale-x-[-1]"
+            className="w-full h-auto object-contain"
           />
         </motion.div>
+      </div>
 
-        {/* Conteúdo central */}
+      {/* ─── PLANEJAMOS E EXECUTAMOS (pg 11) ─── */}
+      <section ref={planRef} className="relative bg-white py-24 md:py-32">
         <div className="relative z-10 w-full flex flex-col items-center text-center gap-16 md:gap-20">
           <motion.h2
             style={{ opacity: headlineOpacity, y: headlineY }}
@@ -377,22 +473,13 @@ export default function SobreNos() {
             </motion.div>
           </div>
 
-          <motion.div
-            style={{ scale: logoMarkScale, backgroundColor: '#050a30' }}
-            className="w-24 h-24 md:w-28 md:h-28 rounded-full flex items-center justify-center"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://res.cloudinary.com/dyezpmorm/image/upload/v1780502461/Site-Brinde-LOGO-1024x316_xtnbj8.webp"
-              alt="Brinde"
-              className="h-7 w-auto"
-            />
-          </motion.div>
+          {/* Placeholder div to preserve spacing, since the transitioning circle from the next section occupies this space */}
+          <div className="w-24 h-24 md:w-28 md:h-28 rounded-full opacity-0 pointer-events-none" />
         </div>
       </section>
 
       {/* ─── PERFORMANCE (pg 12) ─── */}
-      <section ref={perfRef} className="bg-white pt-24 md:pt-32 pb-0 px-6 md:px-12 overflow-hidden">
+      <section ref={perfRef} className="bg-white pt-24 md:pt-32 pb-0 px-6 md:px-12 relative overflow-visible">
         <div className="relative max-w-[1200px] mx-auto aspect-square max-h-[800px]">
           {/* dashed circle */}
           <motion.div
@@ -420,10 +507,24 @@ export default function SobreNos() {
             </p>
           </motion.div>
 
+          {/* Special transitioning 'Mídia Off' node */}
+          <SpecialMidiOffNodeItem
+            node={perfNodes[0]}
+            progress={perfProgress}
+            logoTranslateY={logoTranslateY}
+            logoScale={logoScale}
+            logoOpacity={logoOpacity}
+            textOpacity={textOpacity}
+            descOpacity={descOpacity}
+          />
+
           {/* nodes — reveal row-by-row top→bottom */}
           {(() => {
+            // Exclude first node ('Mídia Off') since it's rendered manually with transition
+            const nodesToMap = perfNodes.filter(n => n.label !== 'Mídia Off');
+
             // y-position per node
-            const withY = perfNodes.map((n) => {
+            const withY = nodesToMap.map((n) => {
               const rad = ((n.angle - 90) * Math.PI) / 180;
               return { node: n, y: 50 + 34 * Math.sin(rad) };
             });

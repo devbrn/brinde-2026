@@ -130,11 +130,22 @@ const cases = [
 ];
 
 const clients = [
-  { name: 'BRINDE', subtitle: 'Marketing e Publicidade' },
-  { name: 'DHL', subtitle: 'Coleta e Análise de Dados' },
-  { name: 'DARIN OMELETES', subtitle: 'Estratégias de Marketing' },
-  { name: 'ISLA OLIVEIRA', subtitle: 'Branding' },
-  { name: 'ME,UP VIAGENS', subtitle: 'Estratégias de Marketing' },
+  { name: 'Meli', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016237/meli_luehqu.png' },
+  { name: 'DHL', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016234/dhl_hkriql.png' },
+  { name: 'MegaFrio', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016725/megafrio_c5fiya.webp' },
+  { name: 'Josana Monteiro', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016235/josana-monteiro_wsxfbb.png' },
+  { name: 'MeUp', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016386/meup_q74vzq.png' },
+  { name: 'Luiz Kind', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016235/luiz-kind_yao5sy.png' },
+  { name: 'D\'Boy', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016235/dboy_cvlagf.png' },
+  { name: 'CADI', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016736/cadi_pcjqzk.webp' },
+  { name: 'Armazém das Tintas', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016234/armazem-das-tintas_flgesk.png' },
+  { name: 'Adrielli Massaro', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016234/adrielli-massaro_pnefzr.png' },
+  { name: 'Sherali', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016238/sherali_j6aazv.png' },
+  { name: 'Isla', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016235/isla_icfutv.png' },
+  { name: 'Darin', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016234/darin_ii1wm6.png' },
+  { name: 'MBPS', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016236/mbps_z32olt.webp' },
+  { name: 'PedraShop', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016237/pedrashop_qxp3fe.png' },
+  { name: 'RMG', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016238/rmg_ozpwr2.png' },
 ];
 
 const clientStories = [
@@ -425,24 +436,40 @@ export default function Home() {
               {produtoraServices.map((item, index) => (
                 <div
                   key={index}
-                  className={`group border-b border-white/20 last:border-b-0 transition-all duration-300 cursor-pointer bg-[#050a30] text-white`}
+                  className="group border-b border-white/20 last:border-b-0 cursor-pointer bg-[#050a30] text-white relative h-[90px] md:h-[110px] overflow-hidden"
+                  style={{ perspective: 1000 }}
                   onMouseEnter={() => setHoveredSolucao(index)}
                   onMouseLeave={() => setHoveredSolucao(null)}
                 >
-                  <div className="flex flex-col justify-center min-h-[100px] px-6 py-6 md:px-8">
-                    <h3
-                      className={`text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-tight transition-all duration-300 ${hoveredSolucao === index ? 'mb-3' : 'mb-0'}`}
-                      style={{ fontFamily: 'Aileron, sans-serif' }}
+                  <div className="w-full h-full relative" style={{ transformStyle: 'preserve-3d' }}>
+                    {/* Front Face: Title */}
+                    <motion.div
+                      className="absolute inset-0 flex items-center px-6 md:px-8"
+                      initial={{ rotateX: 0, y: 0, opacity: 1 }}
+                      animate={hoveredSolucao === index ? { rotateX: -90, y: -40, opacity: 0 } : { rotateX: 0, y: 0, opacity: 1 }}
+                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      style={{ transformOrigin: 'center', backfaceVisibility: 'hidden' }}
                     >
-                      {item.title}
-                    </h3>
-                    <div
-                      className={`overflow-hidden transition-all duration-500 ease-in-out ${hoveredSolucao === index ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'}`}
+                      <h3
+                        className="text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-tight"
+                        style={{ fontFamily: 'Aileron, sans-serif' }}
+                      >
+                        {item.title}
+                      </h3>
+                    </motion.div>
+
+                    {/* Bottom Face: Description */}
+                    <motion.div
+                      className="absolute inset-0 flex items-center px-6 md:px-8"
+                      initial={{ rotateX: 90, y: 40, opacity: 0 }}
+                      animate={hoveredSolucao === index ? { rotateX: 0, y: 0, opacity: 1 } : { rotateX: 90, y: 40, opacity: 0 }}
+                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      style={{ transformOrigin: 'center', backfaceVisibility: 'hidden' }}
                     >
-                      <p className="text-base md:text-lg leading-relaxed opacity-90" style={{ fontFamily: 'Aileron, sans-serif' }}>
+                      <p className="text-sm md:text-base leading-relaxed opacity-90" style={{ fontFamily: 'Aileron, sans-serif' }}>
                         {item.description}
                       </p>
-                    </div>
+                    </motion.div>
                   </div>
                 </div>
               ))}
@@ -463,7 +490,7 @@ export default function Home() {
         </section>
 
         {/* ─── 5. BRINDAMOS ─── */}
-        <section className="min-w-full min-h-[60vh] shrink-0 bg-[#050a30] flex flex-col justify-center pb-24">
+        <section className="min-w-full min-h-[60vh] shrink-0 bg-[#050a30] flex flex-col justify-center pb-24 overflow-hidden">
           <div className="w-full max-w-[1200px] mx-auto flex flex-col items-start px-6 pt-24 pb-16">
             <h2 
               className="text-[3rem] sm:text-[4rem] md:text-[5rem] text-white mb-6 tracking-tight uppercase"
@@ -479,7 +506,7 @@ export default function Home() {
           </div>
 
           {/* Infinite Logos Carousel */}
-          <div className="w-full bg-[#bb1c3c] py-12 md:py-16 overflow-hidden relative flex items-center">
+          <div className="w-full bg-[#bb1c3c] py-6 md:py-8 relative flex items-center">
             {/* 
               To achieve a perfect infinite scroll, we translate a container that is exactly twice the width
               by -50%. That means it needs two identical blocks inside it. 
@@ -487,42 +514,28 @@ export default function Home() {
             */}
             <div className="flex w-max animate-marquee items-center">
               {/* First Set */}
-              <div className="flex gap-16 md:gap-24 pr-16 md:pr-24 items-start">
+              <div className="flex gap-8 md:gap-12 pr-8 md:pr-12 items-center">
                 {[...clients, ...clients].map((client, idx) => (
-                  <div key={`set1-${idx}`} className="flex items-start gap-3 w-[180px] md:w-[220px] flex-shrink-0">
-                    <svg className="flex-shrink-0 mt-[2px]" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                      <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                      <line x1="12" y1="22.08" x2="12" y2="12"/>
-                    </svg>
-                    <div className="flex flex-col items-start justify-start whitespace-normal">
-                      <span className="text-lg md:text-[1.3rem] font-bold text-white uppercase tracking-wider leading-tight" style={{ fontFamily: 'Aileron, sans-serif' }}>
-                        {client.name}
-                      </span>
-                      <span className="text-[0.75rem] md:text-[0.85rem] text-white/90 tracking-wide mt-1.5 leading-snug" style={{ fontFamily: 'Aileron, sans-serif' }}>
-                        {client.subtitle}
-                      </span>
-                    </div>
+                  <div key={`set1-${idx}`} className="h-40 md:h-56 w-[250px] md:w-[350px] -mt-[20px] md:-mt-[40px] -mb-[20px] md:-mb-[40px] flex-shrink-0 flex items-center justify-center">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={client.logo}
+                      alt={client.name}
+                      className="max-h-full max-w-full object-contain brightness-0 invert opacity-85 hover:opacity-100 transition-opacity duration-300"
+                    />
                   </div>
                 ))}
               </div>
               {/* Second Set (identical duplicate for seamless loop) */}
-              <div className="flex gap-16 md:gap-24 pr-16 md:pr-24 items-start">
+              <div className="flex gap-8 md:gap-12 pr-8 md:pr-12 items-center">
                 {[...clients, ...clients].map((client, idx) => (
-                  <div key={`set2-${idx}`} className="flex items-start gap-3 w-[180px] md:w-[220px] flex-shrink-0">
-                    <svg className="flex-shrink-0 mt-[2px]" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                      <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                      <line x1="12" y1="22.08" x2="12" y2="12"/>
-                    </svg>
-                    <div className="flex flex-col items-start justify-start whitespace-normal">
-                      <span className="text-lg md:text-[1.3rem] font-bold text-white uppercase tracking-wider leading-tight" style={{ fontFamily: 'Aileron, sans-serif' }}>
-                        {client.name}
-                      </span>
-                      <span className="text-[0.75rem] md:text-[0.85rem] text-white/90 tracking-wide mt-1.5 leading-snug" style={{ fontFamily: 'Aileron, sans-serif' }}>
-                        {client.subtitle}
-                      </span>
-                    </div>
+                  <div key={`set2-${idx}`} className="h-40 md:h-56 w-[250px] md:w-[350px] -mt-[20px] md:-mt-[40px] -mb-[20px] md:-mb-[40px] flex-shrink-0 flex items-center justify-center">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={client.logo}
+                      alt={client.name}
+                      className="max-h-full max-w-full object-contain brightness-0 invert opacity-85 hover:opacity-100 transition-opacity duration-300"
+                    />
                   </div>
                 ))}
               </div>

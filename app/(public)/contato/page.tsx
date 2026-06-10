@@ -188,8 +188,8 @@ export default function Contato() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div>
                 <p className="text-sm text-gray-500 mb-2">Comercial</p>
-                <a href="mailto:comercial@agenciabrinde.com.br" className="text-lg font-semibold text-[#bb1c3c] hover:underline">
-                  comercial@agenciabrinde.com.br
+                <a href="mailto:camila.alfaro@agenciabrinde.com.br" className="text-lg font-semibold text-[#bb1c3c] hover:underline">
+                  camila.alfaro@agenciabrinde.com.br
                 </a>
               </div>
               <div>
