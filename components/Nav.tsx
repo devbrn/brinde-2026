@@ -1,10 +1,79 @@
 'use client';
 
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export function Nav() {
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const THRESHOLD = 80;
+    let footerVisible = false;
+    let scrolledPast = false;
+
+    const update = () => {
+      setVisible(!scrolledPast || footerVisible);
+    };
+
+    const onScroll = () => {
+      scrolledPast = window.scrollY > THRESHOLD;
+      update();
+    };
+
+    const onHorizontalScroll = () => {
+      const el = document.querySelector('[data-lenis-prevent]') as HTMLElement | null;
+      scrolledPast = (el?.scrollLeft ?? 0) > THRESHOLD || window.scrollY > THRESHOLD;
+      update();
+    };
+
+    const footer = document.querySelector('footer');
+    let observer: IntersectionObserver | null = null;
+
+    if (footer) {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          footerVisible = entry.isIntersecting;
+          update();
+        },
+        { threshold: 0.05 }
+      );
+      observer.observe(footer);
+    }
+
+    let horizontalEl = document.querySelector('[data-lenis-prevent]');
+    horizontalEl?.addEventListener('scroll', onHorizontalScroll, { passive: true });
+
+    const attachInterval = window.setInterval(() => {
+      const found = document.querySelector('[data-lenis-prevent]');
+      if (found && found !== horizontalEl) {
+        horizontalEl?.removeEventListener('scroll', onHorizontalScroll);
+        horizontalEl = found;
+        horizontalEl.addEventListener('scroll', onHorizontalScroll, { passive: true });
+      }
+      if (found) window.clearInterval(attachInterval);
+    }, 200);
+
+    window.addEventListener('scroll', onHorizontalScroll, { passive: true });
+    onHorizontalScroll();
+
+    return () => {
+      window.removeEventListener('scroll', onHorizontalScroll);
+      horizontalEl?.removeEventListener('scroll', onHorizontalScroll);
+      window.clearInterval(attachInterval);
+      observer?.disconnect();
+    };
+  }, []);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 text-white px-6 py-4 flex items-center justify-between" style={{ background: 'linear-gradient(to bottom, #050a30 0%, #050a3080 40%, transparent 100%)' }}>
+    <nav
+      className="fixed top-0 left-0 right-0 z-50 text-white px-6 py-4 flex items-center justify-between transition-all duration-500"
+      style={{
+        background: 'linear-gradient(to bottom, #050a30 0%, #050a3080 40%, transparent 100%)',
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(-100%)',
+        pointerEvents: visible ? 'auto' : 'none',
+      }}
+    >
       <Link href="/" className="flex items-center shrink-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -25,7 +94,7 @@ export function Nav() {
           Serviços
         </Link>
         <Link href="/produtora" className="hover:text-white/70 transition text-sm">
-          Produtora
+          Produtora Audiovisual
         </Link>
 
         <span className="text-white/40">|</span>

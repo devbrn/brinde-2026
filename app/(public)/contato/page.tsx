@@ -55,86 +55,122 @@ export default function Contato() {
   };
 
   return (
-    <div className="pt-20">
-      {/* Hero */}
-      <section className="bg-[#050a30] text-white py-24 px-6">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-playfair mb-8">
-            Solicite um orçamento
+    <div className="bg-white min-h-screen">
+      {/* ─── HERO ─── */}
+      <section className="bg-[#050a30] text-white pt-32 pb-20 px-6 md:px-12 lg:px-24">
+        <div className="max-w-[1400px] mx-auto">
+          <h1
+            className="text-[2.8rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[4.6rem] leading-none font-black uppercase tracking-tight mb-6"
+            style={{ fontFamily: 'Aileron, sans-serif' }}
+          >
+            Solicite um<br />orçamento
           </h1>
-          <p className="text-xl text-gray-300">
+          <p
+            className="text-[20px] text-white/70 leading-relaxed max-w-[600px]"
+            style={{ fontFamily: 'Aileron, sans-serif' }}
+          >
             Entre em contato com a gente. Vamos conversar sobre seu projeto.
           </p>
         </div>
       </section>
 
-      {/* Form */}
-      <section className="bg-white py-16 px-6">
-        <div className="max-w-2xl mx-auto">
-          <form onSubmit={handleSubmit} className="space-y-6">
+      {/* ─── FORM ─── */}
+      <section className="px-6 md:px-12 lg:px-24 py-20">
+        <div className="max-w-[800px] mx-auto">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             {/* Name */}
             <div>
-              <label className="block text-sm font-semibold mb-2">Nome</label>
+              <label
+                className="block text-sm font-bold mb-2 text-[#050a30]"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
+              >
+                Nome
+              </label>
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#bb1c3c]"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#c51618] transition-colors"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
                 placeholder="Seu nome"
               />
             </div>
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-semibold mb-2">Email</label>
+              <label
+                className="block text-sm font-bold mb-2 text-[#050a30]"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
+              >
+                Email
+              </label>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#bb1c3c]"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#c51618] transition-colors"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
                 placeholder="seu@email.com"
               />
             </div>
 
             {/* Phone */}
             <div>
-              <label className="block text-sm font-semibold mb-2">Telefone</label>
+              <label
+                className="block text-sm font-bold mb-2 text-[#050a30]"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
+              >
+                Telefone
+              </label>
               <input
                 type="tel"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#bb1c3c]"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#c51618] transition-colors"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
                 placeholder="(11) 99999-9999"
               />
             </div>
 
             {/* Company */}
             <div>
-              <label className="block text-sm font-semibold mb-2">Empresa</label>
+              <label
+                className="block text-sm font-bold mb-2 text-[#050a30]"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
+              >
+                Empresa
+              </label>
               <input
                 type="text"
                 name="company"
                 value={formData.company}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#bb1c3c]"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#c51618] transition-colors"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
                 placeholder="Sua empresa"
               />
             </div>
 
             {/* Service */}
             <div>
-              <label className="block text-sm font-semibold mb-2">Serviço</label>
+              <label
+                className="block text-sm font-bold mb-2 text-[#050a30]"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
+              >
+                Serviço
+              </label>
               <select
                 name="service"
                 value={formData.service}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#bb1c3c]"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#c51618] transition-colors"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
               >
                 <option value="">Selecione um serviço</option>
                 <option value="branding">Branding</option>
@@ -148,26 +184,38 @@ export default function Contato() {
 
             {/* Message */}
             <div>
-              <label className="block text-sm font-semibold mb-2">Mensagem</label>
+              <label
+                className="block text-sm font-bold mb-2 text-[#050a30]"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
+              >
+                Mensagem
+              </label>
               <textarea
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
                 required
                 rows={6}
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#bb1c3c]"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#c51618] transition-colors"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
                 placeholder="Conte mais sobre seu projeto"
               />
             </div>
 
             {/* Status */}
             {status.type === 'success' && (
-              <div className="p-4 bg-green-100 text-green-800 rounded">
+              <div
+                className="p-4 bg-green-100 text-green-800 rounded-xl"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
+              >
                 {status.message}
               </div>
             )}
             {status.type === 'error' && (
-              <div className="p-4 bg-red-100 text-red-800 rounded">
+              <div
+                className="p-4 bg-red-100 text-red-800 rounded-xl"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
+              >
                 {status.message}
               </div>
             )}
@@ -176,34 +224,68 @@ export default function Contato() {
             <button
               type="submit"
               disabled={status.type === 'loading'}
-              className="w-full bg-[#bb1c3c] hover:bg-[#bb1c3c] disabled:bg-gray-400 text-white px-6 py-3 rounded font-semibold transition"
+              className="inline-flex items-center justify-center px-6 py-3 mt-2 rounded-full text-sm font-bold transition-transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:scale-100 w-fit shadow-md"
+              style={{ backgroundColor: '#c51618', color: '#ffffff', fontFamily: 'Aileron, sans-serif' }}
             >
               {status.type === 'loading' ? 'Enviando...' : 'Solicitar Orçamento'}
             </button>
           </form>
 
-          {/* Contact Info */}
-          <div className="mt-16 pt-16 border-t border-gray-200">
-            <h3 className="text-2xl font-playfair mb-8">Ou entre em contato direto</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div>
-                <p className="text-sm text-gray-500 mb-2">Comercial</p>
-                <a href="mailto:camila.alfaro@agenciabrinde.com.br" className="text-lg font-semibold text-[#bb1c3c] hover:underline">
-                  camila.alfaro@agenciabrinde.com.br
-                </a>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500 mb-2">Relacionamento</p>
-                <a href="mailto:contato@agenciabrinde.com.br" className="text-lg font-semibold text-[#bb1c3c] hover:underline">
-                  contato@agenciabrinde.com.br
-                </a>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500 mb-2">Carreiras</p>
-                <a href="mailto:rh@agenciabrinde.com.br" className="text-lg font-semibold text-[#bb1c3c] hover:underline">
-                  rh@agenciabrinde.com.br
-                </a>
-              </div>
+        </div>
+
+        {/* Contact Info */}
+        <div className="max-w-[1100px] mx-auto mt-20 pt-16 border-t border-gray-200">
+          <h3
+            className="text-2xl md:text-3xl font-black uppercase tracking-tight mb-8 text-[#050a30]"
+            style={{ fontFamily: 'Aileron, sans-serif' }}
+          >
+            Ou entre em contato direto
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div>
+              <p
+                className="text-sm text-gray-500 mb-2 font-bold"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
+              >
+                Comercial
+              </p>
+              <a
+                href="mailto:camila.alfaro@agenciabrinde.com.br"
+                className="text-base md:text-lg font-semibold text-[#c51618] hover:underline break-all"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
+              >
+                camila.alfaro@agenciabrinde.com.br
+              </a>
+            </div>
+            <div>
+              <p
+                className="text-sm text-gray-500 mb-2 font-bold"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
+              >
+                Relacionamento
+              </p>
+              <a
+                href="mailto:contato@agenciabrinde.com.br"
+                className="text-base md:text-lg font-semibold text-[#c51618] hover:underline break-all"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
+              >
+                contato@agenciabrinde.com.br
+              </a>
+            </div>
+            <div>
+              <p
+                className="text-sm text-gray-500 mb-2 font-bold"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
+              >
+                Carreiras
+              </p>
+              <a
+                href="mailto:rh@agenciabrinde.com.br"
+                className="text-base md:text-lg font-semibold text-[#c51618] hover:underline break-all"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
+              >
+                rh@agenciabrinde.com.br
+              </a>
             </div>
           </div>
         </div>

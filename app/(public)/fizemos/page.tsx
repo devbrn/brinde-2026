@@ -39,12 +39,12 @@ export default function Fizemos() {
             {cases.map((caseItem) => (
               <div
                 key={caseItem.id}
-                className="border-2 border-gray-200 rounded p-8 hover:border-[#bb1c3c] transition"
+                className="border-2 border-gray-200 rounded p-8 hover:border-[#c51618] transition"
               >
-                <span className="text-sm text-[#bb1c3c] font-bold">{caseItem.category}</span>
+                <span className="text-sm text-[#c51618] font-bold">{caseItem.category}</span>
                 <h3 className="text-2xl font-playfair mt-3 mb-4">{caseItem.name}</h3>
                 <p className="text-gray-500 text-sm">{caseItem.year}</p>
-                <button className="mt-6 text-[#bb1c3c] font-bold hover:underline">
+                <button className="mt-6 text-[#c51618] font-bold hover:underline">
                   Saiba mais →
                 </button>
               </div>

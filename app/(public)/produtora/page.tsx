@@ -129,25 +129,6 @@ const cases = [
   { id: 3, name: 'Brinde Marketing & Publicidade', category: 'Full Service', year: 2023 },
 ];
 
-const clients = [
-  { name: 'Meli', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016237/meli_luehqu.png' },
-  { name: 'DHL', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016234/dhl_hkriql.png' },
-  { name: 'MegaFrio', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016725/megafrio_c5fiya.webp' },
-  { name: 'Josana Monteiro', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016235/josana-monteiro_wsxfbb.png' },
-  { name: 'MeUp', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016386/meup_q74vzq.png' },
-  { name: 'Luiz Kind', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016235/luiz-kind_yao5sy.png' },
-  { name: 'D\'Boy', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016235/dboy_cvlagf.png' },
-  { name: 'CADI', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016736/cadi_pcjqzk.webp' },
-  { name: 'Armazém das Tintas', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016234/armazem-das-tintas_flgesk.png' },
-  { name: 'Adrielli Massaro', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016234/adrielli-massaro_pnefzr.png' },
-  { name: 'Sherali', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016238/sherali_j6aazv.png' },
-  { name: 'Isla', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016235/isla_icfutv.png' },
-  { name: 'Darin', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016234/darin_ii1wm6.png' },
-  { name: 'MBPS', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016236/mbps_z32olt.webp' },
-  { name: 'PedraShop', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016237/pedrashop_qxp3fe.png' },
-  { name: 'RMG', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016238/rmg_ozpwr2.png' },
-];
-
 const clientStories = [
   { name: 'Mega Frio', text: 'Estratégia de posicionamento em mercado competitivo. Rebranding, campanhas e conteúdo integrado.' },
   { name: 'Saudável', text: 'Criação de identidade visual e campanha de lançamento. Design, vídeo e mídia integrados.' },
@@ -396,33 +377,15 @@ export default function Home() {
 
         {/* ─── 3. PRÊMIO ─── */}
         <section className="min-w-full h-full shrink-0 snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
-          {/* Background Video Temporário */}
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute top-0 left-0 w-full h-full object-cover opacity-60"
-          >
-            <source src="https://agenciabrinde.com.br/wp-content/uploads/2024/07/Video-do-WhatsApp-de-2024-07-22-as-13.46.45_7689d559.mp4" type="video/mp4" />
-          </video>
+          <iframe
+            src="https://www.youtube.com/embed/vB5FYlsGybM?autoplay=1&mute=1&loop=1&playlist=vB5FYlsGybM&controls=0&showinfo=0&rel=0&modestbranding=1"
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            style={{ border: 'none', transform: 'scale(1.4)', transformOrigin: 'center' }}
+            allow="autoplay; mute"
+            title="Prêmio"
+          />
           
           <div className="absolute inset-0 bg-[#050a30]/50" />
-
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="relative z-10 flex flex-col items-center justify-center w-full px-6 text-center"
-          >
-            <h2
-              className="text-white text-[3rem] sm:text-[5rem] md:text-[7rem] lg:text-[9rem] leading-none uppercase tracking-tighter drop-shadow-2xl"
-              style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}
-            >
-              Vídeo do Prêmio
-            </h2>
-          </motion.div>
         </section>
       </div> {/* END HORIZONTAL SCROLL WRAPPER */}
 
@@ -486,60 +449,6 @@ export default function Home() {
               </p>
             </div>
 
-          </div>
-        </section>
-
-        {/* ─── 5. BRINDAMOS ─── */}
-        <section className="min-w-full min-h-[60vh] shrink-0 bg-[#050a30] flex flex-col justify-center pb-24 overflow-hidden">
-          <div className="w-full max-w-[1200px] mx-auto flex flex-col items-start px-6 pt-24 pb-16">
-            <h2 
-              className="text-[3rem] sm:text-[4rem] md:text-[5rem] text-white mb-6 tracking-tight uppercase"
-              style={{ fontFamily: '"Tan Pearl", serif' }}
-            >
-              BRINDAMOS
-            </h2>
-            <div className="ml-0 md:ml-12 max-w-lg">
-              <p className="text-xl md:text-2xl text-white leading-relaxed font-medium" style={{ fontFamily: 'Aileron, sans-serif' }}>
-                Desde 2023, caminhamos com marcas que escolhem estratégia e criatividade. Cada entrega vira história e mais um motivo para brindar.
-              </p>
-            </div>
-          </div>
-
-          {/* Infinite Logos Carousel */}
-          <div className="w-full bg-[#bb1c3c] py-6 md:py-8 relative flex items-center">
-            {/* 
-              To achieve a perfect infinite scroll, we translate a container that is exactly twice the width
-              by -50%. That means it needs two identical blocks inside it. 
-              We use 10 items per block so it spans wider than any ultrawide monitor, eliminating white space.
-            */}
-            <div className="flex w-max animate-marquee items-center">
-              {/* First Set */}
-              <div className="flex gap-8 md:gap-12 pr-8 md:pr-12 items-center">
-                {[...clients, ...clients].map((client, idx) => (
-                  <div key={`set1-${idx}`} className="h-40 md:h-56 w-[250px] md:w-[350px] -mt-[20px] md:-mt-[40px] -mb-[20px] md:-mb-[40px] flex-shrink-0 flex items-center justify-center">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={client.logo}
-                      alt={client.name}
-                      className="max-h-full max-w-full object-contain brightness-0 invert opacity-85 hover:opacity-100 transition-opacity duration-300"
-                    />
-                  </div>
-                ))}
-              </div>
-              {/* Second Set (identical duplicate for seamless loop) */}
-              <div className="flex gap-8 md:gap-12 pr-8 md:pr-12 items-center">
-                {[...clients, ...clients].map((client, idx) => (
-                  <div key={`set2-${idx}`} className="h-40 md:h-56 w-[250px] md:w-[350px] -mt-[20px] md:-mt-[40px] -mb-[20px] md:-mb-[40px] flex-shrink-0 flex items-center justify-center">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={client.logo}
-                      alt={client.name}
-                      className="max-h-full max-w-full object-contain brightness-0 invert opacity-85 hover:opacity-100 transition-opacity duration-300"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </section>
 

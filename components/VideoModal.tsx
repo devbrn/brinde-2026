@@ -46,7 +46,7 @@ export function VideoModal({ videoUrl, thumbnail, title }: VideoModalProps) {
         <div className="absolute inset-0 bg-[#050a30]/40 group-hover:bg-[#050a30]/50 transition-all flex items-center justify-center">
           <motion.div
             whileHover={{ scale: 1.1 }}
-            className="w-16 h-16 bg-[#bb1c3c] rounded-full flex items-center justify-center"
+            className="w-16 h-16 bg-[#c51618] rounded-full flex items-center justify-center"
           >
             <svg
               className="w-8 h-8 text-white ml-1"
@@ -98,7 +98,7 @@ export function VideoModal({ videoUrl, thumbnail, title }: VideoModalProps) {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 onClick={() => setIsMuted(!isMuted)}
-                className="absolute bottom-4 right-4 bg-[#bb1c3c]/80 hover:bg-[#bb1c3c] px-4 py-2 rounded-lg text-white text-sm font-semibold transition-all"
+                className="absolute bottom-4 right-4 bg-[#c51618]/80 hover:bg-[#c51618] px-4 py-2 rounded-lg text-white text-sm font-semibold transition-all"
               >
                 {isMuted ? '🔇 Som' : '🔊 Mudo'}
               </motion.button>

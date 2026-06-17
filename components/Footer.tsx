@@ -50,8 +50,8 @@ export function Footer() {
             @agenciabrinde ↗
           </a>
           <div className="pt-2 space-y-1 text-white/70">
-            <p>
-              Relacionamento:{' '}
+            <p className="whitespace-nowrap">
+              <span className="font-bold">Relacionamento:</span>{' '}
               <a
                 href="mailto:contato@agenciabrinde.com.br"
                 className="hover:text-white transition-colors"
@@ -59,8 +59,8 @@ export function Footer() {
                 contato@agenciabrinde.com.br
               </a>
             </p>
-            <p>
-              Negócios:{' '}
+            <p className="whitespace-nowrap">
+              <span className="font-bold">Negócios:</span>{' '}
               <a
                 href="mailto:camila.alfaro@agenciabrinde.com.br"
                 className="hover:text-white transition-colors"
@@ -68,8 +68,8 @@ export function Footer() {
                 camila.alfaro@agenciabrinde.com.br
               </a>
             </p>
-            <p>
-              Vagas:{' '}
+            <p className="whitespace-nowrap">
+              <span className="font-bold">Vagas:</span>{' '}
               <a
                 href="mailto:rh@agenciabrinde.com.br"
                 className="hover:text-white transition-colors"

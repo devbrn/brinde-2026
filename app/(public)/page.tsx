@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
+import Link from 'next/link';
 
 const cases = [
   { id: 1, name: 'Infomídia', category: 'Branding', year: 2021 },
@@ -96,7 +97,7 @@ function ClickableVideo({ videoId, title }: { videoId: string; title: string }) 
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors flex items-center justify-center">
-          <div className="w-14 h-14 md:w-18 md:h-18 bg-[#bb1c3c] rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+          <div className="w-14 h-14 md:w-18 md:h-18 bg-[#c51618] rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
             <svg className="w-6 h-6 md:w-8 md:h-8 text-white ml-1" fill="currentColor" viewBox="0 0 20 20">
               <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
             </svg>
@@ -355,32 +356,15 @@ export default function Home() {
 
         {/* ─── 3. PRÊMIO ─── */}
         <section className="min-w-full h-full shrink-0 snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute top-0 left-0 w-full h-full object-cover opacity-60"
-          >
-            <source src="https://agenciabrinde.com.br/wp-content/uploads/2024/07/Video-do-WhatsApp-de-2024-07-22-as-13.46.45_7689d559.mp4" type="video/mp4" />
-          </video>
+          <iframe
+            src="https://www.youtube.com/embed/vB5FYlsGybM?autoplay=1&mute=1&loop=1&playlist=vB5FYlsGybM&controls=0&showinfo=0&rel=0&modestbranding=1"
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            style={{ border: 'none', transform: 'scale(1.4)', transformOrigin: 'center' }}
+            allow="autoplay; mute"
+            title="Prêmio"
+          />
           
           <div className="absolute inset-0 bg-[#050a30]/50" />
-
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="relative z-10 flex flex-col items-center justify-center w-full px-6 text-center"
-          >
-            <h2
-              className="text-white leading-none uppercase tracking-tighter drop-shadow-2xl"
-              style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900, fontSize: 'clamp(2.5rem, 8vw, 9rem)' }}
-            >
-              Vídeo do Prêmio
-            </h2>
-          </motion.div>
         </section>
       </div>
 
@@ -440,6 +424,13 @@ export default function Home() {
               <p className="text-gray-800 leading-snug font-medium" style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(0.9rem, 1.3vw, 1.25rem)' }}>
                 Uma estrutura completa para transformar objetivos de marca em comunicação sólida, coerente e eficaz.
               </p>
+              <Link
+                href="/contato"
+                className="inline-flex items-center justify-center px-6 py-3 mt-4 rounded-full text-sm font-bold transition-transform hover:scale-[1.02] active:scale-[0.98] w-fit shadow-md"
+                style={{ backgroundColor: '#c51618', color: '#ffffff', fontFamily: 'Aileron, sans-serif' }}
+              >
+                Entrar em contato
+              </Link>
             </div>
 
           </div>
@@ -461,7 +452,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="w-full bg-[#bb1c3c] py-6 md:py-8 relative flex items-center">
+          <div className="w-full bg-[#c51618] py-6 md:py-8 relative flex items-center">
             <div className="flex w-max animate-marquee items-center">
               <div className="flex gap-8 md:gap-12 pr-8 md:pr-12 items-center">
                 {[...clients, ...clients].map((client, idx) => (
@@ -520,15 +511,12 @@ export default function Home() {
                 style={{ opacity: logoOpacity, x: logoX }}
                 className="col-span-12 md:col-span-3 flex items-end justify-center md:justify-end"
               >
-                <h3
-                  className="text-white leading-tight tracking-tight uppercase text-right"
-                  style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900, fontSize: 'clamp(1.5rem, 2.5vw, 2.5rem)' }}
-                >
-                  UM<br />
-                  <span className="border-b-2 border-red-600">Brinde</span><br />
-                  E BONS<br />
-                  NEGÓ<br />CIOS
-                </h3>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://res.cloudinary.com/dyezpmorm/image/upload/v1781110698/Logos_vf20x8.png"
+                  alt="Brinde"
+                  className="w-full max-w-[280px] object-contain"
+                />
               </motion.div>
             </div>
           </div>

@@ -58,13 +58,13 @@ const services: ServiceData[] = [
   {
     id: 'reserva-especial',
     tag: 'Reserva Especial',
-    tagColor: '#bb1c3c',
+    tagColor: '#c51618',
     tagTextColor: '#ffffff',
     category: 'mal?',
     title: 'Reserva Especial',
     shortDesc:
       'Vendas, gestão de leads, alcance, reconhecimento. Não importa a finalidade, fazemos mensagens serem ouvidas e produtos serem vendidos. Sempre com um olhar para performance e dados.',
-    modalBg: '#bb1c3c',
+    modalBg: '#c51618',
     modalTextColor: '#ffffff',
     subtitle: 'Impacto',
     body: [
@@ -154,6 +154,7 @@ function ServiceModal({
       transition={{ duration: 0.3 }}
       className="fixed inset-0 z-50 overflow-y-auto"
       style={{ backgroundColor: '#ffffff', color: '#050a30' }}
+      data-lenis-prevent
     >
       {/* Botão fechar */}
       <button
@@ -202,7 +203,7 @@ function ServiceModal({
             <Link
               href="/contato"
               className="inline-flex items-center justify-center px-6 py-3 mt-4 rounded-full text-sm font-bold transition-transform hover:scale-[1.02] active:scale-[0.98] w-fit shadow-md"
-              style={{ backgroundColor: '#bb1c3c', color: '#ffffff', fontFamily: 'Aileron, sans-serif' }}
+              style={{ backgroundColor: '#c51618', color: '#ffffff', fontFamily: 'Aileron, sans-serif' }}
             >
               Entrar em contato
             </Link>
