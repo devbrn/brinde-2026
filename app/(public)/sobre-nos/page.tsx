@@ -446,9 +446,9 @@ export default function SobreNos() {
               style={{ opacity: onOpacity, y: onY }}
               className="flex flex-col items-end text-right gap-2"
             >
-              <h3 className="text-[4rem] md:text-[5.5rem] lg:text-[6.5rem] leading-none">
+              <h3 className="text-[2.8rem] md:text-[3.9rem] lg:text-[4.6rem] leading-none">
                 <span style={{ fontFamily: '"Tan Pearl", serif', color: '#050a30' }}>ON</span>
-                <span className="block text-[2rem] md:text-[2.8rem] lg:text-[3.2rem] uppercase -mt-2" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}>
+                <span className="block text-[3.4rem] md:text-[4.6rem] lg:text-[5.4rem] uppercase -mt-2" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}>
                   LINE
                 </span>
               </h3>
@@ -461,9 +461,9 @@ export default function SobreNos() {
               style={{ opacity: offOpacity, y: offY }}
               className="flex flex-col items-start text-left gap-2"
             >
-              <h3 className="text-[4rem] md:text-[5.5rem] lg:text-[6.5rem] leading-none">
+              <h3 className="text-[2.8rem] md:text-[3.9rem] lg:text-[4.6rem] leading-none">
                 <span style={{ fontFamily: '"Tan Pearl", serif', color: '#050a30' }}>OFF</span>
-                <span className="block text-[2rem] md:text-[2.8rem] lg:text-[3.2rem] uppercase -mt-2" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}>
+                <span className="block text-[3.4rem] md:text-[4.6rem] lg:text-[5.4rem] uppercase -mt-2" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}>
                   LINE
                 </span>
               </h3>
