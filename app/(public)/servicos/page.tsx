@@ -292,8 +292,14 @@ function ServiceCard({
       {/* Vídeo de fundo via iframe YouTube */}
       <iframe
         src={service.videoSrc}
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        style={{ border: 'none', transform: 'scale(2.2)', transformOrigin: 'center' }}
+        className="absolute pointer-events-none"
+        style={{
+          border: 'none',
+          top: '-15%',
+          left: '-15%',
+          width: '130%',
+          height: '130%',
+        }}
         allow="autoplay; mute"
         title={service.title}
       />
