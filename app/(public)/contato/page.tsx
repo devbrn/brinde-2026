@@ -92,7 +92,7 @@ export default function Contato() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#c51618] transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl text-[#050a30] placeholder:text-gray-400 focus:outline-none focus:border-[#c51618] transition-colors"
                 style={{ fontFamily: 'Aileron, sans-serif' }}
                 placeholder="Seu nome"
               />
@@ -112,7 +112,7 @@ export default function Contato() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#c51618] transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl text-[#050a30] placeholder:text-gray-400 focus:outline-none focus:border-[#c51618] transition-colors"
                 style={{ fontFamily: 'Aileron, sans-serif' }}
                 placeholder="seu@email.com"
               />
@@ -131,7 +131,7 @@ export default function Contato() {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#c51618] transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl text-[#050a30] placeholder:text-gray-400 focus:outline-none focus:border-[#c51618] transition-colors"
                 style={{ fontFamily: 'Aileron, sans-serif' }}
                 placeholder="(11) 99999-9999"
               />
@@ -150,7 +150,7 @@ export default function Contato() {
                 name="company"
                 value={formData.company}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#c51618] transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl text-[#050a30] placeholder:text-gray-400 focus:outline-none focus:border-[#c51618] transition-colors"
                 style={{ fontFamily: 'Aileron, sans-serif' }}
                 placeholder="Sua empresa"
               />
@@ -169,7 +169,7 @@ export default function Contato() {
                 value={formData.service}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#c51618] transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl text-[#050a30] placeholder:text-gray-400 focus:outline-none focus:border-[#c51618] transition-colors"
                 style={{ fontFamily: 'Aileron, sans-serif' }}
               >
                 <option value="">Selecione um serviço</option>
@@ -196,7 +196,7 @@ export default function Contato() {
                 onChange={handleChange}
                 required
                 rows={6}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#c51618] transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl text-[#050a30] placeholder:text-gray-400 focus:outline-none focus:border-[#c51618] transition-colors"
                 style={{ fontFamily: 'Aileron, sans-serif' }}
                 placeholder="Conte mais sobre seu projeto"
               />
