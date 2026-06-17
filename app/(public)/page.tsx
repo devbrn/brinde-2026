@@ -157,17 +157,17 @@ export default function Home() {
     offset: ['start end', 'end start'],
   });
 
-  const v1Opacity = useTransform(videosProgress, [0.12, 0.30], [0, 1]);
-  const v1X = useTransform(videosProgress, [0.12, 0.30], [-100, 0]);
+  const v1Opacity = useTransform(videosProgress, [0.06, 0.18], [0, 1]);
+  const v1X = useTransform(videosProgress, [0.06, 0.18], [-100, 0]);
 
-  const v2Opacity = useTransform(videosProgress, [0.22, 0.40], [0, 1]);
-  const v2X = useTransform(videosProgress, [0.22, 0.40], [-100, 0]);
+  const v2Opacity = useTransform(videosProgress, [0.12, 0.24], [0, 1]);
+  const v2X = useTransform(videosProgress, [0.12, 0.24], [-100, 0]);
 
-  const v3Opacity = useTransform(videosProgress, [0.32, 0.50], [0, 1]);
-  const v3X = useTransform(videosProgress, [0.32, 0.50], [-100, 0]);
+  const v3Opacity = useTransform(videosProgress, [0.18, 0.30], [0, 1]);
+  const v3X = useTransform(videosProgress, [0.18, 0.30], [-100, 0]);
 
-  const logoOpacity = useTransform(videosProgress, [0.42, 0.58], [0, 1]);
-  const logoX = useTransform(videosProgress, [0.42, 0.58], [-100, 0]);
+  const logoOpacity = useTransform(videosProgress, [0.24, 0.36], [0, 1]);
+  const logoX = useTransform(videosProgress, [0.24, 0.36], [-100, 0]);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -484,38 +484,49 @@ export default function Home() {
 
         {/* ─── 6. UM BRINDE E BONS NEGÓCIOS ─── */}
         <section ref={videosSectionRef} className="min-w-full shrink-0 bg-[#050a30] px-4 md:px-8" style={{ paddingTop: 'clamp(4rem, 10vh, 10rem)', paddingBottom: 'clamp(4rem, 10vh, 10rem)' }}>
-          <div className="w-full max-w-[1100px] mx-auto">
-            <div className="grid grid-cols-12 gap-2 md:gap-3 items-end justify-items-center">
+          <div className="relative w-full">
+            <div className="flex flex-col md:flex-row justify-center items-end gap-2 md:gap-3">
               <motion.div
                 style={{ opacity: v1Opacity, x: v1X }}
-                className="col-span-12 md:col-span-3 relative aspect-[9/16] w-full rounded-2xl overflow-hidden bg-[#050a30] shadow-2xl"
+                className="w-full md:w-[260px] relative aspect-[9/16] rounded-2xl overflow-hidden bg-[#050a30] shadow-2xl"
               >
                 <ClickableVideo videoId={videoItems[0].id} title={videoItems[0].title} />
               </motion.div>
 
               <motion.div
                 style={{ opacity: v2Opacity, x: v2X }}
-                className="col-span-12 md:col-span-3 relative aspect-[9/16] w-full rounded-2xl overflow-hidden bg-[#050a30] shadow-2xl"
+                className="w-full md:w-[260px] relative aspect-[9/16] rounded-2xl overflow-hidden bg-[#050a30] shadow-2xl"
               >
                 <ClickableVideo videoId={videoItems[1].id} title={videoItems[1].title} />
               </motion.div>
 
               <motion.div
                 style={{ opacity: v3Opacity, x: v3X }}
-                className="col-span-12 md:col-span-3 relative aspect-[9/16] w-full rounded-2xl overflow-hidden bg-[#050a30] shadow-2xl"
+                className="w-full md:w-[260px] relative aspect-[9/16] rounded-2xl overflow-hidden bg-[#050a30] shadow-2xl"
               >
                 <ClickableVideo videoId={videoItems[2].id} title={videoItems[2].title} />
               </motion.div>
+            </div>
 
-              <motion.div
-                style={{ opacity: logoOpacity, x: logoX }}
-                className="col-span-12 md:col-span-3 flex items-end justify-center md:justify-end"
-              >
+            <motion.div
+              style={{ opacity: logoOpacity, x: logoX }}
+              className="hidden md:block md:absolute md:left-[calc(50%+426px)] md:bottom-0 md:w-[260px]"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://res.cloudinary.com/dyezpmorm/image/upload/v1781110698/Logos_vf20x8.png"
+                alt="Brinde"
+                className="w-full max-w-[280px] object-contain"
+              />
+            </motion.div>
+
+            <div className="md:hidden flex justify-center mt-3">
+              <motion.div style={{ opacity: logoOpacity, x: logoX }} className="w-[180px]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="https://res.cloudinary.com/dyezpmorm/image/upload/v1781110698/Logos_vf20x8.png"
                   alt="Brinde"
-                  className="w-full max-w-[280px] object-contain"
+                  className="w-full object-contain"
                 />
               </motion.div>
             </div>
