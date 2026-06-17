@@ -247,12 +247,12 @@ export default function Premio() {
       </div>
 
       {/* ─── PG 20: Troféu Ouro ─── */}
-      <section className="relative w-full h-screen overflow-hidden -mt-[20vh]">
+      <section className="relative w-full h-screen overflow-hidden -mt-[20vh] bg-white">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="https://res.cloudinary.com/dyezpmorm/image/upload/v1781110726/Site_Brinde_2026_1_jwnfgc.webp"
           alt="Ouro Mídia Festival 2025"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-contain"
         />
       </section>
     </>
