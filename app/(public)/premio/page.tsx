@@ -155,11 +155,6 @@ export default function Premio() {
   const lightOpacity = useTransform(scrollYProgress, [0.55, 0.7], [0, 1]);
   const lightX = useTransform(scrollYProgress, [0.55, 0.75], [600, 0]);
 
-  // Troféu fade
-  const trofOpacity = useTransform(scrollYProgress, [0.82, 0.95], [0, 1]);
-  const trofX = useTransform(scrollYProgress, [0.82, 0.95], [-80, 0]);
-  const trofTextOpacity = useTransform(scrollYProgress, [0.86, 1], [0, 1]);
-
   return (
     <>
       {/* ─── PG 16: VÍDEO DO PRÊMIO ─── */}
@@ -197,7 +192,7 @@ export default function Premio() {
       </motion.section>
 
       {/* ─── PG 17-20: Scroll horizontal + transição p/ light ─── */}
-      <div ref={containerRef} className="relative" style={{ height: '500vh' }}>
+      <div ref={containerRef} className="relative z-10" style={{ height: '300vh' }}>
         <motion.div
           style={{ backgroundColor: bgColor }}
           className="sticky top-0 h-screen w-full overflow-hidden"
@@ -252,62 +247,13 @@ export default function Premio() {
       </div>
 
       {/* ─── PG 20: Troféu Ouro ─── */}
-      <section className="bg-white py-24 md:py-32 px-6 md:px-12">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
-          <motion.div
-            style={{ opacity: trofOpacity, x: trofX }}
-            className="flex flex-col items-start gap-6"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://via.placeholder.com/500x500/000000/FFFFFF?text=Troféu"
-              alt="Troféu Ouro"
-              className="w-full max-w-[400px] h-auto"
-            />
-            <div className="flex flex-col">
-              <span
-                className="text-2xl md:text-3xl text-[#050a30] italic"
-                style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}
-              >
-                OURO
-              </span>
-              <span
-                className="text-sm md:text-base text-gray-700 italic"
-                style={{ fontFamily: 'Aileron, sans-serif' }}
-              >
-                MÍDIA FESTIVAL
-                <br />
-                2025
-              </span>
-            </div>
-          </motion.div>
-
-          <motion.div
-            style={{ opacity: trofTextOpacity }}
-            className="flex flex-col items-center text-center gap-6"
-          >
-            <p
-              className="text-sm md:text-base tracking-[0.2em] uppercase text-[#050a30]"
-              style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 700 }}
-            >
-              Branding Identidade Visual Marca
-            </p>
-            <div className="bg-[#050a30] text-white rounded-full px-10 py-8 inline-flex flex-col items-center">
-              <span className="text-2xl md:text-3xl font-bold" style={{ fontFamily: 'Aileron, sans-serif' }}>
-                a Mídia FESTIVAL
-              </span>
-              <span className="text-3xl md:text-4xl font-bold" style={{ fontFamily: 'Aileron, sans-serif' }}>
-                2025
-              </span>
-            </div>
-            <p
-              className="text-xs md:text-sm tracking-[0.2em] uppercase text-gray-600"
-              style={{ fontFamily: 'Aileron, sans-serif' }}
-            >
-              35ª Edição Mídia Festival 2025
-            </p>
-          </motion.div>
-        </div>
+      <section className="relative w-full h-screen overflow-hidden -mt-[20vh]">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://res.cloudinary.com/dyezpmorm/image/upload/v1781110726/Site_Brinde_2026_1_jwnfgc.webp"
+          alt="Ouro Mídia Festival 2025"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
       </section>
     </>
   );

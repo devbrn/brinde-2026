@@ -273,12 +273,12 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="pt-20 bg-[#050a30] min-h-screen w-full">
+    <div className="bg-[#050a30] min-h-screen w-full">
 
       <div
         ref={scrollRef}
         data-lenis-prevent
-        className="flex w-full h-[calc(100vh-80px)] overflow-x-auto overflow-y-hidden snap-x snap-mandatory hide-scrollbar"
+        className="flex w-full h-screen overflow-x-auto overflow-y-hidden snap-x snap-mandatory hide-scrollbar"
       >
         {/* ─── 1. HERO ─── */}
         <section className="min-w-full h-full shrink-0 snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
@@ -378,7 +378,7 @@ export default function Home() {
         {/* ─── 3. PRÊMIO ─── */}
         <section className="min-w-full h-full shrink-0 snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
           <iframe
-            src="https://www.youtube.com/embed/vB5FYlsGybM?autoplay=1&mute=1&loop=1&playlist=vB5FYlsGybM&controls=0&showinfo=0&rel=0&modestbranding=1"
+            src="https://www.youtube.com/embed/h4bOPkceXR0?autoplay=1&mute=1&loop=1&playlist=h4bOPkceXR0&controls=0&showinfo=0&rel=0&modestbranding=1"
             className="absolute inset-0 w-full h-full pointer-events-none"
             style={{ border: 'none', transform: 'scale(1.4)', transformOrigin: 'center' }}
             allow="autoplay; mute"
