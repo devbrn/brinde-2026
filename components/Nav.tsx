@@ -9,22 +9,15 @@ export function Nav() {
   useEffect(() => {
     const THRESHOLD = 80;
     let footerVisible = false;
-    let scrolledPast = false;
 
     const update = () => {
-      setVisible(!scrolledPast || footerVisible);
-    };
-
-    const onScroll = () => {
-      scrolledPast = window.scrollY > THRESHOLD;
-      update();
-    };
-
-    const onHorizontalScroll = () => {
       const el = document.querySelector('[data-lenis-prevent]') as HTMLElement | null;
-      scrolledPast = (el?.scrollLeft ?? 0) > THRESHOLD || window.scrollY > THRESHOLD;
-      update();
+      const hScrolled = (el?.scrollLeft ?? 0) > THRESHOLD;
+      const vScrolled = window.scrollY > THRESHOLD;
+      setVisible(!(hScrolled || vScrolled) || footerVisible);
     };
+
+    const onScroll = () => update();
 
     const footer = document.querySelector('footer');
     let observer: IntersectionObserver | null = null;
@@ -40,26 +33,26 @@ export function Nav() {
       observer.observe(footer);
     }
 
-    let horizontalEl = document.querySelector('[data-lenis-prevent]');
-    horizontalEl?.addEventListener('scroll', onHorizontalScroll, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
 
-    const attachInterval = window.setInterval(() => {
-      const found = document.querySelector('[data-lenis-prevent]');
-      if (found && found !== horizontalEl) {
-        horizontalEl?.removeEventListener('scroll', onHorizontalScroll);
-        horizontalEl = found;
-        horizontalEl.addEventListener('scroll', onHorizontalScroll, { passive: true });
+    let hEl: HTMLElement | null = null;
+    const attachHorizontal = () => {
+      const el = document.querySelector('[data-lenis-prevent]') as HTMLElement | null;
+      if (el && el !== hEl) {
+        hEl?.removeEventListener('scroll', onScroll);
+        hEl = el;
+        el.addEventListener('scroll', onScroll, { passive: true });
       }
-      if (found) window.clearInterval(attachInterval);
-    }, 200);
+    };
+    attachHorizontal();
+    const interval = window.setInterval(attachHorizontal, 500);
 
-    window.addEventListener('scroll', onHorizontalScroll, { passive: true });
-    onHorizontalScroll();
+    update();
 
     return () => {
-      window.removeEventListener('scroll', onHorizontalScroll);
-      horizontalEl?.removeEventListener('scroll', onHorizontalScroll);
-      window.clearInterval(attachInterval);
+      window.removeEventListener('scroll', onScroll);
+      hEl?.removeEventListener('scroll', onScroll);
+      window.clearInterval(interval);
       observer?.disconnect();
     };
   }, []);
