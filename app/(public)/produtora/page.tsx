@@ -3,6 +3,10 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { VideoModal } from '@/components/VideoModal';
 import { useRef, useEffect, useState } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const plans = [
   {
@@ -176,9 +180,12 @@ const solucoes = [
 ];
 
 export default function Home() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const isScrolling = useRef(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const [hoveredSolucao, setHoveredSolucao] = useState<number | null>(null);
+  const [activeVideo, setActiveVideo] = useState<number | null>(null);
+  const [loadedVideo, setLoadedVideo] = useState<number | null>(null);
 
   const videosSectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress: videosProgress } = useScroll({
@@ -192,96 +199,63 @@ export default function Home() {
   const v4Opacity = useTransform(videosProgress, [0.34, 0.50], [0, 1]);
 
   useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
+    const section = sectionRef.current;
+    const track = trackRef.current;
+    const wrapper = wrapperRef.current;
+    const mm = gsap.matchMedia();
 
-    const handleWheel = (e: WheelEvent) => {
-      // If we are vertically scrolled down the page, don't intercept wheel events for horizontal scrolling!
-      if (window.scrollY > 5) return;
+    mm.add('(max-width: 1023px)', () => {
+      section?.setAttribute('data-lenis-prevent', '');
+      return () => section?.removeAttribute('data-lenis-prevent');
+    });
 
-      // Check if we're scrolling horizontally already (trackpad horizontal swipe)
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    mm.add('(min-width: 1024px)', () => {
+      if (!section || !track || !wrapper) return;
 
-      // Find closest scrollable parent
-      let target = e.target as HTMLElement | null;
-      let isVerticallyScrollable = false;
-      let isAtTop = false;
-      let isAtBottom = false;
+      const getScrollAmount = () =>
+        -(track.scrollWidth - window.innerWidth);
 
-      while (target && target !== el) {
-        if (target.scrollHeight > target.clientHeight) {
-          const style = window.getComputedStyle(target);
-          if (style.overflowY === 'auto' || style.overflowY === 'scroll') {
-            isVerticallyScrollable = true;
-            isAtTop = target.scrollTop <= 0;
-            isAtBottom = Math.abs(target.scrollHeight - target.clientHeight - target.scrollTop) <= 1;
-            break;
-          }
-        }
-        target = target.parentElement;
-      }
+      const setWrapperHeight = () => {
+        wrapper.style.height = `${window.innerHeight + Math.abs(getScrollAmount())}px`;
+      };
+      setWrapperHeight();
 
-      if (isVerticallyScrollable) {
-        if (e.deltaY > 0 && !isAtBottom) return; // Allow natural scroll down
-        if (e.deltaY < 0 && !isAtTop) return;    // Allow natural scroll up
-      }
-
-      // Check if we are at the end of horizontal container
-      const isAtRightEnd = el.scrollLeft >= el.scrollWidth - el.clientWidth - 10;
-      
-      // If scrolling down and at the rightmost slide, let it scroll down the page natively!
-      if (e.deltaY > 0 && isAtRightEnd) return;
-
-      // Convert vertical scroll to horizontal scroll
-      e.preventDefault();
-
-      if (isScrolling.current) return;
-      isScrolling.current = true;
-
-      const direction = e.deltaY > 0 ? 1 : -1;
-      el.scrollBy({
-        left: direction * window.innerWidth,
-        behavior: 'smooth'
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrapper,
+          start: 'top top',
+          end: () => `+=${Math.abs(getScrollAmount())}`,
+          scrub: true,
+          invalidateOnRefresh: true,
+          onRefresh: setWrapperHeight,
+        },
       });
 
-      // Release lock after smooth scroll animation completes
-      setTimeout(() => {
-        isScrolling.current = false;
-      }, 700);
-    };
+      tl.to(track, {
+        x: getScrollAmount,
+        ease: 'none',
+        duration: 10,
+      });
 
-    el.addEventListener('wheel', handleWheel, { passive: false });
+      return () => {
+        wrapper.style.height = '';
+      };
+    });
 
-    // Ensure horizontal container is at the end if we are scrolled down vertically
-    // This fixes the bug where refreshing the page or jumping down leaves the container at Slide 1
-    const handleScroll = () => {
-      if (window.scrollY > window.innerHeight * 0.8 && el) {
-        if (el.scrollLeft < el.scrollWidth - el.clientWidth - 10) {
-          el.scrollLeft = el.scrollWidth;
-        }
-      }
-    };
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    // Trigger once on mount to handle page refreshes restoring the vertical scroll position
-    handleScroll();
-
-    return () => {
-      el.removeEventListener('wheel', handleWheel);
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => mm.revert();
   }, []);
 
   return (
     <div className="bg-[#050a30] min-h-screen w-full">
 
-      <div
-        ref={scrollRef}
-        data-lenis-prevent
-        className="flex w-full h-screen overflow-x-auto overflow-y-hidden snap-x snap-mandatory hide-scrollbar"
-      >
+      <div ref={wrapperRef} className="relative">
+        <div
+          ref={sectionRef}
+          className="sticky top-0 h-screen overflow-x-auto overflow-y-hidden snap-x snap-mandatory hide-scrollbar lg:overflow-hidden lg:snap-none"
+        >
+          <div ref={trackRef} className="flex h-full w-max">
         {/* ─── 1. HERO ─── */}
-        <section className="min-w-full h-full shrink-0 snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
+        <section className="w-screen h-full shrink-0 snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
           {/* Background Video */}
           <video
             autoPlay
@@ -325,7 +299,7 @@ export default function Home() {
         </section>
 
         {/* ─── 2. SOBRE NÓS ─── */}
-        <section className="min-w-full h-full shrink-0 snap-start overflow-y-auto bg-white py-20 px-6 md:px-12">
+        <section className="w-screen h-full shrink-0 snap-start overflow-hidden bg-white py-16 px-6 md:px-12">
           <motion.div
             variants={staggerContainer}
             initial="hidden"
@@ -376,7 +350,7 @@ export default function Home() {
         </section>
 
         {/* ─── 3. PRÊMIO ─── */}
-        <section className="min-w-full h-full shrink-0 snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
+        <section className="w-screen h-full shrink-0 snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
           <iframe
             src="https://www.youtube.com/embed/h4bOPkceXR0?autoplay=1&mute=1&loop=1&playlist=h4bOPkceXR0&controls=0&showinfo=0&rel=0&modestbranding=1"
             className="absolute inset-0 w-full h-full pointer-events-none"
@@ -387,7 +361,9 @@ export default function Home() {
           
           <div className="absolute inset-0 bg-[#050a30]/50" />
         </section>
-      </div> {/* END HORIZONTAL SCROLL WRAPPER */}
+          </div>
+        </div>
+      </div>
 
       <div className="flex flex-col w-full">
         {/* ─── 4. SOLUÇÕES COMPLETAS ─── */}
@@ -456,15 +432,37 @@ export default function Home() {
         <section ref={videosSectionRef} className="min-w-full shrink-0 bg-[#050a30] py-32 md:py-40 px-6 md:px-12">
           <div className="w-full max-w-[1300px] mx-auto">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 items-end justify-items-center">
-              {([v1Opacity, v2Opacity, v3Opacity, v4Opacity] as const).map((opacity, i) => (
+              {(['48Tg9kbDKyI', 'b5ljyLD58Z0', 'kx9ldjEWszQ', 'BCk9qP7w1Ss'] as const).map((videoId, i) => (
                 <motion.div
                   key={i}
-                  style={{ opacity }}
-                  className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden bg-[#050a30] shadow-2xl"
+                  style={{ opacity: [v1Opacity, v2Opacity, v3Opacity, v4Opacity][i] }}
+                  onClick={() => activeVideo !== i && setActiveVideo(i)}
+                  className="relative aspect-[9/16] w-full max-w-[280px] rounded-2xl overflow-hidden bg-[#050a30] shadow-2xl cursor-pointer group"
                 >
-                  <video controls loop playsInline preload="metadata" className="w-full h-full object-cover">
-                    <source src="https://agenciabrinde.com.br/wp-content/uploads/2024/07/Video-do-WhatsApp-de-2024-07-22-as-13.46.45_7689d559.mp4" type="video/mp4" />
-                  </video>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+                    alt={`Vídeo ${i + 1}`}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  {loadedVideo !== i && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors">
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="white" className="drop-shadow-lg">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  )}
+                  {activeVideo === i && (
+                    <iframe
+                      src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
+                      className="absolute inset-0 w-full h-full transition-opacity duration-300"
+                      style={{ border: 'none', opacity: loadedVideo === i ? 1 : 0 }}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      title={`Vídeo ${i + 1}`}
+                      onLoad={() => setLoadedVideo(i)}
+                    />
+                  )}
                 </motion.div>
               ))}
             </div>

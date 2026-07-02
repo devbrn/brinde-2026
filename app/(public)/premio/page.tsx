@@ -1,159 +1,156 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-type Card = {
+gsap.registerPlugin(ScrollTrigger);
+
+type StoryCard = {
   label?: string;
   quote?: string;
   image?: string;
-  width: number; // px
-  height: number; // px
-  marginTop?: number;
-  speed?: number; // velocity multiplier (1=base, >1 faster, <1 slower)
+  widthClass: string;
+  mtClass: string;
+  parallax: number;
 };
 
-function CardItem({
-  card,
-  baseX,
-  opacity,
-}: {
-  card: Card;
-  baseX: ReturnType<typeof useTransform<number, number>>;
-  opacity: ReturnType<typeof useTransform<number, number>>;
-}) {
-  const speed = card.speed ?? 1;
-  const x = useTransform(baseX, (v) => v * speed);
-
-  return (
-    <motion.div
-      style={{
-        width: card.width,
-        marginTop: card.marginTop ?? 0,
-        x,
-        opacity,
-      }}
-      className="shrink-0 flex flex-col gap-4"
-    >
-      {card.label && (
-        <span
-          className="text-white text-sm md:text-base font-bold"
-          style={{ fontFamily: 'Aileron, sans-serif' }}
-        >
-          {card.label}
-        </span>
-      )}
-      {card.quote ? (
-        <p
-          className="text-[#e8a8a8] text-2xl md:text-3xl leading-snug px-4"
-          style={{ fontFamily: '"Tan Pearl", serif' }}
-        >
-          {card.quote}
-        </p>
-      ) : (
-        <div
-          style={{ height: card.height }}
-          className="w-full rounded-2xl overflow-hidden border border-red-900/50 bg-[#050a30]"
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={card.image}
-            alt={card.label ?? ''}
-            className="w-full h-full object-cover"
-          />
-        </div>
-      )}
-    </motion.div>
-  );
-}
-
-const cards: Card[] = [
+const cards: StoryCard[] = [
   {
     label: 'Fundada 2021',
-    image: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=900',
-    width: 480,
-    height: 360,
-    marginTop: 60,
-    speed: 1.0,
+    image:
+      'https://res.cloudinary.com/dyezpmorm/image/upload/v1782928921/Fundada_2021_opyejj.png',
+    widthClass: 'w-[70vw] lg:w-[35vw] xl:w-[28vw]',
+    mtClass: 'mt-[6vh]',
+    parallax: -80,
   },
   {
     quote: 'Mais importante que o começo, é a forma como evoluímos.',
-    width: 420,
-    height: 260,
-    marginTop: 360,
-    speed: 1.0,
+    widthClass: 'w-[65vw] lg:w-[28vw] xl:w-[22vw]',
+    mtClass: 'mt-[18vh]',
+    parallax: 0,
   },
   {
     label: 'Consolidação 2022',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=700',
-    width: 380,
-    height: 280,
-    marginTop: 0,
-    speed: 1.10,
+    image:
+      'https://res.cloudinary.com/dyezpmorm/image/upload/v1782928921/Consolida%C3%A7%C3%A3o_2022_jvd3vw.png',
+    widthClass: 'w-[60vw] lg:w-[28vw] xl:w-[22vw]',
+    mtClass: 'mt-[-4vh]',
+    parallax: 60,
   },
   {
     label: 'Identidade 2023',
-    image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=900',
-    width: 540,
-    height: 380,
-    marginTop: 580,
-    speed: 1.25,
+    image:
+      'https://res.cloudinary.com/dyezpmorm/image/upload/v1782924825/IMG_5747_zjexv0.jpg',
+    widthClass: 'w-[75vw] lg:w-[38vw] xl:w-[30vw]',
+    mtClass: 'mt-[14vh]',
+    parallax: -100,
   },
   {
     label: 'Expansão 2024',
-    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=900',
-    width: 460,
-    height: 340,
-    marginTop: -240,
-    speed: 1.35,
+    image:
+      'https://res.cloudinary.com/dyezpmorm/image/upload/v1782928921/Expans%C3%A3o_2024_ddgu2e.png',
+    widthClass: 'w-[68vw] lg:w-[32vw] xl:w-[25vw]',
+    mtClass: 'mt-[-10vh]',
+    parallax: 70,
   },
   {
     label: 'Validação 2025',
-    image: 'https://images.unsplash.com/photo-1606857521015-7f9fcf423740?w=1000',
-    width: 620,
-    height: 440,
-    marginTop: 440,
-    speed: 1.4,
+    image:
+      'https://res.cloudinary.com/dyezpmorm/image/upload/v1782928920/Valida%C3%A7%C3%A3o_2025_tllu3k.png',
+    widthClass: 'w-[80vw] lg:w-[42vw] xl:w-[33vw]',
+    mtClass: 'mt-[10vh]',
+    parallax: -90,
   },
 ];
 
 export default function Premio() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: containerRef });
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const imageRefs = useRef<(HTMLImageElement | null)[]>([]);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Scroll horizontal: 0→0.6 do progress = translate cards
-  const totalCardsWidth = cards.reduce((s, c) => s + c.width + 80, 0); // gap 80
-  const x = useTransform(
-    scrollYProgress,
-    [0, 0.6],
-    [0, -(totalCardsWidth - 1200)] // ajustável depois
-  );
+  useEffect(() => {
+    const section = sectionRef.current;
+    const track = trackRef.current;
+    const wrapper = wrapperRef.current;
+    const mm = gsap.matchMedia();
 
-  // Fade dark → white
-  const bgColor = useTransform(
-    scrollYProgress,
-    [0.55, 0.65],
-    ['#050a30', '#ffffff']
-  );
-  const titleColor = useTransform(
-    scrollYProgress,
-    [0.55, 0.65],
-    ['#ffffff', '#050a30']
-  );
+    mm.add('(max-width: 1023px)', () => {
+      section?.setAttribute('data-lenis-prevent', '');
+      return () => section?.removeAttribute('data-lenis-prevent');
+    });
 
-  // Cards fade-out na transição (stays 0 after)
-  const cardsOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.55, 0.65, 1],
-    [1, 1, 0, 0]
-  );
-  const cardsVisibility = useTransform(cardsOpacity, (v) =>
-    v <= 0.01 ? 'hidden' : 'visible'
-  );
+    mm.add('(min-width: 1024px)', () => {
+      if (!section || !track || !wrapper) return;
+      section.removeAttribute('data-lenis-prevent');
 
-  // Light content slides in from right → left (acompanha cards), fade junto com bg
-  const lightOpacity = useTransform(scrollYProgress, [0.55, 0.7], [0, 1]);
-  const lightX = useTransform(scrollYProgress, [0.55, 0.75], [600, 0]);
+      const getScrollAmount = () =>
+        -(track.scrollWidth - window.innerWidth);
+
+      const setWrapperHeight = () => {
+        wrapper.style.height = `${window.innerHeight + Math.abs(getScrollAmount())}px`;
+      };
+      setWrapperHeight();
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrapper,
+          start: 'top top',
+          end: () => `+=${Math.abs(getScrollAmount())}`,
+          scrub: true,
+          invalidateOnRefresh: true,
+          onRefresh: setWrapperHeight,
+        },
+      });
+
+      const horizontalTween = gsap.to(track, {
+        x: getScrollAmount,
+        ease: 'none',
+        duration: 10,
+      });
+
+      tl.add(horizontalTween, 0);
+
+      imageRefs.current.forEach((img, i) => {
+        if (!img) return;
+        const card = cards[i];
+        if (!card || card.parallax === 0) return;
+        gsap.set(img, { scale: 1.2 });
+        tl.to(
+          img,
+          { x: card.parallax, ease: 'none', duration: 10 },
+          0,
+        );
+      });
+
+      tl.to(section, { backgroundColor: '#ffffff', ease: 'none', duration: 3 }, 4);
+
+      cardRefs.current.forEach((cardEl, i) => {
+        if (!cardEl) return;
+        tl.fromTo(
+          cardEl,
+          { opacity: 0, y: 40, scale: 0.95 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            ease: 'power2.out',
+            duration: 1.5,
+          },
+          i * 0.7,
+        );
+      });
+
+      return () => {
+        wrapper.style.height = '';
+      };
+    });
+
+    return () => mm.revert();
+  }, []);
 
   return (
     <>
@@ -191,60 +188,88 @@ export default function Premio() {
         </motion.h1>
       </motion.section>
 
-      {/* ─── PG 17-20: Scroll horizontal + transição p/ light ─── */}
-      <div ref={containerRef} className="relative z-10" style={{ height: '300vh' }}>
-        <motion.div
-          style={{ backgroundColor: bgColor }}
-          className="sticky top-0 h-screen w-full overflow-hidden"
+      {/* ─── PG 17-18: Horizontal scroll com sticky + parallax (GSAP) ─── */}
+      <div ref={wrapperRef} className="relative">
+        <section
+          ref={sectionRef}
+          className="sticky top-0 h-screen w-full bg-[#050a30] overflow-x-auto lg:overflow-hidden snap-x snap-mandatory lg:snap-none"
         >
-          {/* Título PRÊMIO fixo */}
-          <motion.h2
-            style={{ color: titleColor }}
-            className="absolute top-28 md:top-36 left-8 md:left-16 z-30 text-[2rem] md:text-[3rem] lg:text-[4rem] leading-none"
-          >
-            <span style={{ fontFamily: '"Tan Pearl", serif' }}>Prêmio</span>
-          </motion.h2>
-
-          {/* ─── Cards horizontais (pg 17-18) ─── */}
-          <motion.div
-            style={{ opacity: cardsOpacity, visibility: cardsVisibility }}
-            className="absolute inset-0 flex items-center gap-20 pl-[15vw] pr-[15vw]"
-          >
-            {cards.map((card, i) => (
-              <CardItem key={i} card={card} baseX={x} opacity={cardsOpacity} />
-            ))}
-          </motion.div>
-
-          {/* ─── PG 19: Texto Prêmio (aparece após cards) ─── */}
-          <motion.div
-            style={{ opacity: lightOpacity, x: lightX }}
-            className="absolute inset-0 flex items-center px-6 md:px-16 lg:px-24 pointer-events-none"
-          >
-            <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 w-full pt-32">
-              <p
-                className="text-2xl md:text-3xl lg:text-4xl text-[#050a30] leading-snug"
-                style={{ fontFamily: 'Aileron, sans-serif' }}
-              >
-                O 35º Mídia Festival reconheceu o que acreditamos desde o primeiro dia: estratégia, criação e consistência constroem marcas fortes.
-              </p>
-              <div className="flex flex-col gap-6">
-                <p
-                  className="text-base md:text-lg text-gray-800 leading-relaxed"
+        <div
+          ref={trackRef}
+          className="flex h-full items-center gap-8 lg:gap-24 px-[8vw] lg:px-[12vw] w-max"
+        >
+          {cards.map((card, i) => (
+            <div
+              key={i}
+              ref={(el) => {
+                cardRefs.current[i] = el;
+              }}
+              className={`shrink-0 flex flex-col gap-4 snap-center ${card.widthClass} ${card.mtClass}`}
+            >
+              {card.label && (
+                <span
+                  className="text-white text-sm md:text-base font-bold"
                   style={{ fontFamily: 'Aileron, sans-serif' }}
                 >
-                  Receber o troféu de ouro é a prova de que a Brinde caminha na direção certa. Entre mais de 300 agências, nosso trabalho se destacou pela forma como unimos estratégia, estética e propósito para construir marcas relevantes.
-                </p>
+                  {card.label}
+                </span>
+              )}
+              {card.quote ? (
                 <p
-                  className="text-base md:text-lg text-gray-800 leading-relaxed"
-                  style={{ fontFamily: 'Aileron, sans-serif' }}
+                  className="text-white text-2xl md:text-3xl leading-snug px-4"
+                  style={{ fontFamily: '"Tan Pearl", serif' }}
                 >
-                  É reconhecimento do mercado e um marco que reforça nossa capacidade de entregar valor real.
+                  {card.quote}
                 </p>
-              </div>
+              ) : (
+                <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden border border-red-900/50 bg-[#050a30]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    ref={(el) => {
+                      imageRefs.current[i] = el;
+                    }}
+                    src={card.image}
+                    alt={card.label ?? ''}
+                    className="w-full h-full object-cover will-change-transform"
+                  />
+                </div>
+              )}
             </div>
-          </motion.div>
-        </motion.div>
+          ))}
+        </div>
+        </section>
       </div>
+
+      {/* ─── PG 19: Texto Prêmio ─── */}
+      <section className="bg-white flex items-center pt-8 pb-20 px-6 md:px-16 lg:px-24">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 w-full">
+          <p
+            className="text-2xl md:text-3xl lg:text-4xl text-[#050a30] leading-snug"
+            style={{ fontFamily: 'Aileron, sans-serif' }}
+          >
+            O 35º Mídia Festival reconheceu o que acreditamos desde o primeiro
+            dia: estratégia, criação e consistência constroem marcas fortes.
+          </p>
+          <div className="flex flex-col gap-6">
+            <p
+              className="text-base md:text-lg text-gray-800 leading-relaxed"
+              style={{ fontFamily: 'Aileron, sans-serif' }}
+            >
+              Receber o troféu de ouro é a prova de que a Brinde caminha na
+              direção certa. Entre mais de 300 agências, nosso trabalho se
+              destacou pela forma como unimos estratégia, estética e propósito
+              para construir marcas relevantes.
+            </p>
+            <p
+              className="text-base md:text-lg text-gray-800 leading-relaxed"
+              style={{ fontFamily: 'Aileron, sans-serif' }}
+            >
+              É reconhecimento do mercado e um marco que reforça nossa capacidade
+              de entregar valor real.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* ─── PG 20: Troféu Ouro ─── */}
       <section className="relative w-full h-screen overflow-hidden bg-white">

@@ -196,10 +196,6 @@ export default function SobreNos() {
   const titleScale = useTransform(brindeProgress, [0.05, 0.3], [0.85, 1]);
   const paraOpacity = useTransform(brindeProgress, [0.15, 0.4], [0, 1]);
   const paraY = useTransform(brindeProgress, [0.15, 0.4], [40, 0]);
-  const videoOpacity = useTransform(brindeProgress, [0.25, 0.5], [0, 1]);
-  const videoScale = useTransform(brindeProgress, [0.25, 0.5], [0.92, 1]);
-  // parallax do vídeo
-  const videoY = useTransform(brindeProgress, [0, 1], [80, -80]);
 
   // Planejamos e Executamos (pg 11)
   const planRef = useRef<HTMLElement>(null);
@@ -378,25 +374,6 @@ export default function SobreNos() {
           </motion.p>
         </div>
 
-        {/* Vídeo Institucional edge-to-edge w/ parallax */}
-        <motion.div
-          style={{
-            opacity: videoOpacity,
-            scale: videoScale,
-            y: videoY,
-            height: '50vh',
-          }}
-          className="relative w-screen left-1/2 right-1/2 -mx-[50vw] bg-[#050a30] overflow-hidden shadow-2xl"
-        >
-          <video
-            controls
-            playsInline
-            preload="metadata"
-            className="w-full h-full object-cover"
-          >
-            <source src="https://agenciabrinde.com.br/wp-content/uploads/2024/07/Video-do-WhatsApp-de-2024-07-22-as-13.46.45_7689d559.mp4" type="video/mp4" />
-          </video>
-        </motion.div>
       </section>
 
       {/* ─── FOTOS FIXAS (overlay) ─── */}
