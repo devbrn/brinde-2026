@@ -279,6 +279,8 @@ function ServiceCard({
   service: ServiceData;
   onClick: () => void;
 }) {
+  const videoId = service.videoSrc.match(/embed\/([a-zA-Z0-9_-]+)/)?.[1];
+
   return (
     <motion.div
       onClick={onClick}
@@ -286,23 +288,19 @@ function ServiceCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="relative overflow-hidden rounded-2xl cursor-pointer group"
-      style={{ height: '70vh' }}
+      className="relative overflow-hidden rounded-2xl cursor-pointer group aspect-[9/16] w-full bg-[#050a30]"
     >
-      {/* Vídeo de fundo via iframe YouTube */}
-      <iframe
-        src={service.videoSrc}
-        className="absolute pointer-events-none"
-        style={{
-          border: 'none',
-          top: '-15%',
-          left: '-15%',
-          width: '130%',
-          height: '130%',
-        }}
-        allow="autoplay; mute"
-        title={service.title}
-      />
+      {videoId && (
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img
+          src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+          onError={(e) => {
+            e.currentTarget.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+          }}
+          alt={service.title}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+      )}
 
       {/* Overlay gradiente permanente */}
       <div className="absolute inset-0 bg-gradient-to-t from-[#050a30]/80 via-[#050a30]/20 to-transparent" />
