@@ -297,7 +297,7 @@ function ServiceCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="relative overflow-hidden rounded-2xl cursor-pointer group aspect-[9/16] w-full bg-[#050a30]"
+      className="relative overflow-hidden rounded-2xl cursor-pointer group aspect-[9/16] w-[70%] mx-auto bg-[#050a30]"
     >
       {videoId && (
         /* eslint-disable-next-line @next/next/no-img-element */
@@ -321,7 +321,7 @@ function ServiceCard({
       />
 
       {/* Conteúdo inferior */}
-      <div className="absolute bottom-0 left-0 right-0 p-6 z-10 flex flex-col gap-2">
+      <div className="absolute bottom-0 left-0 right-0 p-6 z-10 flex flex-col items-center text-center gap-2">
         <h2
           className="text-white text-2xl md:text-3xl font-black leading-tight flex flex-col"
           style={{ fontFamily: 'Aileron, sans-serif' }}
@@ -330,13 +330,13 @@ function ServiceCard({
           <span>{service.titleBottom}</span>
         </h2>
         <p
-          className="text-white/80 text-sm leading-relaxed line-clamp-3"
+          className="text-white/80 text-base leading-relaxed line-clamp-3"
           style={{ fontFamily: 'Aileron, sans-serif' }}
         >
           {service.shortDesc}
         </p>
         <span
-          className="text-white text-sm font-semibold mt-2 group-hover:underline"
+          className="text-white text-base font-semibold mt-2 group-hover:underline"
           style={{ fontFamily: 'Aileron, sans-serif' }}
         >
           Saiba mais ↗
