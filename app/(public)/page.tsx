@@ -457,11 +457,21 @@ export default function Home() {
               <div className="flex gap-0 md:gap-0 pr-0 md:pr-0 items-center">
                 {[...clients, ...clients].map((client, idx) => (
                   <div key={`set1-${idx}`} className="h-40 md:h-56 w-[250px] md:w-[350px] -mt-[20px] md:-mt-[40px] -mb-[20px] md:-mb-[40px] flex-shrink-0 flex items-center justify-center">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={client.logo}
-                      alt={client.name}
-                      className="max-h-full max-w-full object-contain opacity-85 hover:opacity-100 transition-opacity duration-300"
+                    <div
+                      role="img"
+                      aria-label={client.name}
+                      className="max-h-full max-w-full w-full h-full opacity-85 hover:opacity-100 transition-opacity duration-300"
+                      style={{
+                        backgroundColor: '#050a30',
+                        WebkitMaskImage: `url(${client.logo})`,
+                        maskImage: `url(${client.logo})`,
+                        WebkitMaskRepeat: 'no-repeat',
+                        maskRepeat: 'no-repeat',
+                        WebkitMaskPosition: 'center',
+                        maskPosition: 'center',
+                        WebkitMaskSize: 'contain',
+                        maskSize: 'contain',
+                      }}
                     />
                   </div>
                 ))}
@@ -469,11 +479,21 @@ export default function Home() {
               <div className="flex gap-0 md:gap-0 pr-0 md:pr-0 items-center">
                 {[...clients, ...clients].map((client, idx) => (
                   <div key={`set2-${idx}`} className="h-40 md:h-56 w-[250px] md:w-[350px] -mt-[20px] md:-mt-[40px] -mb-[20px] md:-mb-[40px] flex-shrink-0 flex items-center justify-center">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={client.logo}
-                      alt={client.name}
-                      className="max-h-full max-w-full object-contain opacity-85 hover:opacity-100 transition-opacity duration-300"
+                    <div
+                      role="img"
+                      aria-label={client.name}
+                      className="max-h-full max-w-full w-full h-full opacity-85 hover:opacity-100 transition-opacity duration-300"
+                      style={{
+                        backgroundColor: '#050a30',
+                        WebkitMaskImage: `url(${client.logo})`,
+                        maskImage: `url(${client.logo})`,
+                        WebkitMaskRepeat: 'no-repeat',
+                        maskRepeat: 'no-repeat',
+                        WebkitMaskPosition: 'center',
+                        maskPosition: 'center',
+                        WebkitMaskSize: 'contain',
+                        maskSize: 'contain',
+                      }}
                     />
                   </div>
                 ))}
