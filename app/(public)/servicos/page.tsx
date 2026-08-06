@@ -21,6 +21,7 @@ type ServiceData = {
   planning: string[];
   execution: string[];
   videoSrc: string;
+  image: string;
 };
 
 const services: ServiceData[] = [
@@ -58,6 +59,7 @@ const services: ServiceData[] = [
       'Análise de métricas essenciais',
     ],
     videoSrc: 'https://www.youtube.com/embed/BCk9qP7w1Ss?autoplay=1&mute=1&loop=1&playlist=BCk9qP7w1Ss&controls=0&showinfo=0&rel=0&modestbranding=1',
+    image: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1785980787/brinde1_pftqvj.webp',
   },
   {
     id: 'reserva-especial',
@@ -98,6 +100,7 @@ const services: ServiceData[] = [
       'Integração de campanhas',
     ],
     videoSrc: 'https://www.youtube.com/embed/Ncpn5cD_oGg?autoplay=1&mute=1&loop=1&playlist=Ncpn5cD_oGg&controls=0&showinfo=0&rel=0&modestbranding=1',
+    image: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1785980790/brinde2_wu4d0p.webp',
   },
   {
     id: 'edicao-limitada',
@@ -136,6 +139,7 @@ const services: ServiceData[] = [
       'Relatórios estratégicos de conversão',
     ],
     videoSrc: 'https://www.youtube.com/embed/48Tg9kbDKyI?autoplay=1&mute=1&loop=1&playlist=48Tg9kbDKyI&controls=0&showinfo=0&rel=0&modestbranding=1',
+    image: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1785980793/brinde3_c814td.webp',
   },
 ];
 
@@ -288,8 +292,6 @@ function ServiceCard({
   service: ServiceData;
   onClick: () => void;
 }) {
-  const videoId = service.videoSrc.match(/embed\/([a-zA-Z0-9_-]+)/)?.[1];
-
   return (
     <motion.div
       onClick={onClick}
@@ -299,17 +301,12 @@ function ServiceCard({
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="relative overflow-hidden rounded-2xl cursor-pointer group aspect-[9/16] w-[85%] mx-auto bg-[#050a30]"
     >
-      {videoId && (
-        /* eslint-disable-next-line @next/next/no-img-element */
-        <img
-          src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
-          onError={(e) => {
-            e.currentTarget.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-          }}
-          alt={service.title}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-      )}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={service.image}
+        alt={service.title}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+      />
 
       {/* Overlay gradiente permanente */}
       <div className="absolute inset-0 bg-gradient-to-t from-[#050a30]/80 via-[#050a30]/20 to-transparent" />
