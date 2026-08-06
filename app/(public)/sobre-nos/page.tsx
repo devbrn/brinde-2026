@@ -183,6 +183,15 @@ const perfNodes: PerfNode[] = [
   { label: 'Mídia On', angle: 309, description: 'Google ADS\nLinkedin ADS\nMeta ADS\nTiktok ADS\nGoogle Search\nMonitoramento', descAlign: 'left' },
 ];
 
+const fases = [
+  { numero: '01', foco: 'NEGÓCIO', desenvolvimento: 'Compreender · Diagnosticar · Direcionar' },
+  { numero: '02', foco: 'PÚBLICO', desenvolvimento: 'Mapear · Segmentar · Priorizar' },
+  { numero: '03', foco: 'MENSAGEM', desenvolvimento: 'Posicionar · Traduzir · Diferenciar' },
+  { numero: '04', foco: 'CANAIS', desenvolvimento: 'Selecionar · Integrar · Distribuir' },
+  { numero: '05', foco: 'CAMPANHA', desenvolvimento: 'Planejar · Executar · Otimizar' },
+  { numero: '06', foco: 'ORÇAMENTOS', desenvolvimento: 'Atrair · Qualificar · Encaminhar' },
+];
+
 export default function SobreNos() {
   const heroRef = useRef<HTMLElement>(null);
 
@@ -227,6 +236,8 @@ export default function SobreNos() {
   const perfCenterOpacity = useTransform(perfProgress, [0.05, 0.18], [0, 1]);
   const perfCenterScale = useTransform(perfProgress, [0.05, 0.18], [0.92, 1]);
   const perfRingOpacity = useTransform(perfProgress, [0.08, 0.20], [0, 1]);
+
+  const [hoveredFase, setHoveredFase] = useState<number | null>(1);
 
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
@@ -284,27 +295,33 @@ export default function SobreNos() {
         className="bg-white py-20 md:py-28 px-6 md:px-12"
       >
         <div className="max-w-[1400px] mx-auto">
-          <motion.h1
-            variants={{
-              hidden: { opacity: 0, y: 40, filter: 'blur(12px)' },
-              visible: {
-                opacity: 1,
-                y: 0,
-                filter: 'blur(0px)',
-                transition: { duration: 1.1, ease: [0.22, 1, 0.36, 1] },
-              },
-            }}
-            className="uppercase tracking-tight text-[#050a30] text-[1.6rem] sm:text-[2.2rem] md:text-[3rem] lg:text-[4rem] xl:text-[4.6rem] leading-[1.05] mb-12"
-          >
-            <span style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}>
-              Brinde, uma agência de publicidade{' '}
-            </span>
-            <span style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>
-              FULL SERVICE
-            </span>
-          </motion.h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 mb-14 md:mb-20">
+            <motion.h1
+              variants={{
+                hidden: { opacity: 0, y: 40, filter: 'blur(12px)' },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  filter: 'blur(0px)',
+                  transition: { duration: 1.1, ease: [0.22, 1, 0.36, 1] },
+                },
+              }}
+              className="uppercase tracking-tight text-[#050a30] text-[1.8rem] sm:text-[2.4rem] md:text-[3rem] lg:text-[3.6rem] leading-[1.05]"
+            >
+              <span style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}>
+                UMA AGÊNCIA{' '}
+              </span>
+              <span style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}>
+                QUE{' '}
+              </span>
+              <span style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>
+                COMEÇA{' '}
+              </span>
+              <span style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>
+                PELO NEGÓCIO
+              </span>
+            </motion.h1>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20">
             <motion.p
               variants={{
                 hidden: { opacity: 0, y: 30, filter: 'blur(8px)' },
@@ -315,39 +332,60 @@ export default function SobreNos() {
                   transition: { duration: 1, ease: [0.22, 1, 0.36, 1] },
                 },
               }}
-              className="text-xl md:text-2xl lg:text-3xl text-[#050a30] leading-snug font-medium"
+              className="text-lg md:text-xl text-gray-800 leading-relaxed self-center"
+              style={{ fontFamily: 'Aileron, sans-serif' }}
             >
-              <span style={{ fontFamily: 'Aileron, sans-serif' }}>
-                A empresa nasceu para unir estratégia, criação e performance em entregas que elevam marcas e revelam seu verdadeiro potencial.
-              </span>
+              É assim que transformamos objetivos comerciais em comunicação clara, relevante e{' '}
+              <span className="font-bold text-[#050a30]">preparada para competir</span>.
             </motion.p>
-
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 30, filter: 'blur(8px)' },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  filter: 'blur(0px)',
-                  transition: { duration: 1, ease: [0.22, 1, 0.36, 1] },
-                },
-              }}
-              className="flex flex-col gap-6"
-            >
-              <p
-                className="text-lg md:text-xl text-gray-800 leading-relaxed"
-                style={{ fontFamily: 'Aileron, sans-serif' }}
-              >
-                A Brinde surgiu em 2023 com foco no digital e evoluiu rapidamente para atuar como uma agência completa, integrando estratégia, criação e execução em projetos on e off.
-              </p>
-              <p
-                className="text-lg md:text-xl text-gray-800 leading-relaxed"
-                style={{ fontFamily: 'Aileron, sans-serif' }}
-              >
-                Nosso trabalho combina análise, criatividade e rigor operacional para entregar comunicação que gera valor, fortalece marcas e acompanha o ritmo real dos negócios.
-              </p>
-            </motion.div>
           </div>
+
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
+            }}
+            className="w-full"
+          >
+            <div className="grid grid-cols-[3rem_1fr_1fr] md:grid-cols-[4rem_1fr_2fr] gap-x-4 pb-2 border-b border-[#050a30]/20 text-xs md:text-sm uppercase tracking-wide text-gray-500" style={{ fontFamily: 'Aileron, sans-serif' }}>
+              <span>Fase</span>
+              <span className="text-center md:text-left">Foco</span>
+              <span className="hidden md:block text-right">Desenvolvimento</span>
+            </div>
+
+            {fases.map((fase, index) => {
+              const isActive = hoveredFase === index;
+              return (
+                <div
+                  key={fase.numero}
+                  onMouseEnter={() => setHoveredFase(index)}
+                  onMouseLeave={() => setHoveredFase(null)}
+                  className={`grid grid-cols-[3rem_1fr_1fr] md:grid-cols-[4rem_1fr_2fr] gap-x-4 items-center px-2 py-4 md:py-5 cursor-pointer transition-colors duration-300 border-b border-[#050a30]/10 last:border-b-0 ${
+                    isActive ? 'bg-[#050a30]' : 'bg-transparent'
+                  }`}
+                >
+                  <span
+                    className={`font-bold text-base md:text-lg ${isActive ? 'text-[#fff8d6]' : 'text-[#050a30]'}`}
+                    style={{ fontFamily: 'Aileron, sans-serif' }}
+                  >
+                    {fase.numero}
+                  </span>
+                  <span
+                    className={`font-black text-center md:text-left text-lg md:text-2xl uppercase tracking-tight ${isActive ? 'text-white' : 'text-[#050a30]'}`}
+                    style={{ fontFamily: 'Aileron, sans-serif' }}
+                  >
+                    {fase.foco}
+                  </span>
+                  <span
+                    className={`hidden md:block text-right text-sm md:text-base ${isActive ? 'text-[#fff8d6] font-bold' : 'text-gray-600'}`}
+                    style={{ fontFamily: 'Aileron, sans-serif' }}
+                  >
+                    {fase.desenvolvimento}
+                  </span>
+                </div>
+              );
+            })}
+          </motion.div>
         </div>
       </motion.section>
 
