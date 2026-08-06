@@ -404,7 +404,7 @@ export default function SobreNos() {
 
           <motion.p
             style={{ opacity: paraOpacity, y: paraY }}
-            className="text-lg md:text-xl text-gray-800 leading-relaxed max-w-[1200px] mx-auto mb-16"
+            className="text-xl md:text-2xl lg:text-3xl text-gray-800 leading-relaxed max-w-[1200px] mx-auto mb-16 text-center"
           >
             <span style={{ fontFamily: 'Aileron, sans-serif' }}>
               A Brinde nasceu para fazer o marketing e a publicidade ocuparem um papel mais estratégico dentro das empresas.
