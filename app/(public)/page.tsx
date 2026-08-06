@@ -345,7 +345,7 @@ export default function Home() {
                   className="text-gray-800 leading-relaxed"
                   style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(0.9rem, 1.3vw, 1.25rem)' }}
                 >
-                  Combinamos análise, criação e execução para que a comunicação seja resultado de método e sensibilidade. Aqui, estratégia ganha forma, criatividade ganha propósito e marcas ganham presença.
+                  Unimos criação de conteúdo, desenvolvimento de sites e análise de dados para fortalecer a presença digital da empresa e apoiar seu crescimento comercial.
                 </motion.p>
               </div>
             </div>
