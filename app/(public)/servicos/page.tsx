@@ -297,7 +297,7 @@ function ServiceCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="relative overflow-hidden rounded-2xl cursor-pointer group aspect-[9/16] w-[70%] mx-auto bg-[#050a30]"
+      className="relative overflow-hidden rounded-2xl cursor-pointer group aspect-[9/16] w-[85%] mx-auto bg-[#050a30]"
     >
       {videoId && (
         /* eslint-disable-next-line @next/next/no-img-element */
@@ -390,7 +390,7 @@ export default function ServicosPage() {
 
       {/* ─── CARDS ─── */}
       <section className="px-6 md:px-12 lg:px-24 pb-24">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-[15px]">
           {services.map((service) => (
             <ServiceCard
               key={service.id}
