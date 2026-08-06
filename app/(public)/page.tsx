@@ -445,7 +445,9 @@ export default function Home() {
             </h2>
             <div className="ml-0 md:ml-8 max-w-lg">
               <p className="text-white leading-relaxed font-medium" style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(1rem, 1.6vw, 1.5rem)' }}>
-                Desde 2023, caminhamos com marcas que escolhem estratégia e criatividade. Cada entrega vira história e mais um motivo para brindar.
+                Marcas que confiaram à Brinde o desafio de comunicar melhor, fortalecer sua presença e criar novas oportunidades no mercado.
+                <br />
+                Cada parceria, mais um motivo para brindar.
               </p>
             </div>
           </div>
