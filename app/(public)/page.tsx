@@ -264,15 +264,13 @@ export default function Home() {
       >
         {/* ─── 1. HERO ─── */}
         <section className="min-w-full h-full shrink-0 snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src="https://agenciabrinde.com.br/wp-content/uploads/2024/07/Video-do-WhatsApp-de-2024-07-22-as-13.46.45_7689d559.mp4" type="video/mp4" />
-          </video>
+          <iframe
+            src="https://www.youtube.com/embed/CVQFKCuMq3E?autoplay=1&mute=1&loop=1&playlist=CVQFKCuMq3E&controls=0&showinfo=0&rel=0&modestbranding=1"
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            style={{ border: 'none', transform: 'scale(1.4)', transformOrigin: 'center' }}
+            allow="autoplay; mute"
+            title="Hero"
+          />
 
           <div className="absolute inset-0 bg-[#050a30]/40" />
 
@@ -357,7 +355,7 @@ export default function Home() {
         {/* ─── 3. PRÊMIO ─── */}
         <section className="min-w-full h-full shrink-0 snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
           <iframe
-            src="https://www.youtube.com/embed/CVQFKCuMq3E?autoplay=1&mute=1&loop=1&playlist=CVQFKCuMq3E&controls=0&showinfo=0&rel=0&modestbranding=1"
+            src="https://www.youtube.com/embed/vB5FYlsGybM?autoplay=1&mute=1&loop=1&playlist=vB5FYlsGybM&controls=0&showinfo=0&rel=0&modestbranding=1"
             className="absolute inset-0 w-full h-full pointer-events-none"
             style={{ border: 'none', transform: 'scale(1.4)', transformOrigin: 'center' }}
             allow="autoplay; mute"
