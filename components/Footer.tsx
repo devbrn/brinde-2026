@@ -93,11 +93,9 @@ export function Footer() {
 
         {/* Col 4 — About blurb */}
         <div className="text-sm text-white/70 leading-relaxed">
-          A Brinde é uma agência full service que une estratégia, criatividade e
-          execução para construir marcas relevantes. Atuamos no on e no off com
-          a mesma precisão, desenvolvendo comunicação integrada que posiciona,
-          engaja e gera resultado. Desde 2023, entregamos campanhas que combinam
-          método, sensibilidade e presença.
+          A Brinde é uma agência de marketing e publicidade focada em fortalecer
+          marcas, atrair clientes qualificados e ampliar oportunidades comerciais
+          com estratégia, criatividade e execução orientadas ao crescimento.
         </div>
       </div>
 
