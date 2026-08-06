@@ -11,6 +11,8 @@ type ServiceData = {
   tagTextColor: string;
   category: string;
   title: string;
+  titleTop: string;
+  titleBottom: string;
   shortDesc: string;
   modalBg: string;
   modalTextColor: string;
@@ -24,11 +26,13 @@ type ServiceData = {
 const services: ServiceData[] = [
   {
     id: 'rotulo-branco',
-    tag: 'Rótulo Branco',
+    tag: 'ConstruLead Essencial',
     tagColor: '#c6f135',
     tagTextColor: '#111111',
     category: 'saudável',
-    title: 'Rótulo Branco',
+    title: 'ConstruLead Essencial',
+    titleTop: 'ConstruLead',
+    titleBottom: 'Essencial',
     shortDesc:
       'Através de uma estratégia alinhada aos objetivos do negócio, ajudamos organizações a se diferenciarem dentro de seus objetivos. Moldamos marcas que conversam no novo contexto social.',
     modalBg: '#c6f135',
@@ -57,11 +61,13 @@ const services: ServiceData[] = [
   },
   {
     id: 'reserva-especial',
-    tag: 'Reserva Especial',
+    tag: 'ConstruLead Performance',
     tagColor: '#c51618',
     tagTextColor: '#ffffff',
     category: 'mal?',
-    title: 'Reserva Especial',
+    title: 'ConstruLead Performance',
+    titleTop: 'ConstruLead',
+    titleBottom: 'Performance',
     shortDesc:
       'Vendas, gestão de leads, alcance, reconhecimento. Não importa a finalidade, fazemos mensagens serem ouvidas e produtos serem vendidos. Sempre com um olhar para performance e dados.',
     modalBg: '#c51618',
@@ -95,11 +101,13 @@ const services: ServiceData[] = [
   },
   {
     id: 'edicao-limitada',
-    tag: 'Edição Limitada',
+    tag: 'ConstruLead Expansão',
     tagColor: '#c9b8e8',
     tagTextColor: '#111111',
     category: 'vida',
-    title: 'Edição Limitada',
+    title: 'ConstruLead Expansão',
+    titleTop: 'ConstruLead',
+    titleBottom: 'Expansão',
     shortDesc:
       'Estratégia digital e comercial juntas para impulsionar vendas, nutrir leads e gerar resultados consistentes. Da captura ao relacionamento, unimos performance, dados e inteligência aplicada.',
     modalBg: '#c9b8e8',
@@ -107,7 +115,7 @@ const services: ServiceData[] = [
     subtitle: 'Relacionamento',
     body: [
       'Gerar demanda é apenas o começo. O verdadeiro desafio está em transformar oportunidades em vendas com método e previsibilidade.',
-      'No Edição Limitada, estruturamos a conexão entre marketing e vendas, organizando processos, dados e abordagem comercial para que a demanda gerada se converta em resultado real. Atuamos com CRM, conteúdo e inteligência aplicada para criar clareza, ritmo e consistência na operação comercial.',
+      'No ConstruLead Expansão, estruturamos a conexão entre marketing e vendas, organizando processos, dados e abordagem comercial para que a demanda gerada se converta em resultado real. Atuamos com CRM, conteúdo e inteligência aplicada para criar clareza, ritmo e consistência na operação comercial.',
     ],
     planning: [
       'Estruturação de processo comercial',
@@ -183,10 +191,11 @@ function ServiceModal({
               {service.subtitle}
             </p>
             <h2
-              className="text-[3rem] md:text-[5rem] font-black leading-none uppercase"
+              className="text-[3rem] md:text-[5rem] font-black leading-none uppercase flex flex-col"
               style={{ fontFamily: 'Aileron, sans-serif' }}
             >
-              {service.title}
+              <span>{service.titleTop}</span>
+              <span>{service.titleBottom}</span>
             </h2>
             <div className="flex flex-col gap-4">
               {service.body.map((paragraph, i) => (
@@ -314,10 +323,11 @@ function ServiceCard({
       {/* Conteúdo inferior */}
       <div className="absolute bottom-0 left-0 right-0 p-6 z-10 flex flex-col gap-2">
         <h2
-          className="text-white text-2xl md:text-3xl font-black leading-tight"
+          className="text-white text-2xl md:text-3xl font-black leading-tight flex flex-col"
           style={{ fontFamily: 'Aileron, sans-serif' }}
         >
-          {service.title}
+          <span>{service.titleTop}</span>
+          <span>{service.titleBottom}</span>
         </h2>
         <p
           className="text-white/80 text-sm leading-relaxed line-clamp-3"
