@@ -160,32 +160,14 @@ export default function Premio() {
         animate={{ opacity: 1, transition: { duration: 1.2, ease: 'easeOut' } }}
         className="pt-20 relative min-h-screen bg-[#050a30] flex items-center justify-center overflow-hidden"
       >
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-50"
-        >
-          <source
-            src="https://agenciabrinde.com.br/wp-content/uploads/2024/07/Video-do-WhatsApp-de-2024-07-22-as-13.46.45_7689d559.mp4"
-            type="video/mp4"
-          />
-        </video>
+        <iframe
+          src="https://www.youtube.com/embed/vB5FYlsGybM?autoplay=1&mute=1&loop=1&playlist=vB5FYlsGybM&controls=0&showinfo=0&rel=0&modestbranding=1"
+          className="absolute inset-0 w-full h-full pointer-events-none"
+          style={{ border: 'none', transform: 'scale(1.4)', transformOrigin: 'center' }}
+          allow="autoplay; mute"
+          title="Prêmio"
+        />
         <div className="absolute inset-0 bg-[#050a30]/40" />
-        <motion.h1
-          initial={{ opacity: 0, y: 40, filter: 'blur(12px)' }}
-          animate={{
-            opacity: 1,
-            y: 0,
-            filter: 'blur(0px)',
-            transition: { duration: 1.4, delay: 0.3, ease: [0.22, 1, 0.36, 1] },
-          }}
-          className="relative z-10 text-white uppercase tracking-tight text-center text-[2.5rem] sm:text-[4rem] md:text-[6rem] lg:text-[8rem] leading-none drop-shadow-2xl px-6"
-          style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}
-        >
-          VÍDEO DO PRÊMIO
-        </motion.h1>
       </motion.section>
 
       {/* ─── PG 17-18: Horizontal scroll com sticky + parallax (GSAP) ─── */}
