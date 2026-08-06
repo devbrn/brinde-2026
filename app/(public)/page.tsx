@@ -419,7 +419,7 @@ export default function Home() {
                 <span style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900, fontSize: 'clamp(2rem, 4vw, 4.5rem)' }}>NOSSAS</span>
                 <span style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal', fontSize: 'clamp(1.83rem, 3.83vw, 4.33rem)' }}>SOLUÇÕES</span>
               </h2>
-              <p className="text-gray-800 leading-snug font-medium" style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(0.82rem, 1.22vw, 1.17rem)' }}>
+              <p className="text-gray-800 leading-snug font-medium max-w-[420px]" style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(0.82rem, 1.22vw, 1.17rem)' }}>
                 Toda nova venda começa quando sua empresa entra no radar de quem está pronto para comprar. Conheça as soluções ConstruLead para ampliar sua presença, gerar novos pedidos de orçamento e criar mais oportunidades comerciais.
               </p>
               <Link
