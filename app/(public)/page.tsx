@@ -417,7 +417,7 @@ export default function Home() {
             <div className="lg:col-span-5 flex flex-col justify-center pl-0 lg:pl-6">
               <h2 className="leading-none tracking-tight text-[#050a30] flex flex-col gap-1 md:gap-2 uppercase" style={{ marginBottom: 'clamp(0.75rem, 2vh, 1.5rem)' }}>
                 <span style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900, fontSize: 'clamp(2rem, 4vw, 4.5rem)' }}>SOLUÇÕES</span>
-                <span style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal', fontSize: 'clamp(2rem, 4vw, 4.5rem)' }}>COMPLETAS</span>
+                <span style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal', fontSize: 'clamp(2rem, 4vw, 4.5rem)' }}>NOSSAS</span>
               </h2>
               <p className="text-gray-800 leading-snug font-medium" style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(0.9rem, 1.3vw, 1.25rem)' }}>
                 Uma estrutura completa para transformar objetivos de marca em comunicação sólida, coerente e eficaz.
