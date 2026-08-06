@@ -630,7 +630,7 @@ export default function SobreNos() {
               className="text-base md:text-lg lg:text-xl text-gray-800 leading-relaxed max-w-[1200px]"
             >
               <span style={{ fontFamily: 'Aileron, sans-serif' }}>
-                O Método Brinde une estratégia, organização e criação para dar direção clara a cada etapa do processo. Ele garante consistência, ritmo e propósito, transformando intenção em entrega e criatividade em crescimento para marcas que precisam performar no on e no off.
+                O Método Brinde une estratégia, organização e criação para dar direção clara a cada etapa do processo. Ele garante consistência, ritmo e propósito, transformando intenção em entrega e criatividade em crescimento para marcas que precisam performar no online e no offline.
               </span>
             </motion.p>
           </div>
@@ -659,7 +659,7 @@ export default function SobreNos() {
             className="text-base md:text-lg lg:text-xl text-gray-800 leading-relaxed max-w-[1200px]"
           >
             <span style={{ fontFamily: 'Aileron, sans-serif' }}>
-              Processos bem definidos reduzem ruídos, aceleram decisões e tornam o fluxo de criação mais leve. Quando cada etapa é clara, o trabalho ganha ritmo, as entregas chegam mais redondas e o cliente acompanha tudo com segurança. O resultado é simples: menos retrabalho, mais assertividade e uma relação muito mais fluida de ponta a ponta.
+              Processos bem definidos reduzem ruídos, aceleram decisões e tornam o fluxo de criação mais leve, quando cada etapa é clara, o trabalho ganha ritmo, as entregas chegam mais redondas e o cliente acompanha tudo com segurança. O resultado é simples: menos retrabalho, mais assertividade e uma relação muito mais fluida de ponta a ponta.
             </span>
           </motion.p>
         </div>
