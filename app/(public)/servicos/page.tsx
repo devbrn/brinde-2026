@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 
 type ServiceData = {
@@ -288,17 +288,20 @@ function ServiceModal({
 function ServiceCard({
   service,
   onClick,
+  progress,
 }: {
   service: ServiceData;
   onClick: () => void;
+  progress: ReturnType<typeof useScroll>['scrollYProgress'];
 }) {
+  const opacity = useTransform(progress, [0.1, 0.5], [0, 1]);
+  const blur = useTransform(progress, [0.1, 0.5], [16, 0]);
+  const filter = useTransform(blur, (v) => `blur(${v}px)`);
+
   return (
     <motion.div
       onClick={onClick}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      style={{ opacity, filter }}
       className="relative overflow-hidden rounded-2xl cursor-pointer group aspect-[9/16] w-[85%] mx-auto bg-[#050a30]"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -345,6 +348,11 @@ function ServiceCard({
 
 export default function ServicosPage() {
   const [activeId, setActiveId] = useState<string | null>(null);
+  const cardsSectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: cardsProgress } = useScroll({
+    target: cardsSectionRef,
+    offset: ['start end', 'end start'],
+  });
 
   useEffect(() => {
     if (activeId) {
@@ -386,13 +394,14 @@ export default function ServicosPage() {
       </section>
 
       {/* ─── CARDS ─── */}
-      <section className="px-6 md:px-12 lg:px-24 pb-24">
+      <section ref={cardsSectionRef} className="px-6 md:px-12 lg:px-24 pb-24">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-[15px]">
           {services.map((service) => (
             <ServiceCard
               key={service.id}
               service={service}
               onClick={() => setActiveId(service.id)}
+              progress={cardsProgress}
             />
           ))}
         </div>
