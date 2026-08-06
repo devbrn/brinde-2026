@@ -452,7 +452,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="w-full bg-[#c51618] py-6 md:py-8 relative flex items-center">
+          <div className="w-full bg-[#F2EFE7] py-6 md:py-8 relative flex items-center">
             <div className="flex w-max animate-marquee items-center">
               <div className="flex gap-0 md:gap-0 pr-0 md:pr-0 items-center">
                 {[...clients, ...clients].map((client, idx) => (
@@ -461,7 +461,7 @@ export default function Home() {
                     <img
                       src={client.logo}
                       alt={client.name}
-                      className="max-h-full max-w-full object-contain brightness-0 invert opacity-85 hover:opacity-100 transition-opacity duration-300"
+                      className="max-h-full max-w-full object-contain opacity-85 hover:opacity-100 transition-opacity duration-300"
                     />
                   </div>
                 ))}
@@ -473,7 +473,7 @@ export default function Home() {
                     <img
                       src={client.logo}
                       alt={client.name}
-                      className="max-h-full max-w-full object-contain brightness-0 invert opacity-85 hover:opacity-100 transition-opacity duration-300"
+                      className="max-h-full max-w-full object-contain opacity-85 hover:opacity-100 transition-opacity duration-300"
                     />
                   </div>
                 ))}
