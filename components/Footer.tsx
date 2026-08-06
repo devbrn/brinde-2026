@@ -51,15 +51,6 @@ export function Footer() {
           </a>
           <div className="pt-2 space-y-1 text-white/70">
             <p className="whitespace-nowrap">
-              <span className="font-bold">Relacionamento:</span>{' '}
-              <a
-                href="mailto:contato@agenciabrinde.com.br"
-                className="hover:text-white transition-colors"
-              >
-                contato@agenciabrinde.com.br
-              </a>
-            </p>
-            <p className="whitespace-nowrap">
               <span className="font-bold">Negócios:</span>{' '}
               <a
                 href="mailto:camila.alfaro@agenciabrinde.com.br"
@@ -75,14 +66,6 @@ export function Footer() {
                 className="hover:text-white transition-colors"
               >
                 rh@agenciabrinde.com.br
-              </a>
-            </p>
-            <p>
-              <a
-                href="/relatorio-de-performance"
-                className="hover:text-white transition-colors"
-              >
-                Relatório de Performance
               </a>
             </p>
           </div>
