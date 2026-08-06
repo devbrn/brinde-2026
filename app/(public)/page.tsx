@@ -287,8 +287,8 @@ export default function Home() {
               publicidade e estratégia em
             </p>
             <h1
-              className="font-black text-white leading-none tracking-tighter drop-shadow-xl uppercase"
-              style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(3rem, 10vw, 11rem)' }}
+              className="font-black text-white leading-none tracking-tighter drop-shadow-xl uppercase -mb-2 md:-mb-4"
+              style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(2.4rem, 8vw, 8.8rem)' }}
             >
               Estado de
             </h1>
