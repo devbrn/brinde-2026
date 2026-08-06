@@ -289,13 +289,18 @@ function ServiceCard({
   service,
   onClick,
   progress,
+  index,
 }: {
   service: ServiceData;
   onClick: () => void;
   progress: ReturnType<typeof useScroll>['scrollYProgress'];
+  index: number;
 }) {
-  const opacity = useTransform(progress, [0.1, 0.5], [0, 1]);
-  const blur = useTransform(progress, [0.1, 0.5], [16, 0]);
+  const delay = index * 0.12;
+  const start = 0.1 + delay;
+  const end = 0.5 + delay;
+  const opacity = useTransform(progress, [start, end], [0, 1]);
+  const blur = useTransform(progress, [start, end], [16, 0]);
   const filter = useTransform(blur, (v) => `blur(${v}px)`);
 
   return (
@@ -382,7 +387,7 @@ export default function ServicosPage() {
             em um só lugar.
           </h1>
           <p
-            className="text-[20px] text-gray-700 leading-relaxed"
+            className="text-[26px] md:text-[30px] text-gray-700 leading-relaxed"
             style={{ fontFamily: 'Aileron, sans-serif' }}
           >
             Estratégia aponta o caminho, criação conquista atenção e performance
@@ -396,12 +401,13 @@ export default function ServicosPage() {
       {/* ─── CARDS ─── */}
       <section ref={cardsSectionRef} className="px-6 md:px-12 lg:px-24 pb-24">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-[15px]">
-          {services.map((service) => (
+          {services.map((service, index) => (
             <ServiceCard
               key={service.id}
               service={service}
               onClick={() => setActiveId(service.id)}
               progress={cardsProgress}
+              index={index}
             />
           ))}
         </div>
