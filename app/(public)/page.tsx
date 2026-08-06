@@ -62,15 +62,15 @@ const cardVariants = {
 
 const solucoes = [
   {
-    title: 'Rótulo Branco',
+    title: 'ConstruLead Essencial',
     text: 'Através de uma estratégia alinhada aos objetivos do negócio, ajudamos organizações a se diferenciarem dentro de seus objetivos. Moldamos marcas que conversam no novo contexto social.'
   },
   {
-    title: 'Reserva Especial',
+    title: 'ConstruLead Performance',
     text: 'Vendas, gestão de leads, alcance, reconhecimento. Não importa a finalidade, fazemos mensagens serem ouvidas e produtos serem vendidos. Sempre com um olhar para performance e dados.'
   },
   {
-    title: 'Edição Limitada',
+    title: 'ConstruLead Expansão',
     text: 'Estratégia digital e comercial juntas para impulsionar vendas, nutrir leads e gerar resultados consistentes. Da captura ao relacionamento, unimos performance, dados e inteligência aplicada.'
   }
 ];
