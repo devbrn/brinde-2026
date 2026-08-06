@@ -332,7 +332,7 @@ export default function SobreNos() {
                   transition: { duration: 1, ease: [0.22, 1, 0.36, 1] },
                 },
               }}
-              className="text-lg md:text-xl text-gray-800 leading-relaxed self-center"
+              className="text-xl md:text-2xl lg:text-3xl text-gray-800 leading-relaxed self-center"
               style={{ fontFamily: 'Aileron, sans-serif' }}
             >
               É assim que transformamos objetivos comerciais em comunicação clara, relevante e{' '}
