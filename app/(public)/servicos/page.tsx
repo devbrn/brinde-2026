@@ -370,9 +370,10 @@ export default function ServicosPage() {
             className="text-[20px] text-gray-700 leading-relaxed"
             style={{ fontFamily: 'Aileron, sans-serif' }}
           >
-            A agência Brinde oferece serviços de branding, performance, conteúdo,
-            relacionamento, dados e CRM para marcas que desejam crescer com
-            estratégia, criatividade e tecnologia.
+            Estratégia aponta o caminho, criação conquista atenção e performance
+            transforma interesse em oportunidades comerciais. Quando as três atuam
+            juntas, o investimento deixa de gerar ações isoladas e começa a
+            construir presença, preferência e vendas.
           </p>
         </div>
       </section>
