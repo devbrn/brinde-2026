@@ -410,6 +410,9 @@ export default function SobreNos() {
               A Brinde nasceu para fazer o marketing e a publicidade ocuparem um papel mais estratégico dentro das empresas.
               <br />
               Unimos visão de negócio, criatividade e execução para construir marcas claras, relevantes e preparadas para gerar novas oportunidades comerciais.
+              <br />
+              <br />
+              Nosso trabalho combina método, leitura de mercado e criatividade aplicada. Não criamos por criar, criamos para mover decisões, abrir caminhos e ampliar oportunidades de venda para empresas que querem crescer e aumentar seu faturamento com clareza, consistência e estratégia.
             </span>
           </motion.p>
         </div>
