@@ -417,7 +417,7 @@ export default function Home() {
             <div className="lg:col-span-5 flex flex-col justify-center pl-0 lg:pl-6">
               <h2 className="leading-none tracking-tight text-[#050a30] flex flex-col gap-1 md:gap-2 uppercase" style={{ marginBottom: 'clamp(0.75rem, 2vh, 1.5rem)' }}>
                 <span style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900, fontSize: 'clamp(2rem, 4vw, 4.5rem)' }}>NOSSAS</span>
-                <span style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal', fontSize: 'clamp(1.83rem, 3.83vw, 4.33rem)' }}>SOLUÇÕES</span>
+                <span style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal', fontSize: 'clamp(1.5rem, 3vw, 3.4rem)' }}>SOLUÇÕES</span>
               </h2>
               <p className="text-gray-800 leading-snug font-medium max-w-[420px]" style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(0.82rem, 1.22vw, 1.17rem)' }}>
                 Toda nova venda começa quando sua empresa entra no radar de quem está pronto para comprar. Conheça as soluções ConstruLead para ampliar sua presença, gerar novos pedidos de orçamento e criar mais oportunidades comerciais.
