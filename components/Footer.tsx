@@ -108,7 +108,7 @@ export function Footer() {
           <span>|</span>
           <a href="/produtora" className="hover:opacity-70 transition-opacity">Produtora audiovisual</a>
         </div>
-        <span>Todos os direitos reservados agência Brinde</span>
+        <span>Todos os direitos reservados agência Brinde - CNPJ: 49.820.592/0001-87</span>
       </div>
     </footer>
   );
