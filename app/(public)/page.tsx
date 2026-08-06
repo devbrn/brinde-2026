@@ -311,13 +311,13 @@ export default function Home() {
             className="w-full max-w-[1200px] mx-auto h-full flex flex-col justify-center"
           >
             <h2 className="uppercase tracking-tight text-[#050a30] flex flex-col gap-1 md:gap-2" style={{ marginBottom: 'clamp(1.5rem, 4vh, 4rem)' }}>
-              <div className="flex flex-wrap items-baseline gap-x-2 md:gap-x-4 gap-y-1 leading-snug" style={{ fontSize: 'clamp(1.3rem, 3vw, 3.5rem)' }}>
+              <div className="flex flex-nowrap items-baseline gap-x-2 md:gap-x-4 gap-y-1 leading-snug" style={{ fontSize: 'clamp(0.85rem, 2.2vw, 3.5rem)' }}>
                 <motion.span variants={fadeUp} className="text-[1.3em]" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 800 }}>BRINDE É</motion.span>
                 <motion.span variants={fadeUp} style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>PUBLICIDADE</motion.span>
                 <motion.span variants={fadeUp} className="text-[1.3em]" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 800 }}>E</motion.span>
                 <motion.span variants={fadeUp} style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>ESTRATÉGIA</motion.span>
               </div>
-              <div className="flex flex-wrap items-baseline gap-x-2 md:gap-x-4 leading-none" style={{ fontSize: 'clamp(1.3rem, 3vw, 3.5rem)' }}>
+              <div className="flex flex-nowrap items-baseline gap-x-2 md:gap-x-4 leading-none" style={{ fontSize: 'clamp(0.85rem, 2.2vw, 3.5rem)' }}>
                 <motion.span variants={fadeUp} className="text-[1.3em]" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 800 }}>EM ESTADO DE</motion.span>
                 <motion.span variants={fadeUp} style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>CRIATIVIDADE</motion.span>
               </div>
