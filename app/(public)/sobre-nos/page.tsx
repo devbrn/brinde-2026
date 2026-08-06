@@ -407,7 +407,9 @@ export default function SobreNos() {
             className="text-lg md:text-xl text-gray-800 leading-relaxed max-w-[1200px] mx-auto mb-16"
           >
             <span style={{ fontFamily: 'Aileron, sans-serif' }}>
-              A Brinde nasceu para se tornar uma agência full-service que entrega comunicação de ponta a ponta. Atuamos com branding, campanhas on e off, conteúdo, social, mídia, experiência, audiovisual e tudo o que uma marca precisa para se posicionar, crescer e ganhar espaço.
+              A Brinde nasceu para fazer o marketing e a publicidade ocuparem um papel mais estratégico dentro das empresas.
+              <br />
+              Unimos visão de negócio, criatividade e execução para construir marcas claras, relevantes e preparadas para gerar novas oportunidades comerciais.
             </span>
           </motion.p>
         </div>
