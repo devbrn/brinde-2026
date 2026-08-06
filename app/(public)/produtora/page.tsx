@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { VideoModal } from '@/components/VideoModal';
 import { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
@@ -141,11 +141,11 @@ const clientStories = [
 ];
 
 const produtoraServices = [
-  { title: 'Pré-Produção', description: 'Roteiro, idealização de vídeo, criação de conceitos visuais, storyboards, visita técnica' },
-  { title: 'Equipamentos Profissionais', description: 'Câmeras e lentes de cinema, iluminação, estabilizadores, teleprompter, captação profissional de áudio' },
-  { title: 'Pós-Produção', description: 'Edição, colorimetria, efeitos especiais, motion graphics, ilustrações' },
-  { title: 'Externas', description: 'Drones e equipamentos especiais de estúdio itinerante' },
-  { title: 'Equipe Fixa', description: 'Produção, captação e pós produção' },
+  { title: 'Conceito e Roteiro', description: 'Encontramos no negócio algo que mereça atenção. Ideação, conceito visual e roteiro que dão origem ao filme.' },
+  { title: 'Direção Criativa', description: 'Construção de uma linguagem própria — direção de arte, fotografia e narrativa que despertam desejo pela marca.' },
+  { title: 'Produção e Captação', description: 'Câmeras de cinema, iluminação, áudio e equipe dedicada. Visitas técnicas e captação profissional no set.' },
+  { title: 'Pós-Produção', description: 'Edição, colorimetria, efeitos especiais, motion graphics e finalização que elevam o valor percebido.' },
+  { title: 'Desdobramentos de Campanha', description: 'Cortes, formatos e adaptações para canais e mídia, ampliando o alcance e a admiração pela marca.' },
 ];
 
 const fadeUp = {
@@ -187,16 +187,8 @@ export default function Home() {
   const [activeVideo, setActiveVideo] = useState<number | null>(null);
   const [loadedVideo, setLoadedVideo] = useState<number | null>(null);
 
+  const videosWrapperRef = useRef<HTMLDivElement>(null);
   const videosSectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress: videosProgress } = useScroll({
-    target: videosSectionRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const v1Opacity = useTransform(videosProgress, [0.10, 0.25], [0, 1]);
-  const v2Opacity = useTransform(videosProgress, [0.18, 0.33], [0, 1]);
-  const v3Opacity = useTransform(videosProgress, [0.26, 0.41], [0, 1]);
-  const v4Opacity = useTransform(videosProgress, [0.34, 0.50], [0, 1]);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -239,6 +231,46 @@ export default function Home() {
 
       return () => {
         wrapper.style.height = '';
+      };
+    });
+
+    mm.add('(min-width: 1024px)', () => {
+      const wrapper = videosWrapperRef.current;
+      const section = videosSectionRef.current;
+      if (!wrapper || !section) return;
+      const cards = section.querySelectorAll('[data-video-card]');
+
+      const totalScroll = window.innerHeight * 2;
+      const setWrapperHeight = () => {
+        wrapper.style.height = `${window.innerHeight + totalScroll}px`;
+      };
+      setWrapperHeight();
+
+      gsap.set(cards, { opacity: 0, filter: 'blur(24px)' });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrapper,
+          start: 'top top',
+          end: () => `+=${totalScroll}`,
+          scrub: true,
+          invalidateOnRefresh: true,
+          onRefresh: setWrapperHeight,
+        },
+      });
+
+      cards.forEach((card, i) => {
+        tl.fromTo(
+          card,
+          { opacity: 0, filter: 'blur(24px)' },
+          { opacity: 1, filter: 'blur(0px)', ease: 'none', duration: 1 },
+          i * 0.4
+        );
+      });
+
+      return () => {
+        wrapper.style.height = '';
+        gsap.set(cards, { clearProps: 'all' });
       };
     });
 
@@ -417,11 +449,11 @@ export default function Home() {
             {/* Right Side: Static Text */}
             <div className="lg:col-span-5 flex flex-col justify-center pl-0 lg:pl-8">
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.8rem] leading-none mb-6 tracking-tight text-[#050a30] flex flex-col gap-1 md:gap-2 uppercase">
-                <span style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}>CUIDAMOS DE</span>
-                <span style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>cada detalhe</span>
+                <span className="text-[1.4em]" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900 }}>CRIAMOS</span>
+                <span className="text-[1.4em]" style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>desejo</span>
               </h2>
               <p className="text-lg md:text-xl text-gray-800 leading-snug font-medium" style={{ fontFamily: 'Aileron, sans-serif' }}>
-                A Brinde cuida de toda a produção audiovisual, como ideia inicial, canais de veiculação, mídia e muito mais.
+                Um filme começa quando encontramos, no negócio, algo que mereça a atenção das pessoas. A partir daí, conceito, direção e execução constroem uma linguagem própria, capaz de despertar desejo, conquistar admiração e ampliar o valor percebido da marca.
               </p>
             </div>
 
@@ -429,16 +461,17 @@ export default function Home() {
         </section>
 
         {/* ─── 6. VÍDEOS ─── */}
-        <section ref={videosSectionRef} className="min-w-full shrink-0 bg-[#050a30] py-32 md:py-40 px-6 md:px-12">
-          <div className="w-full max-w-[1300px] mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 items-end justify-items-center">
-              {(['48Tg9kbDKyI', 'b5ljyLD58Z0', 'kx9ldjEWszQ', 'BCk9qP7w1Ss'] as const).map((videoId, i) => (
-                <motion.div
-                  key={i}
-                  style={{ opacity: [v1Opacity, v2Opacity, v3Opacity, v4Opacity][i] }}
-                  onClick={() => activeVideo !== i && setActiveVideo(i)}
-                  className="relative aspect-[9/16] w-full max-w-[280px] rounded-2xl overflow-hidden bg-[#050a30] shadow-2xl cursor-pointer group"
-                >
+        <div ref={videosWrapperRef} className="relative">
+          <section ref={videosSectionRef} className="sticky top-0 h-screen min-w-full shrink-0 bg-[#050a30] flex items-center px-6 md:px-12 overflow-hidden">
+            <div className="w-full max-w-[1300px] mx-auto">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 items-end justify-items-center">
+                {(['48Tg9kbDKyI', 'b5ljyLD58Z0', 'kx9ldjEWszQ', 'BCk9qP7w1Ss'] as const).map((videoId, i) => (
+                  <div
+                    key={i}
+                    data-video-card
+                    onClick={() => activeVideo !== i && setActiveVideo(i)}
+                    className="relative aspect-[9/16] w-full max-w-[280px] rounded-2xl overflow-hidden bg-[#050a30] shadow-2xl cursor-pointer group"
+                  >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
@@ -463,11 +496,12 @@ export default function Home() {
                       onLoad={() => setLoadedVideo(i)}
                     />
                   )}
-                </motion.div>
-              ))}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
       </div>
     </div>
   );

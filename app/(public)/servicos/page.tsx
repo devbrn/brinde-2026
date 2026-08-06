@@ -1,8 +1,12 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 type ServiceData = {
   id: string;
@@ -288,25 +292,15 @@ function ServiceModal({
 function ServiceCard({
   service,
   onClick,
-  progress,
-  index,
 }: {
   service: ServiceData;
   onClick: () => void;
-  progress: ReturnType<typeof useScroll>['scrollYProgress'];
-  index: number;
 }) {
-  const [start, end] =
-    index === 0 ? [0, 0.08] : [0.15 + (index - 1) * 0.35, 0.4 + (index - 1) * 0.35];
-  const opacity = useTransform(progress, [start, end], [0, 1]);
-  const blur = useTransform(progress, [start, end], [16, 0]);
-  const filter = useTransform(blur, (v) => `blur(${v}px)`);
-
   return (
-    <motion.div
+    <div
+      data-service-card
       onClick={onClick}
-      style={{ opacity, filter }}
-      className="relative overflow-hidden rounded-2xl cursor-pointer group aspect-[9/16] w-[85%] mx-auto bg-[#050a30]"
+      className="relative overflow-hidden rounded-2xl cursor-pointer group aspect-[9/16] w-[85%] mx-auto bg-[#050a30] lg:opacity-0 lg:[filter:blur(24px)]"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -346,17 +340,13 @@ function ServiceCard({
           Saiba mais ↗
         </span>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
 export default function ServicosPage() {
   const [activeId, setActiveId] = useState<string | null>(null);
   const cardsWrapperRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: cardsProgress } = useScroll({
-    target: cardsWrapperRef,
-    offset: ['start start', 'end end'],
-  });
 
   useEffect(() => {
     if (activeId) {
@@ -369,13 +359,63 @@ export default function ServicosPage() {
     };
   }, [activeId]);
 
+  useLayoutEffect(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add('(min-width: 1024px)', () => {
+      const wrapper = cardsWrapperRef.current;
+      if (!wrapper) return;
+      const cards = wrapper.querySelectorAll('[data-service-card]');
+
+      const totalScroll = window.innerHeight * 2;
+      const setWrapperHeight = () => {
+        wrapper.style.height = `${window.innerHeight + totalScroll}px`;
+      };
+      setWrapperHeight();
+
+      gsap.set(cards, { opacity: 0, filter: 'blur(24px)' });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrapper,
+          start: 'top top',
+          end: () => `+=${totalScroll}`,
+          scrub: true,
+          invalidateOnRefresh: true,
+          onRefresh: setWrapperHeight,
+        },
+      });
+
+      cards.forEach((card, i) => {
+        tl.fromTo(
+          card,
+          { opacity: 0, filter: 'blur(24px)' },
+          {
+            opacity: 1,
+            filter: 'blur(0px)',
+            ease: 'none',
+            duration: i === 0 ? 0.2 : 1,
+          },
+          i === 0 ? 0 : 0.2 + (i - 1) * 0.4
+        );
+      });
+
+      return () => {
+        wrapper.style.height = '';
+        gsap.set(cards, { clearProps: 'all' });
+      };
+    });
+
+    return () => mm.revert();
+  }, []);
+
   const activeService = activeId ? (services.find((s) => s.id === activeId) ?? null) : null;
 
   return (
     <div className="bg-white min-h-screen">
       {/* ─── HERO ─── */}
-      <section className="pt-24 pb-16 px-6 md:px-12 lg:px-24">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center min-h-[70vh]">
+      <section className="pt-64 px-6 md:px-12 lg:px-24">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
           <h1
             className="text-[2.8rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[4.6rem] leading-none font-black uppercase tracking-tight text-[#050a30]"
             style={{ fontFamily: 'Aileron, sans-serif' }}
@@ -398,17 +438,15 @@ export default function ServicosPage() {
       </section>
 
       {/* ─── CARDS ─── */}
-      {/* Card 1: scroll normal. Cards 2-3: revelam com scroll travado (sticky pin) */}
-      <div ref={cardsWrapperRef} className="relative" style={{ height: '250vh' }}>
+      {/* Scroll-jack: cards revelam com fade+blur, pin libera quando todos estão 100% */}
+      <div ref={cardsWrapperRef} className="relative">
         <div className="sticky top-0 h-screen flex items-center px-6 md:px-12 lg:px-24">
           <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-[10px] w-full">
-            {services.map((service, index) => (
+            {services.map((service) => (
               <ServiceCard
                 key={service.id}
                 service={service}
                 onClick={() => setActiveId(service.id)}
-                progress={cardsProgress}
-                index={index}
               />
             ))}
           </div>
