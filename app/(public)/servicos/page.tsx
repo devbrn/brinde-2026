@@ -296,9 +296,8 @@ function ServiceCard({
   progress: ReturnType<typeof useScroll>['scrollYProgress'];
   index: number;
 }) {
-  const delay = index * 0.12;
-  const start = 0.1 + delay;
-  const end = 0.5 + delay;
+  const [start, end] =
+    index === 0 ? [0, 0.08] : [0.15 + (index - 1) * 0.35, 0.4 + (index - 1) * 0.35];
   const opacity = useTransform(progress, [start, end], [0, 1]);
   const blur = useTransform(progress, [start, end], [16, 0]);
   const filter = useTransform(blur, (v) => `blur(${v}px)`);
@@ -353,10 +352,10 @@ function ServiceCard({
 
 export default function ServicosPage() {
   const [activeId, setActiveId] = useState<string | null>(null);
-  const cardsSectionRef = useRef<HTMLElement>(null);
+  const cardsWrapperRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: cardsProgress } = useScroll({
-    target: cardsSectionRef,
-    offset: ['start end', 'end start'],
+    target: cardsWrapperRef,
+    offset: ['start start', 'end end'],
   });
 
   useEffect(() => {
@@ -399,19 +398,22 @@ export default function ServicosPage() {
       </section>
 
       {/* ─── CARDS ─── */}
-      <section ref={cardsSectionRef} className="px-6 md:px-12 lg:px-24 pb-24">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-[15px]">
-          {services.map((service, index) => (
-            <ServiceCard
-              key={service.id}
-              service={service}
-              onClick={() => setActiveId(service.id)}
-              progress={cardsProgress}
-              index={index}
-            />
-          ))}
+      {/* Card 1: scroll normal. Cards 2-3: revelam com scroll travado (sticky pin) */}
+      <div ref={cardsWrapperRef} className="relative" style={{ height: '250vh' }}>
+        <div className="sticky top-0 h-screen flex items-center px-6 md:px-12 lg:px-24">
+          <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-[10px] w-full">
+            {services.map((service, index) => (
+              <ServiceCard
+                key={service.id}
+                service={service}
+                onClick={() => setActiveId(service.id)}
+                progress={cardsProgress}
+                index={index}
+              />
+            ))}
+          </div>
         </div>
-      </section>
+      </div>
 
       {/* ─── MODAL ─── */}
       <AnimatePresence>
