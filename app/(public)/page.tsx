@@ -329,7 +329,7 @@ export default function Home() {
                   className="text-[#050a30] leading-snug font-medium"
                   style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(1.1rem, 2vw, 2.4rem)' }}
                 >
-                  Mais que uma agência full-service, a Brinde transforma negócios por meio de ideias que unem lógica, estética e impacto. Criamos marcas conscientes, relevantes e prontas para competir.
+                  Faça sua empresa ser encontrada por novos clientes com estratégias de marketing, publicidade e tráfego pago para ampliar sua presença, atrair contatos qualificados e gerar novas oportunidades comerciais com consistência.
                 </p>
               </motion.div>
               <div className="md:col-span-5 flex flex-col gap-4 lg:gap-6 justify-start pt-2">
