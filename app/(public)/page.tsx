@@ -338,7 +338,7 @@ export default function Home() {
                   className="text-gray-800 leading-relaxed"
                   style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(0.9rem, 1.3vw, 1.25rem)' }}
                 >
-                  Na Brinde, cada projeto nasce de uma lógica clara: entender o negócio, traduzir a intenção da marca e criar soluções que movem o mercado com consistência.
+                  Todo projeto começa pelo entendimento do negócio, do público e da forma como a empresa vende. A partir disso, definimos a mensagem, selecionamos os canais e estruturamos as campanhas mais adequadas para alcançar pessoas com potencial real de compra.
                 </motion.p>
                 <motion.p
                   variants={fadeUp}
