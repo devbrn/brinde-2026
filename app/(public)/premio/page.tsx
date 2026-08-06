@@ -229,25 +229,24 @@ export default function Premio() {
             className="text-2xl md:text-3xl lg:text-4xl text-[#050a30] leading-snug"
             style={{ fontFamily: 'Aileron, sans-serif' }}
           >
-            O 35º Mídia Festival reconheceu o que acreditamos desde o primeiro
-            dia: estratégia, criação e consistência constroem marcas fortes.
+            O 35º Mídia Festival reconheceu um princípio que orienta a Brinde
+            desde o início: estratégia, criação e consistência constroem marcas fortes.
           </p>
           <div className="flex flex-col gap-6">
             <p
               className="text-base md:text-lg text-gray-800 leading-relaxed"
               style={{ fontFamily: 'Aileron, sans-serif' }}
             >
-              Receber o troféu de ouro é a prova de que a Brinde caminha na
-              direção certa. Entre mais de 300 agências, nosso trabalho se
-              destacou pela forma como unimos estratégia, estética e propósito
-              para construir marcas relevantes.
+              Entre mais de 300 agências, a Brinde conquistou o troféu de ouro
+              por um trabalho que uniu estratégia, estética e propósito com
+              relevância para o mercado.
             </p>
             <p
               className="text-base md:text-lg text-gray-800 leading-relaxed"
               style={{ fontFamily: 'Aileron, sans-serif' }}
             >
-              É reconhecimento do mercado e um marco que reforça nossa capacidade
-              de entregar valor real.
+              Mais do que uma conquista, o prêmio comprova nossa capacidade de
+              transformar decisões criativas em valor para as marcas.
             </p>
           </div>
         </div>
