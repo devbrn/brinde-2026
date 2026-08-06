@@ -369,9 +369,9 @@ export default function Home() {
       <div className="flex flex-col w-full">
         {/* ─── 4. SOLUÇÕES COMPLETAS ─── */}
         <section className="min-w-full min-h-screen shrink-0 bg-white px-4 md:px-8 lg:px-12 flex items-center" style={{ paddingTop: 'clamp(2rem, 5vh, 5rem)', paddingBottom: 'clamp(2rem, 5vh, 5rem)' }}>
-          <div className="w-full max-w-[1100px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            
-            <div className="lg:col-span-7 flex flex-col bg-[#050a30] rounded-xl overflow-hidden shadow-2xl">
+          <div className="w-full max-w-[1300px] mr-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+
+            <div className="lg:col-span-8 flex flex-col bg-[#050a30] rounded-xl overflow-hidden shadow-2xl">
               {solucoes.map((item, index) => (
                 <div
                   key={index}
@@ -389,9 +389,9 @@ export default function Home() {
                       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                       style={{ transformOrigin: 'center', backfaceVisibility: 'hidden' }}
                     >
-                      <h3 
-                        className="font-bold uppercase tracking-tight text-2xl sm:text-3xl md:text-4xl" 
-                        style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(1.2rem, 2.5vw, 2.4rem)' }}
+                      <h3
+                        className="font-bold uppercase tracking-tight whitespace-nowrap"
+                        style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(1rem, 1.7vw, 1.8rem)' }}
                       >
                         {item.title}
                       </h3>
@@ -414,7 +414,7 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="lg:col-span-5 flex flex-col justify-center pl-0 lg:pl-6">
+            <div className="lg:col-span-4 flex flex-col justify-center pl-0 lg:pl-6">
               <h2 className="leading-none tracking-tight text-[#050a30] flex flex-col gap-1 md:gap-2 uppercase" style={{ marginBottom: 'clamp(0.75rem, 2vh, 1.5rem)' }}>
                 <span style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 900, fontSize: 'clamp(2rem, 4vw, 4.5rem)' }}>SOLUÇÕES</span>
                 <span style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal', fontSize: 'clamp(2rem, 4vw, 4.5rem)' }}>COMPLETAS</span>
