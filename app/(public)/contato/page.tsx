@@ -232,63 +232,6 @@ export default function Contato() {
           </form>
 
         </div>
-
-        {/* Contact Info */}
-        <div className="max-w-[1100px] mx-auto mt-20 pt-16 border-t border-gray-200">
-          <h3
-            className="text-2xl md:text-3xl font-black uppercase tracking-tight mb-8 text-[#050a30]"
-            style={{ fontFamily: 'Aileron, sans-serif' }}
-          >
-            Ou entre em contato direto
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div>
-              <p
-                className="text-sm text-gray-500 mb-2 font-bold"
-                style={{ fontFamily: 'Aileron, sans-serif' }}
-              >
-                Comercial
-              </p>
-              <a
-                href="mailto:camila.alfaro@agenciabrinde.com.br"
-                className="text-base md:text-lg font-semibold text-[#c51618] hover:underline break-all"
-                style={{ fontFamily: 'Aileron, sans-serif' }}
-              >
-                camila.alfaro@agenciabrinde.com.br
-              </a>
-            </div>
-            <div>
-              <p
-                className="text-sm text-gray-500 mb-2 font-bold"
-                style={{ fontFamily: 'Aileron, sans-serif' }}
-              >
-                Relacionamento
-              </p>
-              <a
-                href="mailto:contato@agenciabrinde.com.br"
-                className="text-base md:text-lg font-semibold text-[#c51618] hover:underline break-all"
-                style={{ fontFamily: 'Aileron, sans-serif' }}
-              >
-                contato@agenciabrinde.com.br
-              </a>
-            </div>
-            <div>
-              <p
-                className="text-sm text-gray-500 mb-2 font-bold"
-                style={{ fontFamily: 'Aileron, sans-serif' }}
-              >
-                Carreiras
-              </p>
-              <a
-                href="mailto:rh@agenciabrinde.com.br"
-                className="text-base md:text-lg font-semibold text-[#c51618] hover:underline break-all"
-                style={{ fontFamily: 'Aileron, sans-serif' }}
-              >
-                rh@agenciabrinde.com.br
-              </a>
-            </div>
-          </div>
-        </div>
       </section>
     </div>
   );

@@ -237,7 +237,7 @@ export default function SobreNos() {
   const perfCenterScale = useTransform(perfProgress, [0.05, 0.18], [0.92, 1]);
   const perfRingOpacity = useTransform(perfProgress, [0.08, 0.20], [0, 1]);
 
-  const [hoveredFase, setHoveredFase] = useState<number | null>(1);
+  const [hoveredFase, setHoveredFase] = useState<number | null>(null);
 
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {

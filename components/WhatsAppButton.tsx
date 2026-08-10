@@ -10,7 +10,7 @@ export function WhatsAppButton() {
       <div className="w-full h-full rounded-full overflow-hidden ring-2 ring-white/80">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://res.cloudinary.com/dyezpmorm/image/upload/v1781721674/WhatsApp_Image_2026-06-17_at_14.54.55_po10en.jpg"
+          src="https://res.cloudinary.com/dyezpmorm/image/upload/v1786384332/atendimento-brinde_j1oxzx.jpg"
           alt="WhatsApp"
           className="w-full h-full object-cover"
         />

@@ -42,7 +42,7 @@ export function Footer() {
         {/* Col 2 — Social + Contato */}
         <div className="space-y-3 text-sm">
           <a
-            href="https://instagram.com/agenciabrinde"
+            href="https://www.instagram.com/agenciabrinde/"
             target="_blank"
             rel="noopener noreferrer"
             className="block hover:opacity-70 transition-opacity"
@@ -53,10 +53,10 @@ export function Footer() {
             <p className="whitespace-nowrap">
               <span className="font-bold">Negócios:</span>{' '}
               <a
-                href="mailto:camila.alfaro@agenciabrinde.com.br"
+                href="mailto:comercial@agenciabrinde.com.br"
                 className="hover:text-white transition-colors"
               >
-                camila.alfaro@agenciabrinde.com.br
+                comercial@agenciabrinde.com.br
               </a>
             </p>
             <p className="whitespace-nowrap">

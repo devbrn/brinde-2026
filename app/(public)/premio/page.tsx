@@ -126,8 +126,6 @@ export default function Premio() {
         );
       });
 
-      tl.to(section, { backgroundColor: '#ffffff', ease: 'none', duration: 3 }, 4);
-
       cardRefs.current.forEach((cardEl, i) => {
         if (!cardEl) return;
         tl.fromTo(

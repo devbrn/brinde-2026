@@ -288,42 +288,37 @@ export default function Home() {
           <div ref={trackRef} className="flex h-full w-max">
         {/* ─── 1. HERO ─── */}
         <section className="w-screen h-full shrink-0 snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
-          {/* Background Video */}
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src="https://agenciabrinde.com.br/wp-content/uploads/2024/07/Video-do-WhatsApp-de-2024-07-22-as-13.46.45_7689d559.mp4" type="video/mp4" />
-          </video>
+          <iframe
+            src="https://www.youtube.com/embed/CVQFKCuMq3E?autoplay=1&mute=1&loop=1&playlist=CVQFKCuMq3E&controls=0&showinfo=0&rel=0&modestbranding=1"
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            style={{ border: 'none', transform: 'scale(1.4)', transformOrigin: 'center' }}
+            allow="autoplay; mute"
+            title="Hero"
+          />
 
-          {/* Overlay to ensure text readability */}
           <div className="absolute inset-0 bg-[#050a30]/40" />
 
-          {/* Text Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="relative z-10 flex flex-col items-center justify-center text-center w-full px-4 gap-2 md:gap-6"
+            className="relative z-10 flex flex-col items-center justify-center text-center w-full px-4 gap-1 md:gap-4"
           >
             <p
-              className="text-lg md:text-2xl text-white drop-shadow-md"
-              style={{ fontFamily: 'Aileron, sans-serif' }}
+              className="text-white drop-shadow-md"
+              style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(1rem, 2vw, 1.5rem)' }}
             >
               publicidade e estratégia em
             </p>
             <h1
-              className="text-[3.5rem] sm:text-[6rem] md:text-[9rem] lg:text-[11rem] font-black text-white leading-none tracking-tighter drop-shadow-xl uppercase"
-              style={{ fontFamily: 'Aileron, sans-serif' }}
+              className="font-black text-white leading-none tracking-tighter drop-shadow-xl uppercase -mb-2 md:-mb-4"
+              style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(2.4rem, 8vw, 8.8rem)' }}
             >
               Estado de
             </h1>
             <span
-              className="text-white text-4xl sm:text-6xl md:text-[7rem] lg:text-[9rem] drop-shadow-xl"
-              style={{ fontFamily: '"Tan Pearl", serif' }}
+              className="text-white drop-shadow-xl"
+              style={{ fontFamily: '"Tan Pearl", serif', fontSize: 'clamp(2.5rem, 8vw, 9rem)' }}
             >
               Criatividade
             </span>
@@ -341,14 +336,13 @@ export default function Home() {
           >
             <h2 className="mb-16 uppercase tracking-tight text-[#050a30] flex flex-col gap-2 md:gap-3">
               <div className="flex flex-wrap items-baseline gap-x-2 md:gap-x-4 text-[1.5rem] sm:text-[2rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3.5rem] leading-none">
-                <motion.span variants={fadeUp} className="text-[1.3em]" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 800 }}>BRINDE É</motion.span>
-                <motion.span variants={fadeUp} style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>PUBLICIDADE</motion.span>
-                <motion.span variants={fadeUp} className="text-[1.3em]" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 800 }}>E</motion.span>
-                <motion.span variants={fadeUp} style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>ESTRATÉGIA</motion.span>
+                <motion.span variants={fadeUp} className="text-[1.3em]" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 800 }}>A SUA</motion.span>
+                <motion.span variants={fadeUp} style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>EMPRESA</motion.span>
+                <motion.span variants={fadeUp} className="text-[1.3em]" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 800 }}>É MAIS</motion.span>
               </div>
               <div className="flex flex-wrap items-baseline gap-x-2 md:gap-x-4 text-[1.5rem] sm:text-[2rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3.5rem] leading-none">
-                <motion.span variants={fadeUp} className="text-[1.3em]" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 800 }}>EM ESTADO DE</motion.span>
-                <motion.span variants={fadeUp} style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>CRIATIVIDADE</motion.span>
+                <motion.span variants={fadeUp} style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>INTERESSANTE</motion.span>
+                <motion.span variants={fadeUp} className="text-[1.3em]" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 800 }}>DO QUE PARECE</motion.span>
               </div>
             </h2>
 
@@ -358,7 +352,7 @@ export default function Home() {
                   className="text-2xl md:text-3xl lg:text-4xl text-[#050a30] leading-snug font-medium"
                   style={{ fontFamily: 'Aileron, sans-serif' }}
                 >
-                  Mais que uma agência full-service, a Brinde transforma negócios por meio de ideias que unem lógica, estética e impacto. Criamos marcas conscientes, relevantes e prontas para competir.
+                  A campanha é uma ideia central forte o suficiente para ganhar filme, conteúdo, mídia, ativação e diferentes pontos de contato sem perder significado.
                 </p>
               </motion.div>
               <div className="md:col-span-5 flex flex-col gap-6 lg:gap-8 justify-start pt-2">
@@ -367,14 +361,14 @@ export default function Home() {
                   className="text-lg md:text-xl text-gray-800 leading-relaxed"
                   style={{ fontFamily: 'Aileron, sans-serif' }}
                 >
-                  Na Brinde, cada projeto nasce de uma lógica clara: entender o negócio, traduzir a intenção da marca e criar soluções que movem o mercado com consistência.
+                  Um filme criativo nasce de uma tensão latente do negócio e evolui sob uma única direção. Estratégia, conceito, roteiro, produção e mídia trabalham em conjunto para que cada formato cumpra uma função própria sem fragmentar a mensagem.
                 </motion.p>
                 <motion.p
                   variants={fadeUp}
                   className="text-lg md:text-xl text-gray-800 leading-relaxed"
                   style={{ fontFamily: 'Aileron, sans-serif' }}
                 >
-                  Combinamos análise, criação e execução para que a comunicação seja resultado de método e sensibilidade. Aqui, estratégia ganha forma, criatividade ganha propósito e marcas ganham presença.
+                  É a assinatura criativa que mantém todos os desdobramentos reconhecíveis como parte de uma única campanha.
                 </motion.p>
               </div>
             </div>
@@ -403,11 +397,11 @@ export default function Home() {
           <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
             {/* Left Side: Items */}
-            <div className="lg:col-span-7 flex flex-col bg-[#050a30] rounded-xl overflow-hidden shadow-2xl">
+            <div className="lg:col-span-7 flex flex-col gap-y-[0.2rem] rounded-xl">
               {produtoraServices.map((item, index) => (
                 <div
                   key={index}
-                  className="group border-b border-white/20 last:border-b-0 cursor-pointer bg-[#050a30] text-white relative h-[90px] md:h-[110px] overflow-hidden"
+                  className="group cursor-pointer bg-[#050a30] text-white relative h-[90px] md:h-[110px] overflow-hidden first:rounded-t-xl last:rounded-b-xl"
                   style={{ perspective: 1000 }}
                   onMouseEnter={() => setHoveredSolucao(index)}
                   onMouseLeave={() => setHoveredSolucao(null)}
@@ -464,13 +458,13 @@ export default function Home() {
         <div ref={videosWrapperRef} className="relative">
           <section ref={videosSectionRef} className="sticky top-0 h-screen min-w-full shrink-0 bg-[#050a30] flex items-center px-6 md:px-12 overflow-hidden">
             <div className="w-full max-w-[1300px] mx-auto">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 items-end justify-items-center">
-                {(['48Tg9kbDKyI', 'b5ljyLD58Z0', 'kx9ldjEWszQ', 'BCk9qP7w1Ss'] as const).map((videoId, i) => (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 items-center justify-items-center">
+                {(['48Tg9kbDKyI', 'b5ljyLD58Z0', 'kx9ldjEWszQ', '7xYsQq9V0Cc'] as const).map((videoId, i) => (
                   <div
                     key={i}
                     data-video-card
                     onClick={() => activeVideo !== i && setActiveVideo(i)}
-                    className="relative aspect-[9/16] w-full max-w-[280px] rounded-2xl overflow-hidden bg-[#050a30] shadow-2xl cursor-pointer group"
+                    className="relative aspect-[9/16] w-full max-w-[45vw] md:max-w-[280px] rounded-2xl overflow-hidden bg-[#050a30] shadow-2xl cursor-pointer group"
                   >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
