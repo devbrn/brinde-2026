@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import { Playfair_Display, Inter, Poppins } from 'next/font/google';
 import './globals.css';
 import { LenisProvider } from '@/components/LenisProvider';
@@ -34,11 +33,6 @@ export default function RootLayout({
     <html lang="pt-BR" className={`${playfair.variable} ${inter.variable} ${poppins.variable}`}>
       <body className="font-sans bg-white text-[#050a30] antialiased">
         <LenisProvider>{children}</LenisProvider>
-        <Script
-          src="https://aprovai.braine.ia.br/aprovai-widget.js?v=3"
-          data-site-token="f8c61882-f09e-4c2f-b3f5-2a3d71add193"
-          strategy="lazyOnload"
-        />
       </body>
     </html>
   );
