@@ -75,7 +75,7 @@ export default function Contato() {
       </section>
 
       {/* ─── FORM ─── */}
-      <section className="px-6 md:px-12 lg:px-24 py-20">
+      <section className="px-6 md:px-12 lg:px-24 py-20" data-nav-light>
         <div className="max-w-[800px] mx-auto">
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             {/* Name */}

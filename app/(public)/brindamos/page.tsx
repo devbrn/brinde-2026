@@ -21,7 +21,7 @@ export default function Brindamos() {
       </section>
 
       {/* Clients */}
-      <section className="bg-white py-16 px-6">
+      <section className="bg-white py-16 px-6" data-nav-light>
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-playfair mb-12 text-center">Nossos Clientes</h2>
 

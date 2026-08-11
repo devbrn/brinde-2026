@@ -412,7 +412,7 @@ export default function ServicosPage() {
   const activeService = activeId ? (services.find((s) => s.id === activeId) ?? null) : null;
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white min-h-screen" data-nav-light>
       {/* ─── HERO ─── */}
       <section className="pt-64 px-6 md:px-12 lg:px-24">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">

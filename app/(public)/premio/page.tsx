@@ -221,7 +221,7 @@ export default function Premio() {
       </div>
 
       {/* ─── PG 19: Texto Prêmio ─── */}
-      <section className="bg-white flex items-center pt-8 pb-20 px-6 md:px-16 lg:px-24">
+      <section className="bg-white flex items-center pt-8 pb-20 px-6 md:px-16 lg:px-24" data-nav-light>
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 w-full">
           <p
             className="text-2xl md:text-3xl lg:text-4xl text-[#050a30] leading-snug"
@@ -251,7 +251,7 @@ export default function Premio() {
       </section>
 
       {/* ─── PG 20: Troféu Ouro ─── */}
-      <section className="relative w-full h-screen overflow-hidden bg-white">
+      <section className="relative w-full h-screen overflow-hidden bg-white" data-nav-light>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="https://res.cloudinary.com/dyezpmorm/image/upload/v1781110726/Site_Brinde_2026_1_jwnfgc.webp"

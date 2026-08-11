@@ -272,7 +272,7 @@ export default function Home() {
             title="Hero"
           />
 
-          <div className="absolute inset-0 bg-[#050a30]/40" />
+          <div className="absolute inset-0 bg-[#050a30]/70" />
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -302,7 +302,7 @@ export default function Home() {
         </section>
 
         {/* ─── 2. SOBRE NÓS ─── */}
-        <section className="min-w-full h-full shrink-0 snap-start overflow-y-auto bg-white px-4 md:px-8 lg:px-12" style={{ paddingTop: 'clamp(2rem, 5vh, 5rem)', paddingBottom: 'clamp(2rem, 5vh, 5rem)' }}>
+        <section data-nav-light className="min-w-full h-full shrink-0 snap-start overflow-y-auto bg-white px-4 md:px-8 lg:px-12" style={{ paddingTop: 'clamp(2rem, 5vh, 5rem)', paddingBottom: 'clamp(2rem, 5vh, 5rem)' }}>
           <motion.div
             variants={staggerContainer}
             initial="hidden"
@@ -362,13 +362,13 @@ export default function Home() {
             title="Prêmio"
           />
           
-          <div className="absolute inset-0 bg-[#050a30]/50" />
+          <div className="absolute inset-0 bg-[#050a30]/70" />
         </section>
       </div>
 
       <div className="flex flex-col w-full">
         {/* ─── 4. SOLUÇÕES COMPLETAS ─── */}
-        <section className="min-w-full min-h-screen shrink-0 bg-white px-4 md:px-8 lg:px-12 flex items-center" style={{ paddingTop: 'clamp(2rem, 5vh, 5rem)', paddingBottom: 'clamp(2rem, 5vh, 5rem)' }}>
+        <section data-nav-light className="min-w-full min-h-screen shrink-0 bg-white px-4 md:px-8 lg:px-12 flex items-center" style={{ paddingTop: 'clamp(2rem, 5vh, 5rem)', paddingBottom: 'clamp(2rem, 5vh, 5rem)' }}>
           <div className="w-full max-w-[1150px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
             <div className="lg:col-span-7 flex flex-col gap-y-[0.2rem] rounded-xl">
@@ -452,7 +452,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="w-full bg-[#F2EFE7] py-6 md:py-8 relative flex items-center">
+          <div data-nav-light className="w-full bg-[#F2EFE7] py-6 md:py-8 relative flex items-center">
             <div className="flex w-max animate-marquee items-center">
               <div className="flex gap-0 md:gap-0 pr-0 md:pr-0 items-center">
                 {[...clients, ...clients].map((client, idx) => (

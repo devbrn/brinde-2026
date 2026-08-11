@@ -22,6 +22,7 @@ export function Footer() {
         {/* Col 1 — Nav */}
         <div className="space-y-3">
           {[
+            { label: 'Início', href: '/' },
             { label: 'Sobre Nós', href: '/sobre-nos' },
             { label: 'Prêmio', href: '/premio' },
             { label: 'Fizemos', href: '/fizemos' },

@@ -282,7 +282,7 @@ export default function SobreNos() {
   const ruidoTextY = useTransform(ruidoProgress, [0.3, 0.55], [30, 0]);
 
   return (
-    <div className="pt-20 bg-white text-[#050a30]">
+    <div className="pt-20 bg-white text-[#050a30]" data-nav-light>
       {/* ─── HERO (pg 8) ─── */}
       <motion.section
         ref={heroRef}

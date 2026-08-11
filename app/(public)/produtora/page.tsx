@@ -142,7 +142,7 @@ const clientStories = [
 
 const produtoraServices = [
   { title: 'Conceito e Roteiro', description: 'Encontramos no negócio algo que mereça atenção. Ideação, conceito visual e roteiro que dão origem ao filme.' },
-  { title: 'Direção Criativa', description: 'Construção de uma linguagem própria — direção de arte, fotografia e narrativa que despertam desejo pela marca.' },
+  { title: 'Direção Criativa', description: 'Construção de uma linguagem própria, direção de arte, fotografia e narrativa que despertam desejo pela marca.' },
   { title: 'Produção e Captação', description: 'Câmeras de cinema, iluminação, áudio e equipe dedicada. Visitas técnicas e captação profissional no set.' },
   { title: 'Pós-Produção', description: 'Edição, colorimetria, efeitos especiais, motion graphics e finalização que elevam o valor percebido.' },
   { title: 'Desdobramentos de Campanha', description: 'Cortes, formatos e adaptações para canais e mídia, ampliando o alcance e a admiração pela marca.' },
@@ -289,44 +289,18 @@ export default function Home() {
         {/* ─── 1. HERO ─── */}
         <section className="w-screen h-full shrink-0 snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
           <iframe
-            src="https://www.youtube.com/embed/CVQFKCuMq3E?autoplay=1&mute=1&loop=1&playlist=CVQFKCuMq3E&controls=0&showinfo=0&rel=0&modestbranding=1"
+            src="https://www.youtube.com/embed/gasN44w-zHg?autoplay=1&mute=1&loop=1&playlist=gasN44w-zHg&controls=0&showinfo=0&rel=0&modestbranding=1"
             className="absolute inset-0 w-full h-full pointer-events-none"
             style={{ border: 'none', transform: 'scale(1.4)', transformOrigin: 'center' }}
             allow="autoplay; mute"
             title="Hero"
           />
 
-          <div className="absolute inset-0 bg-[#050a30]/40" />
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="relative z-10 flex flex-col items-center justify-center text-center w-full px-4 gap-1 md:gap-4"
-          >
-            <p
-              className="text-white drop-shadow-md"
-              style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(1rem, 2vw, 1.5rem)' }}
-            >
-              publicidade e estratégia em
-            </p>
-            <h1
-              className="font-black text-white leading-none tracking-tighter drop-shadow-xl uppercase -mb-2 md:-mb-4"
-              style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(2.4rem, 8vw, 8.8rem)' }}
-            >
-              Estado de
-            </h1>
-            <span
-              className="text-white drop-shadow-xl"
-              style={{ fontFamily: '"Tan Pearl", serif', fontSize: 'clamp(2.5rem, 8vw, 9rem)' }}
-            >
-              Criatividade
-            </span>
-          </motion.div>
+          <div className="absolute inset-0 bg-[#050a30]/70" />
         </section>
 
         {/* ─── 2. SOBRE NÓS ─── */}
-        <section className="w-screen h-full shrink-0 snap-start overflow-hidden bg-white py-16 px-6 md:px-12">
+        <section className="w-screen h-full shrink-0 snap-start overflow-hidden bg-white py-16 px-6 md:px-12" data-nav-light>
           <motion.div
             variants={staggerContainer}
             initial="hidden"
@@ -385,7 +359,7 @@ export default function Home() {
             title="Prêmio"
           />
           
-          <div className="absolute inset-0 bg-[#050a30]/50" />
+          <div className="absolute inset-0 bg-[#050a30]/70" />
         </section>
           </div>
         </div>
@@ -393,7 +367,7 @@ export default function Home() {
 
       <div className="flex flex-col w-full">
         {/* ─── 4. SOLUÇÕES COMPLETAS ─── */}
-        <section className="min-w-full min-h-screen shrink-0 bg-white py-20 px-6 md:px-12 flex items-center">
+        <section className="min-w-full min-h-screen shrink-0 bg-white py-20 px-6 md:px-12 flex items-center" data-nav-light>
           <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
             {/* Left Side: Items */}
