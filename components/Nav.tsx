@@ -78,6 +78,9 @@ export function Nav() {
       </Link>
 
       <div className="hidden md:flex items-center gap-8 ml-auto" style={{ fontFamily: 'var(--font-poppins), sans-serif', fontWeight: 700 }}>
+        <Link href="/" className={`transition ${textCls} ${hoverCls} text-sm`}>
+          Início
+        </Link>
         <Link href="/sobre-nos" className={`transition ${textCls} ${hoverCls} text-sm`}>
           Sobre Nós
         </Link>
