@@ -60,10 +60,10 @@ function PerfNodeItem({
           left: `${x}%`,
           top: `${y}%`,
         }}
-        className="absolute -translate-x-1/2 -translate-y-1/2 w-[110px] h-[110px] md:w-[140px] md:h-[140px] rounded-full bg-[#050a30] flex items-center justify-center text-center px-2 z-20"
+        className="absolute -translate-x-1/2 -translate-y-1/2 w-[84px] h-[84px] md:w-[140px] md:h-[140px] rounded-full bg-[#050a30] flex items-center justify-center text-center px-2 z-20"
       >
         <span
-          className="text-[#fff8d6] text-xs md:text-sm font-bold whitespace-pre-line leading-tight"
+          className="text-[#fff8d6] text-[10px] md:text-sm font-bold whitespace-pre-line leading-tight"
           style={{ fontFamily: 'Aileron, sans-serif' }}
         >
           {node.label}
@@ -128,25 +128,25 @@ function SpecialMidiOffNodeItem({
           y: logoTranslateY,
           scale: logoScale,
         }}
-        className="absolute -translate-x-1/2 -translate-y-1/2 w-[110px] h-[110px] md:w-[140px] md:h-[140px] rounded-full bg-[#050a30] flex items-center justify-center text-center px-2 z-20 shadow-lg"
+        className="absolute -translate-x-1/2 -translate-y-1/2 w-[84px] h-[84px] md:w-[140px] md:h-[140px] rounded-full bg-[#050a30] flex items-center justify-center text-center px-2 z-20 shadow-lg"
       >
         {/* Logo image (visible initially) */}
         <motion.div
           style={{ opacity: logoOpacity }}
-          className="absolute inset-0 flex items-center justify-center"
+          className="absolute inset-0 flex items-center justify-center px-4 md:px-5"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="https://res.cloudinary.com/dyezpmorm/image/upload/v1780502461/Site-Brinde-LOGO-1024x316_xtnbj8.webp"
             alt="Brinde"
-            className="h-6 md:h-7 w-auto"
+            className="h-4 md:h-7 w-auto max-w-full object-contain"
           />
         </motion.div>
 
         {/* Node text (visible at the end) */}
         <motion.span
           style={{ opacity: textOpacity, fontFamily: 'Aileron, sans-serif' }}
-          className="text-[#fff8d6] text-xs md:text-sm font-bold whitespace-pre-line leading-tight absolute inset-0 flex items-center justify-center px-2"
+          className="text-[#fff8d6] text-[10px] md:text-sm font-bold whitespace-pre-line leading-tight absolute inset-0 flex items-center justify-center px-1 md:px-2"
         >
           {node.label}
         </motion.span>
@@ -250,7 +250,7 @@ export default function SobreNos() {
   const logoTranslateY = useTransform(
     perfProgress,
     [0.01, 0.20],
-    [isMobile ? -250 : -380, 0]
+    [isMobile ? -210 : -380, 0]
   );
   const logoScale = useTransform(perfProgress, [0.01, 0.20], [0.8, 1.0]);
   const logoOpacity = useTransform(perfProgress, [0.01, 0.10], [1, 0]);
@@ -347,44 +347,81 @@ export default function SobreNos() {
             }}
             className="w-full"
           >
-            <div className="grid grid-cols-[3rem_1fr_1fr] md:grid-cols-[4rem_1fr_2fr] gap-x-4 pb-2 border-b border-[#050a30]/20 text-xs md:text-sm uppercase tracking-wide text-gray-500" style={{ fontFamily: 'Aileron, sans-serif' }}>
-              <span>Fase</span>
-              <span className="text-center md:text-left">Foco</span>
-              <span className="hidden md:block text-right">Desenvolvimento</span>
-            </div>
-
-            {fases.map((fase, index) => {
-              const isActive = hoveredFase === index;
-              return (
+            {/* ─── Mobile: cards empilhados ───
+                A tabela de 3 colunas não cabe em 390px, e esconder "Desenvolvimento"
+                (o conteúdo mais rico) deixava "Foco" solto num espaço vazio.
+                Aqui o número vira marcador lateral e as 3 informações empilham. */}
+            <div className="flex flex-col gap-3 md:hidden">
+              {fases.map((fase) => (
                 <div
                   key={fase.numero}
-                  onMouseEnter={() => setHoveredFase(index)}
-                  onMouseLeave={() => setHoveredFase(null)}
-                  className={`grid grid-cols-[3rem_1fr_1fr] md:grid-cols-[4rem_1fr_2fr] gap-x-4 items-center px-2 py-4 md:py-5 cursor-pointer transition-colors duration-300 border-b border-[#050a30]/10 last:border-b-0 ${
-                    isActive ? 'bg-[#050a30]' : 'bg-transparent'
-                  }`}
+                  className="flex gap-4 rounded-xl border border-[#050a30]/10 bg-[#050a30]/[0.03] p-4"
                 >
                   <span
-                    className={`font-bold text-base md:text-lg ${isActive ? 'text-[#fff8d6]' : 'text-[#050a30]'}`}
+                    className="shrink-0 text-2xl font-bold leading-none text-[#050a30]/25"
                     style={{ fontFamily: 'Aileron, sans-serif' }}
                   >
                     {fase.numero}
                   </span>
-                  <span
-                    className={`font-black text-center md:text-left text-lg md:text-2xl uppercase tracking-tight ${isActive ? 'text-white' : 'text-[#050a30]'}`}
-                    style={{ fontFamily: 'Aileron, sans-serif' }}
-                  >
-                    {fase.foco}
-                  </span>
-                  <span
-                    className={`hidden md:block text-right text-sm md:text-base ${isActive ? 'text-[#fff8d6] font-bold' : 'text-gray-600'}`}
-                    style={{ fontFamily: 'Aileron, sans-serif' }}
-                  >
-                    {fase.desenvolvimento}
-                  </span>
+                  <div className="flex flex-col gap-1">
+                    <span
+                      className="text-lg font-black uppercase leading-tight tracking-tight text-[#050a30]"
+                      style={{ fontFamily: 'Aileron, sans-serif' }}
+                    >
+                      {fase.foco}
+                    </span>
+                    <span
+                      className="text-sm leading-relaxed text-gray-600"
+                      style={{ fontFamily: 'Aileron, sans-serif' }}
+                    >
+                      {fase.desenvolvimento}
+                    </span>
+                  </div>
                 </div>
-              );
-            })}
+              ))}
+            </div>
+
+            {/* ─── Desktop: tabela original ─── */}
+            <div className="hidden md:block">
+              <div className="grid grid-cols-[4rem_1fr_2fr] gap-x-4 pb-2 border-b border-[#050a30]/20 text-sm uppercase tracking-wide text-gray-500" style={{ fontFamily: 'Aileron, sans-serif' }}>
+                <span>Fase</span>
+                <span className="text-left">Foco</span>
+                <span className="text-right">Desenvolvimento</span>
+              </div>
+
+              {fases.map((fase, index) => {
+                const isActive = hoveredFase === index;
+                return (
+                  <div
+                    key={fase.numero}
+                    onMouseEnter={() => setHoveredFase(index)}
+                    onMouseLeave={() => setHoveredFase(null)}
+                    className={`grid grid-cols-[4rem_1fr_2fr] gap-x-4 items-center px-2 py-5 cursor-pointer transition-colors duration-300 border-b border-[#050a30]/10 last:border-b-0 ${
+                      isActive ? 'bg-[#050a30]' : 'bg-transparent'
+                    }`}
+                  >
+                    <span
+                      className={`font-bold text-lg ${isActive ? 'text-[#fff8d6]' : 'text-[#050a30]'}`}
+                      style={{ fontFamily: 'Aileron, sans-serif' }}
+                    >
+                      {fase.numero}
+                    </span>
+                    <span
+                      className={`font-black text-left text-2xl uppercase tracking-tight ${isActive ? 'text-white' : 'text-[#050a30]'}`}
+                      style={{ fontFamily: 'Aileron, sans-serif' }}
+                    >
+                      {fase.foco}
+                    </span>
+                    <span
+                      className={`text-right text-base ${isActive ? 'text-[#fff8d6] font-bold' : 'text-gray-600'}`}
+                      style={{ fontFamily: 'Aileron, sans-serif' }}
+                    >
+                      {fase.desenvolvimento}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
           </motion.div>
         </div>
       </motion.section>
@@ -404,7 +441,7 @@ export default function SobreNos() {
 
           <motion.p
             style={{ opacity: paraOpacity, y: paraY }}
-            className="text-xl md:text-2xl lg:text-3xl text-gray-800 leading-relaxed max-w-[1200px] mx-auto mb-16 text-center"
+            className="text-base md:text-lg lg:text-xl text-gray-800 leading-relaxed max-w-[1200px] mx-auto mb-16 text-center"
           >
             <span style={{ fontFamily: 'Aileron, sans-serif' }}>
               A Brinde nasceu para fazer o marketing e a publicidade ocuparem um papel mais estratégico dentro das empresas.
@@ -425,7 +462,7 @@ export default function SobreNos() {
         {/* Imagem esquerda */}
         <motion.div
           style={{ opacity: leftImgOpacity, x: leftImgX }}
-          className="absolute left-0 top-1/2 -translate-y-1/2 w-[28%] md:w-[24%] lg:w-[22%] select-none"
+          className="absolute -left-[20%] md:left-0 top-[22%] md:top-1/2 -translate-y-1/2 w-[30%] md:w-[24%] lg:w-[22%] select-none opacity-90 md:opacity-100"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -438,7 +475,7 @@ export default function SobreNos() {
         {/* Imagem direita */}
         <motion.div
           style={{ opacity: rightImgOpacity, x: rightImgX }}
-          className="absolute right-0 top-1/2 -translate-y-1/2 w-[28%] md:w-[24%] lg:w-[22%] select-none"
+          className="absolute -right-[20%] md:right-0 top-[22%] md:top-1/2 -translate-y-1/2 w-[30%] md:w-[24%] lg:w-[22%] select-none opacity-90 md:opacity-100"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -450,8 +487,8 @@ export default function SobreNos() {
       </div>
 
       {/* ─── PLANEJAMOS E EXECUTAMOS (pg 11) ─── */}
-      <section ref={planRef} className="relative bg-white py-24 md:py-32">
-        <div className="relative z-10 w-full flex flex-col items-center text-center gap-16 md:gap-20">
+      <section ref={planRef} className="relative bg-white pt-10 pb-16 md:py-32">
+        <div className="relative z-10 w-full flex flex-col items-center text-center gap-8 md:gap-20">
           <motion.h2
             style={{ opacity: headlineOpacity, y: headlineY }}
             className="text-[1.8rem] sm:text-[2.4rem] md:text-[3rem] lg:text-[3.5rem] leading-tight uppercase text-[#050a30]"
@@ -462,10 +499,10 @@ export default function SobreNos() {
             </span>
           </motion.h2>
 
-          <div className="grid grid-cols-2 gap-10 md:gap-16 max-w-[600px] mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 max-w-[600px] mx-auto px-6 md:px-0">
             <motion.div
               style={{ opacity: onOpacity, y: onY }}
-              className="flex flex-col items-end text-right gap-2"
+              className="flex flex-col items-center text-center md:items-end md:text-right gap-2"
             >
               <h3 className="text-[2.8rem] md:text-[3.9rem] lg:text-[4.6rem] leading-none">
                 <span style={{ fontFamily: '"Tan Pearl", serif', color: '#050a30' }}>ON</span>
@@ -480,7 +517,7 @@ export default function SobreNos() {
 
             <motion.div
               style={{ opacity: offOpacity, y: offY }}
-              className="flex flex-col items-start text-left gap-2"
+              className="flex flex-col items-center text-center md:items-start md:text-left gap-2"
             >
               <h3 className="text-[2.8rem] md:text-[3.9rem] lg:text-[4.6rem] leading-none">
                 <span style={{ fontFamily: '"Tan Pearl", serif', color: '#050a30' }}>OFF</span>
@@ -500,18 +537,18 @@ export default function SobreNos() {
       </section>
 
       {/* ─── PERFORMANCE (pg 12) ─── */}
-      <section ref={perfRef} className="bg-white pt-24 md:pt-32 pb-0 px-6 md:px-12 relative overflow-visible">
-        <div className="relative max-w-[1200px] mx-auto aspect-square max-h-[800px]">
+      <section ref={perfRef} className="bg-white pt-4 md:pt-32 pb-0 px-6 md:px-12 relative overflow-visible">
+        <div className="relative max-w-[1200px] mx-auto aspect-[1/0.78] md:aspect-square max-h-[800px]">
           {/* dashed circle */}
           <motion.div
             style={{ opacity: perfRingOpacity }}
-            className="absolute inset-[15%] rounded-full border-2 border-dashed border-[#050a30]/30"
+            className="absolute inset-[22%] md:inset-[15%] rounded-full border-2 border-dashed border-[#050a30]/30"
           />
 
           {/* texto central */}
           <motion.div
             style={{ opacity: perfCenterOpacity, scale: perfCenterScale }}
-            className="absolute inset-0 flex flex-col items-center justify-center text-center px-[20%] z-10"
+            className="absolute inset-0 hidden md:flex flex-col items-center justify-center text-center px-[20%] z-10"
           >
             <p
               className="text-base md:text-xl lg:text-2xl text-[#050a30] leading-snug mb-2"
@@ -573,18 +610,43 @@ export default function SobreNos() {
           })()}
         </div>
 
-        {/* lista textos no mobile */}
-        <div className="md:hidden mt-12 max-w-[500px] mx-auto grid grid-cols-1 gap-4">
+        {/* texto central no mobile: abaixo das bolinhas, onde sobra espaço */}
+        <motion.div
+          style={{ opacity: perfCenterOpacity }}
+          className="md:hidden mt-8 flex flex-col items-center text-center"
+        >
+          <p
+            className="text-base text-[#050a30] leading-snug mb-1"
+            style={{ fontFamily: 'Aileron, sans-serif' }}
+          >
+            Integramos dados, mídia e criatividade para gerar
+          </p>
+          <p
+            className="text-[1.8rem] text-[#050a30] leading-none"
+            style={{ fontFamily: '"Tan Pearl", serif' }}
+          >
+            Performance
+          </p>
+        </motion.div>
+
+        {/* lista textos no mobile — cards 2 por linha */}
+        <div className="md:hidden mt-12 max-w-[500px] mx-auto grid grid-cols-2 gap-3">
           {perfNodes.map((node, i) => (
             <motion.div
               key={i}
               style={{ opacity: perfRingOpacity }}
-              className="flex flex-col"
+              className="flex flex-col rounded-xl border border-[#050a30]/10 bg-[#050a30]/[0.03] p-3"
             >
-              <span className="font-bold text-[#050a30] text-sm" style={{ fontFamily: 'Aileron, sans-serif' }}>
+              <span
+                className="font-bold text-[#050a30] text-[13px] leading-tight mb-1.5"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
+              >
                 {node.label.replace(/\n/g, ' ')}
               </span>
-              <p className="text-xs text-gray-700 whitespace-pre-line" style={{ fontFamily: 'Aileron, sans-serif' }}>
+              <p
+                className="text-[11px] leading-relaxed text-gray-700 whitespace-pre-line"
+                style={{ fontFamily: 'Aileron, sans-serif' }}
+              >
                 {node.description}
               </p>
             </motion.div>
@@ -598,7 +660,7 @@ export default function SobreNos() {
           {/* CTA topo centralizado */}
           <motion.div
             style={{ opacity: metodoBtnOpacity, y: metodoBtnY }}
-            className="flex justify-center"
+            className="flex justify-center mt-5"
           >
             <Link
               href="/contato"

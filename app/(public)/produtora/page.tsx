@@ -283,15 +283,18 @@ export default function Home() {
       <div ref={wrapperRef} className="relative">
         <div
           ref={sectionRef}
-          className="sticky top-0 h-screen overflow-x-auto overflow-y-hidden snap-x snap-mandatory hide-scrollbar lg:overflow-hidden lg:snap-none"
+          className="sticky top-0 h-[100dvh] overflow-x-auto overflow-y-hidden snap-x snap-mandatory hide-scrollbar lg:overflow-hidden lg:snap-none"
         >
           <div ref={trackRef} className="flex h-full w-max">
         {/* ─── 1. HERO ─── */}
         <section className="w-screen h-full shrink-0 snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
+          {/* Iframe não aceita object-cover: dimensionamos em 16:9 pelo lado maior
+              da viewport, cobrindo a tela inteira sem faixas. O scale empurra a
+              moldura preta do player para fora — overflow-hidden corta o excedente. */}
           <iframe
-            src="https://www.youtube.com/embed/gasN44w-zHg?autoplay=1&mute=1&loop=1&playlist=gasN44w-zHg&controls=0&showinfo=0&rel=0&modestbranding=1"
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            style={{ border: 'none', transform: 'scale(1.4)', transformOrigin: 'center' }}
+            src="https://www.youtube.com/embed/gasN44w-zHg?autoplay=1&mute=1&loop=1&playlist=gasN44w-zHg&controls=0&showinfo=0&rel=0&modestbranding=1&cc_load_policy=0&cc_lang_pref=pt&iv_load_policy=3&disablekb=1&fs=0&playsinline=1"
+            className="absolute left-1/2 top-1/2 pointer-events-none w-[max(102vw,181.34lvh)] h-[max(57.38vw,102lvh)] max-w-none"
+            style={{ border: 'none', transform: 'translate(-50%, -50%) scale(1.35)', transformOrigin: 'center' }}
             allow="autoplay; mute"
             title="Hero"
           />
@@ -352,9 +355,9 @@ export default function Home() {
         {/* ─── 3. PRÊMIO ─── */}
         <section className="w-screen h-full shrink-0 snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
           <iframe
-            src="https://www.youtube.com/embed/h4bOPkceXR0?autoplay=1&mute=1&loop=1&playlist=h4bOPkceXR0&controls=0&showinfo=0&rel=0&modestbranding=1"
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            style={{ border: 'none', transform: 'scale(1.4)', transformOrigin: 'center' }}
+            src="https://www.youtube.com/embed/h4bOPkceXR0?autoplay=1&mute=1&loop=1&playlist=h4bOPkceXR0&controls=0&showinfo=0&rel=0&modestbranding=1&cc_load_policy=0&cc_lang_pref=pt&iv_load_policy=3&disablekb=1&fs=0&playsinline=1"
+            className="absolute left-1/2 top-1/2 pointer-events-none w-[max(102vw,181.34lvh)] h-[max(57.38vw,102lvh)] max-w-none"
+            style={{ border: 'none', transform: 'translate(-50%, -50%) scale(1.35)', transformOrigin: 'center' }}
             allow="autoplay; mute"
             title="Prêmio"
           />

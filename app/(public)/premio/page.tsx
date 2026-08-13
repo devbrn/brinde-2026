@@ -21,46 +21,46 @@ const cards: StoryCard[] = [
     label: 'Fundada 2021',
     image:
       'https://res.cloudinary.com/dyezpmorm/image/upload/v1782928921/Fundada_2021_opyejj.png',
-    widthClass: 'w-[70vw] lg:w-[35vw] xl:w-[28vw]',
-    mtClass: 'mt-[6vh]',
+    widthClass: 'lg:w-[35vw] xl:w-[28vw]',
+    mtClass: 'lg:mt-[6vh]',
     parallax: -80,
   },
   {
     quote: 'Mais importante que o começo, é a forma como evoluímos.',
-    widthClass: 'w-[65vw] lg:w-[28vw] xl:w-[22vw]',
-    mtClass: 'mt-[18vh]',
+    widthClass: 'lg:w-[28vw] xl:w-[22vw]',
+    mtClass: 'lg:mt-[18vh]',
     parallax: 0,
   },
   {
     label: 'Consolidação 2022',
     image:
       'https://res.cloudinary.com/dyezpmorm/image/upload/v1782928921/Consolida%C3%A7%C3%A3o_2022_jvd3vw.png',
-    widthClass: 'w-[60vw] lg:w-[28vw] xl:w-[22vw]',
-    mtClass: 'mt-[-4vh]',
+    widthClass: 'lg:w-[28vw] xl:w-[22vw]',
+    mtClass: 'lg:mt-[-4vh]',
     parallax: 60,
   },
   {
     label: 'Identidade 2023',
     image:
       'https://res.cloudinary.com/dyezpmorm/image/upload/v1782924825/IMG_5747_zjexv0.jpg',
-    widthClass: 'w-[75vw] lg:w-[38vw] xl:w-[30vw]',
-    mtClass: 'mt-[14vh]',
+    widthClass: 'lg:w-[38vw] xl:w-[30vw]',
+    mtClass: 'lg:mt-[14vh]',
     parallax: -100,
   },
   {
     label: 'Expansão 2024',
     image:
       'https://res.cloudinary.com/dyezpmorm/image/upload/v1782928921/Expans%C3%A3o_2024_ddgu2e.png',
-    widthClass: 'w-[68vw] lg:w-[32vw] xl:w-[25vw]',
-    mtClass: 'mt-[-10vh]',
+    widthClass: 'lg:w-[32vw] xl:w-[25vw]',
+    mtClass: 'lg:mt-[-10vh]',
     parallax: 70,
   },
   {
     label: 'Validação 2025',
     image:
       'https://res.cloudinary.com/dyezpmorm/image/upload/v1782928920/Valida%C3%A7%C3%A3o_2025_tllu3k.png',
-    widthClass: 'w-[80vw] lg:w-[42vw] xl:w-[33vw]',
-    mtClass: 'mt-[10vh]',
+    widthClass: 'lg:w-[42vw] xl:w-[33vw]',
+    mtClass: 'lg:mt-[10vh]',
     parallax: -90,
   },
 ];
@@ -78,9 +78,11 @@ export default function Premio() {
     const wrapper = wrapperRef.current;
     const mm = gsap.matchMedia();
 
+    // Abaixo de lg os cards empilham e rolam com a página: sem lock de scroll,
+    // sem parallax residual do GSAP nas imagens.
     mm.add('(max-width: 1023px)', () => {
-      section?.setAttribute('data-lenis-prevent', '');
-      return () => section?.removeAttribute('data-lenis-prevent');
+      section?.removeAttribute('data-lenis-prevent');
+      imageRefs.current.forEach((img) => img && gsap.set(img, { clearProps: 'all' }));
     });
 
     mm.add('(min-width: 1024px)', () => {
@@ -156,12 +158,15 @@ export default function Premio() {
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: 1.2, ease: 'easeOut' } }}
-        className="pt-20 relative min-h-screen bg-[#050a30] flex items-center justify-center overflow-hidden"
+        className="pt-20 relative min-h-[100dvh] bg-[#050a30] flex items-center justify-center overflow-hidden"
       >
+        {/* Iframe não aceita object-cover: dimensionamos em 16:9 pelo lado maior
+            da viewport, cobrindo a tela inteira sem faixas. O scale empurra a
+            moldura preta do player para fora — overflow-hidden corta o excedente. */}
         <iframe
-          src="https://www.youtube.com/embed/vB5FYlsGybM?autoplay=1&mute=1&loop=1&playlist=vB5FYlsGybM&controls=0&showinfo=0&rel=0&modestbranding=1"
-          className="absolute inset-0 w-full h-full pointer-events-none"
-          style={{ border: 'none', transform: 'scale(1.4)', transformOrigin: 'center' }}
+          src="https://www.youtube.com/embed/vB5FYlsGybM?autoplay=1&mute=1&loop=1&playlist=vB5FYlsGybM&controls=0&showinfo=0&rel=0&modestbranding=1&cc_load_policy=0&cc_lang_pref=pt&iv_load_policy=3&disablekb=1&fs=0&playsinline=1"
+          className="absolute left-1/2 top-1/2 pointer-events-none w-[max(102vw,181.34lvh)] h-[max(57.38vw,102lvh)] max-w-none"
+          style={{ border: 'none', transform: 'translate(-50%, -50%) scale(1.35)', transformOrigin: 'center' }}
           allow="autoplay; mute"
           title="Prêmio"
         />
@@ -172,19 +177,25 @@ export default function Premio() {
       <div ref={wrapperRef} className="relative">
         <section
           ref={sectionRef}
-          className="sticky top-0 h-screen w-full bg-[#050a30] overflow-x-auto lg:overflow-hidden snap-x snap-mandatory lg:snap-none"
+          className="lg:sticky lg:top-0 lg:h-screen w-full bg-[#050a30] lg:overflow-hidden py-16 lg:py-0"
         >
+        {/* Mobile/tablet: empilha vertical (cada card revela ao entrar na viewport).
+            lg+: track horizontal movido pelo GSAP. */}
         <div
           ref={trackRef}
-          className="flex h-full items-center gap-8 lg:gap-24 px-[8vw] lg:px-[12vw] w-max"
+          className="flex flex-col lg:flex-row items-center lg:h-full gap-12 lg:gap-24 px-6 lg:px-[12vw] w-full lg:w-max"
         >
           {cards.map((card, i) => (
-            <div
+            <motion.div
               key={i}
               ref={(el) => {
-                cardRefs.current[i] = el;
+                cardRefs.current[i] = el as HTMLDivElement | null;
               }}
-              className={`shrink-0 flex flex-col gap-4 snap-center ${card.widthClass} ${card.mtClass}`}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className={`w-full max-w-[420px] lg:max-w-none lg:shrink-0 flex flex-col gap-4 ${card.widthClass} ${card.mtClass}`}
             >
               {card.label && (
                 <span
@@ -196,7 +207,7 @@ export default function Premio() {
               )}
               {card.quote ? (
                 <p
-                  className="text-white text-2xl md:text-3xl leading-snug px-4"
+                  className="text-white text-2xl md:text-3xl leading-snug px-4 text-center lg:text-left"
                   style={{ fontFamily: '"Tan Pearl", serif' }}
                 >
                   {card.quote}
@@ -214,7 +225,7 @@ export default function Premio() {
                   />
                 </div>
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
         </section>
@@ -251,12 +262,14 @@ export default function Premio() {
       </section>
 
       {/* ─── PG 20: Troféu Ouro ─── */}
-      <section className="relative w-full h-screen overflow-hidden bg-white" data-nav-light>
+      {/* Imagem 1920×736 (2.61:1): com h-screen + object-contain sobrava um vazio
+          enorme acima/abaixo no mobile. A seção passa a ter a altura da imagem. */}
+      <section className="relative w-full h-auto lg:h-screen overflow-hidden bg-white" data-nav-light>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="https://res.cloudinary.com/dyezpmorm/image/upload/v1781110726/Site_Brinde_2026_1_jwnfgc.webp"
           alt="Ouro Mídia Festival 2025"
-          className="absolute inset-0 w-full h-full object-contain"
+          className="w-full h-auto object-contain lg:absolute lg:inset-0 lg:h-full"
         />
       </section>
     </>

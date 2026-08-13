@@ -173,6 +173,9 @@ export default function Home() {
     const el = scrollRef.current;
     if (!el) return;
 
+    // Mobile: seções empilham verticalmente, sem carrossel — não sequestra o scroll.
+    const mq = window.matchMedia('(min-width: 768px)');
+
     const handleWheel = (e: WheelEvent) => {
       if (window.scrollY > 5) {
         arrivedFromBelow.current = true;
@@ -235,8 +238,6 @@ export default function Home() {
       }, 700);
     };
 
-    el.addEventListener('wheel', handleWheel, { passive: false });
-
     const handleScroll = () => {
       if (window.scrollY > window.innerHeight * 0.5 && el) {
         if (el.scrollLeft < el.scrollWidth - el.clientWidth - 10) {
@@ -245,12 +246,26 @@ export default function Home() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
+    const enable = () => {
+      el.addEventListener('wheel', handleWheel, { passive: false });
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      handleScroll();
+    };
 
-    return () => {
+    const disable = () => {
       el.removeEventListener('wheel', handleWheel);
       window.removeEventListener('scroll', handleScroll);
+      el.scrollLeft = 0;
+    };
+
+    if (mq.matches) enable();
+
+    const onChange = (e: MediaQueryListEvent) => (e.matches ? enable() : disable());
+    mq.addEventListener('change', onChange);
+
+    return () => {
+      disable();
+      mq.removeEventListener('change', onChange);
     };
   }, []);
 
@@ -260,14 +275,17 @@ export default function Home() {
       <div
         ref={scrollRef}
         data-lenis-prevent
-        className="flex w-full h-screen overflow-x-auto overflow-y-hidden snap-x snap-mandatory hide-scrollbar"
+        className="flex flex-col md:flex-row w-full h-auto md:h-[100dvh] overflow-visible md:overflow-x-auto md:overflow-y-hidden md:snap-x md:snap-mandatory hide-scrollbar"
       >
         {/* ─── 1. HERO ─── */}
-        <section className="min-w-full h-full shrink-0 snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
+        <section className="min-w-full h-[100dvh] md:h-full shrink-0 md:snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
+          {/* Iframe não aceita object-cover: dimensionamos em 16:9 pelo lado maior
+              da viewport, cobrindo a tela inteira sem faixas. As laterais do vídeo
+              ficam para fora no mobile — o overflow-hidden da section corta. */}
           <iframe
-            src="https://www.youtube.com/embed/CVQFKCuMq3E?autoplay=1&mute=1&loop=1&playlist=CVQFKCuMq3E&controls=0&showinfo=0&rel=0&modestbranding=1"
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            style={{ border: 'none', transform: 'scale(1.4)', transformOrigin: 'center' }}
+            src="https://www.youtube.com/embed/CVQFKCuMq3E?autoplay=1&mute=1&loop=1&playlist=CVQFKCuMq3E&controls=0&showinfo=0&rel=0&modestbranding=1&cc_load_policy=0&cc_lang_pref=pt&iv_load_policy=3&disablekb=1&fs=0&playsinline=1"
+            className="absolute left-1/2 top-1/2 pointer-events-none w-[max(102vw,181.34lvh)] h-[max(57.38vw,102lvh)] max-w-none"
+            style={{ border: 'none', transform: 'translate(-50%, -50%) scale(1.35)', transformOrigin: 'center' }}
             allow="autoplay; mute"
             title="Hero"
           />
@@ -302,22 +320,22 @@ export default function Home() {
         </section>
 
         {/* ─── 2. SOBRE NÓS ─── */}
-        <section data-nav-light className="min-w-full h-full shrink-0 snap-start overflow-y-auto bg-white px-4 md:px-8 lg:px-12" style={{ paddingTop: 'clamp(2rem, 5vh, 5rem)', paddingBottom: 'clamp(2rem, 5vh, 5rem)' }}>
+        <section data-nav-light className="min-w-full h-auto md:h-full shrink-0 md:snap-start md:overflow-y-auto bg-white px-4 md:px-8 lg:px-12" style={{ paddingTop: 'clamp(2rem, 5vh, 5rem)', paddingBottom: 'clamp(2rem, 5vh, 5rem)' }}>
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
-            className="w-full max-w-[1200px] mx-auto h-full flex flex-col justify-center"
+            className="w-full max-w-[1200px] mx-auto h-auto md:h-full flex flex-col justify-center"
           >
             <h2 className="uppercase tracking-tight text-[#050a30] flex flex-col gap-1 md:gap-2" style={{ marginBottom: 'clamp(1.5rem, 4vh, 4rem)' }}>
-              <div className="flex flex-nowrap items-baseline gap-x-2 md:gap-x-4 gap-y-1 leading-snug" style={{ fontSize: 'clamp(0.85rem, 2.2vw, 3.5rem)' }}>
+              <div className="flex flex-wrap items-baseline gap-x-2 md:gap-x-4 gap-y-1 leading-snug" style={{ fontSize: 'clamp(1.35rem, 2.2vw, 3.5rem)' }}>
                 <motion.span variants={fadeUp} className="text-[1.3em]" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 800 }}>BRINDE É</motion.span>
                 <motion.span variants={fadeUp} style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>PUBLICIDADE</motion.span>
                 <motion.span variants={fadeUp} className="text-[1.3em]" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 800 }}>E</motion.span>
                 <motion.span variants={fadeUp} style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>ESTRATÉGIA</motion.span>
               </div>
-              <div className="flex flex-nowrap items-baseline gap-x-2 md:gap-x-4 leading-none" style={{ fontSize: 'clamp(0.85rem, 2.2vw, 3.5rem)' }}>
+              <div className="flex flex-wrap items-baseline gap-x-2 md:gap-x-4 gap-y-1 leading-none" style={{ fontSize: 'clamp(1.35rem, 2.2vw, 3.5rem)' }}>
                 <motion.span variants={fadeUp} className="text-[1.3em]" style={{ fontFamily: 'Aileron, sans-serif', fontWeight: 800 }}>EM ESTADO DE</motion.span>
                 <motion.span variants={fadeUp} style={{ fontFamily: '"Tan Pearl", serif', fontWeight: 'normal' }}>CRIATIVIDADE</motion.span>
               </div>
@@ -353,11 +371,11 @@ export default function Home() {
         </section>
 
         {/* ─── 3. PRÊMIO ─── */}
-        <section className="min-w-full h-full shrink-0 snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
+        <section className="min-w-full h-[100dvh] md:h-full shrink-0 md:snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
           <iframe
-            src="https://www.youtube.com/embed/vB5FYlsGybM?autoplay=1&mute=1&loop=1&playlist=vB5FYlsGybM&controls=0&showinfo=0&rel=0&modestbranding=1"
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            style={{ border: 'none', transform: 'scale(1.4)', transformOrigin: 'center' }}
+            src="https://www.youtube.com/embed/vB5FYlsGybM?autoplay=1&mute=1&loop=1&playlist=vB5FYlsGybM&controls=0&showinfo=0&rel=0&modestbranding=1&cc_load_policy=0&cc_lang_pref=pt&iv_load_policy=3&disablekb=1&fs=0&playsinline=1"
+            className="absolute left-1/2 top-1/2 pointer-events-none w-[max(102vw,181.34lvh)] h-[max(57.38vw,102lvh)] max-w-none"
+            style={{ border: 'none', transform: 'translate(-50%, -50%) scale(1.35)', transformOrigin: 'center' }}
             allow="autoplay; mute"
             title="Prêmio"
           />
@@ -390,7 +408,7 @@ export default function Home() {
                       style={{ transformOrigin: 'center', backfaceVisibility: 'hidden' }}
                     >
                       <h3
-                        className="font-bold uppercase tracking-tight whitespace-nowrap"
+                        className="font-bold uppercase tracking-tight text-balance"
                         style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(1rem, 1.7vw, 1.8rem)' }}
                       >
                         {item.title}

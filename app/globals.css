@@ -41,7 +41,39 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Quebra palavras longas (URLs, e-mails) em vez de estourar a viewport no mobile */
+h1, h2, h3, h4, p, a, span, li {
+  overflow-wrap: break-word;
 }
 
 .hide-scrollbar::-webkit-scrollbar { display: none; }
 .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Scrollbar com as cores da marca: trilho azul, polegar vermelho.
+   Firefox usa scrollbar-color; WebKit/Blink usam os pseudo-elementos. */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #c51618 #050a30;
+}
+
+html::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+html::-webkit-scrollbar-track {
+  background: #050a30;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: #c51618;
+  border-radius: 999px;
+  border: 2px solid #050a30;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: #e01d1f;
+}

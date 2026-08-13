@@ -3,7 +3,7 @@ export function Footer() {
     <footer className="bg-[#050a30] text-white">
       {/* CTA */}
       <div className="text-center py-20 px-6 border-b border-white/10">
-        <h2 className="text-5xl md:text-7xl font-bold mb-6">
+        <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 text-balance">
           Solicite um orçamento
         </h2>
         <p className="max-w-[900px] mx-auto text-base md:text-lg text-white/70 leading-relaxed mb-8">
@@ -18,16 +18,15 @@ export function Footer() {
       </div>
 
       {/* Links grid */}
-      <div className="max-w-[1400px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-12 px-8 py-16">
+      <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 px-6 md:px-8 py-12 md:py-16">
         {/* Col 1 — Nav */}
-        <div className="space-y-3">
+        <div className="flex flex-wrap gap-x-5 gap-y-2 md:block md:space-y-3">
           {[
             { label: 'Início', href: '/' },
             { label: 'Sobre Nós', href: '/sobre-nos' },
             { label: 'Prêmio', href: '/premio' },
             { label: 'Fizemos', href: '/fizemos' },
             { label: 'Serviços', href: '/servicos' },
-            { label: 'Brindamos', href: '/brindamos' },
           ].map(({ label, href }) => (
             <div key={href}>
               <a
@@ -51,7 +50,7 @@ export function Footer() {
             @agenciabrinde ↗
           </a>
           <div className="pt-2 space-y-1 text-white/70">
-            <p className="whitespace-nowrap">
+            <p>
               <span className="font-bold">Negócios:</span>{' '}
               <a
                 href="mailto:comercial@agenciabrinde.com.br"
@@ -60,7 +59,7 @@ export function Footer() {
                 comercial@agenciabrinde.com.br
               </a>
             </p>
-            <p className="whitespace-nowrap">
+            <p>
               <span className="font-bold">Vagas:</span>{' '}
               <a
                 href="mailto:rh@agenciabrinde.com.br"
@@ -73,7 +72,7 @@ export function Footer() {
         </div>
 
         {/* Col 3 — empty (matches Twist layout spacing) */}
-        <div />
+        <div className="hidden md:block" />
 
         {/* Col 4 — About blurb */}
         <div className="text-sm text-white/70 leading-relaxed">
@@ -84,13 +83,13 @@ export function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/10 px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-2 text-sm text-white font-bold">
-        <div className="flex gap-6">
+      <div className="border-t border-white/10 px-6 md:px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-white font-bold text-center md:text-left">
+        <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-1">
           <span>Agência full-service</span>
-          <span>|</span>
+          <span className="hidden md:inline">|</span>
           <a href="/produtora" className="hover:opacity-70 transition-opacity">Produtora audiovisual</a>
         </div>
-        <span className="md:mr-20">Todos os direitos reservados agência Brinde - CNPJ: 49.820.592/0001-87</span>
+        <span className="md:mr-20 text-balance">Todos os direitos reservados agência Brinde - CNPJ: 49.820.592/0001-87</span>
       </div>
     </footer>
   );
