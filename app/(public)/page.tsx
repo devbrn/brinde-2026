@@ -284,8 +284,8 @@ export default function Home() {
               ficam para fora no mobile — o overflow-hidden da section corta. */}
           <iframe
             src="https://www.youtube.com/embed/CVQFKCuMq3E?autoplay=1&mute=1&loop=1&playlist=CVQFKCuMq3E&controls=0&showinfo=0&rel=0&modestbranding=1&cc_load_policy=0&cc_lang_pref=pt&iv_load_policy=3&disablekb=1&fs=0&playsinline=1"
-            className="absolute left-1/2 top-1/2 pointer-events-none w-[max(102vw,181.34lvh)] h-[max(57.38vw,102lvh)] max-w-none"
-            style={{ border: 'none', transform: 'translate(-50%, -50%) scale(1.35)', transformOrigin: 'center' }}
+            className="absolute left-1/2 top-1/2 pointer-events-none w-[max(138vw,245lvh)] h-[max(77.6vw,138lvh)] max-w-none -translate-x-1/2 -translate-y-1/2"
+            style={{ border: 'none' }}
             allow="autoplay; mute"
             title="Hero"
           />
@@ -374,8 +374,8 @@ export default function Home() {
         <section className="min-w-full h-[100dvh] md:h-full shrink-0 md:snap-start relative flex items-center justify-center overflow-hidden bg-[#050a30]">
           <iframe
             src="https://www.youtube.com/embed/vB5FYlsGybM?autoplay=1&mute=1&loop=1&playlist=vB5FYlsGybM&controls=0&showinfo=0&rel=0&modestbranding=1&cc_load_policy=0&cc_lang_pref=pt&iv_load_policy=3&disablekb=1&fs=0&playsinline=1"
-            className="absolute left-1/2 top-1/2 pointer-events-none w-[max(102vw,181.34lvh)] h-[max(57.38vw,102lvh)] max-w-none"
-            style={{ border: 'none', transform: 'translate(-50%, -50%) scale(1.35)', transformOrigin: 'center' }}
+            className="absolute left-1/2 top-1/2 pointer-events-none w-[max(138vw,245lvh)] h-[max(77.6vw,138lvh)] max-w-none -translate-x-1/2 -translate-y-1/2"
+            style={{ border: 'none' }}
             allow="autoplay; mute"
             title="Prêmio"
           />
