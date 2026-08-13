@@ -417,7 +417,7 @@ export default function ServicosPage() {
       <section className="pt-64 px-6 md:px-12 lg:px-24">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
           <h1
-            className="text-[2.8rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[4.6rem] leading-none font-black uppercase tracking-tight text-[#050a30]"
+            className="text-[2.1rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[4.6rem] leading-none font-black uppercase tracking-tight text-[#050a30]"
             style={{ fontFamily: 'Aileron, sans-serif' }}
           >
             Estratégia,<br />
@@ -426,7 +426,7 @@ export default function ServicosPage() {
             em um só lugar.
           </h1>
           <p
-            className="text-[26px] md:text-[30px] text-gray-700 leading-relaxed"
+            className="text-[19px] sm:text-[26px] md:text-[30px] text-gray-700 leading-relaxed"
             style={{ fontFamily: 'Aileron, sans-serif' }}
           >
             Estratégia aponta o caminho, criação conquista atenção e performance
