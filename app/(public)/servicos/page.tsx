@@ -182,8 +182,8 @@ function ServiceModal({
         ✕
       </button>
 
-      <div className="min-h-screen px-6 md:px-16 lg:px-24 py-24">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
+      <div className="min-h-screen px-6 md:px-16 lg:px-24 pt-20 pb-16 md:py-24">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-24">
 
           {/* Coluna esquerda */}
           <motion.div
@@ -199,7 +199,7 @@ function ServiceModal({
               {service.subtitle}
             </p>
             <h2
-              className="text-[3rem] md:text-[5rem] font-black leading-none uppercase flex flex-col"
+              className="text-[2.1rem] sm:text-[3rem] md:text-[5rem] font-black leading-none uppercase flex flex-col"
               style={{ fontFamily: 'Aileron, sans-serif' }}
             >
               <span>{service.titleTop}</span>
@@ -243,7 +243,7 @@ function ServiceModal({
             {/* Planejamento */}
             <div className="flex flex-col gap-3">
               <h3
-                className="text-base font-bold"
+                className="text-base font-bold text-balance"
                 style={{ fontFamily: 'Aileron, sans-serif' }}
               >
                 Planejamento / Validação de Tráfego
@@ -297,10 +297,14 @@ function ServiceCard({
   onClick: () => void;
 }) {
   return (
-    <div
+    <motion.div
       data-service-card
       onClick={onClick}
-      className="relative overflow-hidden rounded-2xl cursor-pointer group aspect-[9/16] w-[85%] mx-auto bg-[#050a30] lg:opacity-0 lg:[filter:blur(24px)]"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="relative overflow-hidden rounded-2xl cursor-pointer group aspect-[4/5] lg:aspect-[9/16] w-full lg:w-[85%] mx-auto bg-[#050a30] lg:opacity-0 lg:[filter:blur(24px)]"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -340,7 +344,7 @@ function ServiceCard({
           Saiba mais ↗
         </span>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -414,7 +418,7 @@ export default function ServicosPage() {
   return (
     <div className="bg-white min-h-screen" data-nav-light>
       {/* ─── HERO ─── */}
-      <section className="pt-64 px-6 md:px-12 lg:px-24">
+      <section className="pt-32 md:pt-48 lg:pt-64 px-6 md:px-12 lg:px-24">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
           <h1
             className="text-[2.1rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[4.6rem] leading-none font-black uppercase tracking-tight text-[#050a30]"
@@ -439,9 +443,11 @@ export default function ServicosPage() {
 
       {/* ─── CARDS ─── */}
       {/* Scroll-jack: cards revelam com fade+blur, pin libera quando todos estão 100% */}
+      {/* Abaixo de lg o pin não roda (ver matchMedia no useLayoutEffect): os cards
+          fluem na página em vez de ficarem presos sobre o hero. */}
       <div ref={cardsWrapperRef} className="relative">
-        <div className="sticky top-0 h-screen flex items-center px-6 md:px-12 lg:px-24">
-          <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-[10px] w-full">
+        <div className="lg:sticky lg:top-0 lg:h-screen flex items-center py-16 lg:py-0 px-6 md:px-12 lg:px-24">
+          <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-[10px] w-full">
             {services.map((service) => (
               <ServiceCard
                 key={service.id}
