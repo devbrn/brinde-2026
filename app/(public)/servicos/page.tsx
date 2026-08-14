@@ -292,19 +292,26 @@ function ServiceModal({
 function ServiceCard({
   service,
   onClick,
+  isDesktop,
 }: {
   service: ServiceData;
   onClick: () => void;
+  isDesktop: boolean;
 }) {
   return (
     <motion.div
       data-service-card
       onClick={onClick}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="relative overflow-hidden rounded-2xl cursor-pointer group aspect-[4/5] lg:aspect-[9/16] w-full lg:w-[85%] mx-auto bg-[#050a30] lg:opacity-0 lg:[filter:blur(24px)]"
+      {...(isDesktop
+        ? {}
+        : {
+            initial: { opacity: 0, y: 30 },
+            whileInView: { opacity: 1, y: 0 },
+            viewport: { once: true, amount: 0.2 },
+            transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+          })}
+      className="relative overflow-hidden rounded-2xl cursor-pointer group aspect-[4/5] lg:aspect-[9/16] w-full lg:w-[85%] mx-auto bg-[#050a30]"
+      style={isDesktop ? { opacity: 0, filter: 'blur(24px)' } : undefined}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -350,7 +357,16 @@ function ServiceCard({
 
 export default function ServicosPage() {
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
   const cardsWrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const sync = () => setIsDesktop(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
 
   useEffect(() => {
     if (activeId) {
@@ -390,6 +406,17 @@ export default function ServicosPage() {
         },
       });
 
+      // Âncora de duração: fixa o total da timeline em 1 para que as posições
+      // dos cards abaixo sejam lidas como fração do trecho pinado.
+      tl.to({}, { duration: 1 }, 0);
+
+      // Cada card leva `reveal` da timeline e entra escalonado por `stagger`.
+      // O último termina em 0.9, deixando uma folga de scroll com tudo 100%
+      // focado antes do pin soltar a seção.
+      const stagger = 0.12;
+      const lastStart = stagger * Math.max(cards.length - 1, 0);
+      const reveal = 0.9 - lastStart;
+
       cards.forEach((card, i) => {
         tl.fromTo(
           card,
@@ -398,9 +425,9 @@ export default function ServicosPage() {
             opacity: 1,
             filter: 'blur(0px)',
             ease: 'none',
-            duration: i === 0 ? 0.2 : 1,
+            duration: reveal,
           },
-          i === 0 ? 0 : 0.2 + (i - 1) * 0.4
+          i * stagger
         );
       });
 
@@ -411,7 +438,7 @@ export default function ServicosPage() {
     });
 
     return () => mm.revert();
-  }, []);
+  }, [isDesktop]);
 
   const activeService = activeId ? (services.find((s) => s.id === activeId) ?? null) : null;
 
@@ -452,6 +479,7 @@ export default function ServicosPage() {
               <ServiceCard
                 key={service.id}
                 service={service}
+                isDesktop={isDesktop}
                 onClick={() => setActiveId(service.id)}
               />
             ))}
