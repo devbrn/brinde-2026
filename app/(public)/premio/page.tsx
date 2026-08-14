@@ -232,7 +232,11 @@ export default function Premio() {
       </div>
 
       {/* ─── PG 19: Texto Prêmio ─── */}
-      <section className="bg-white flex items-center pt-8 pb-20 px-6 md:px-16 lg:px-24" data-nav-light>
+      <section
+        className="flex items-center pt-8 pb-8 md:pb-20 px-6 md:px-16 lg:px-24"
+        style={{ backgroundColor: '#fdfdfd' }}
+        data-nav-light
+      >
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 w-full">
           <p
             className="text-2xl md:text-3xl lg:text-4xl text-[#050a30] leading-snug"
@@ -264,7 +268,13 @@ export default function Premio() {
       {/* ─── PG 20: Troféu Ouro ─── */}
       {/* Imagem 1920×736 (2.61:1): com h-screen + object-contain sobrava um vazio
           enorme acima/abaixo no mobile. A seção passa a ter a altura da imagem. */}
-      <section className="relative w-full h-auto lg:h-screen overflow-hidden bg-white" data-nav-light>
+      {/* O webp não é branco puro (#fdfdfd), então bg-white criava uma linha
+          visível na emenda com a seção acima. A seção usa a cor da imagem. */}
+      <section
+        className="relative w-full h-auto lg:h-screen overflow-hidden pb-10 lg:pb-0"
+        style={{ backgroundColor: '#fdfdfd' }}
+        data-nav-light
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="https://res.cloudinary.com/dyezpmorm/image/upload/v1781110726/Site_Brinde_2026_1_jwnfgc.webp"
