@@ -29,7 +29,9 @@ function PerfNodeItem({
   const span = endProgress - startProgress;
   const perRow = span / totalRows;
   const a = startProgress + rowIndex * perRow;
-  const b = a + perRow * 2.2; // long overlap = smooth
+  // Overlap longo deixa a entrada suave, mas o fim é limitado a endProgress
+  // para que todas as bolinhas cheguem a 100% dentro do range previsto.
+  const b = Math.min(a + perRow * 2.2, endProgress);
 
   const opacity = useTransform(progress, [a, b], [0, 1]);
   const blur = useTransform(progress, [a, b], [10, 0]);
@@ -233,12 +235,7 @@ export default function SobreNos() {
     offset: ['start end', 'end start'],
   });
   // Sequence finishes by ~0.5 (section ~100% visible)
-  const perfCenterOpacity = useTransform(perfProgress, [0.05, 0.18], [0, 1]);
-  const perfCenterScale = useTransform(perfProgress, [0.05, 0.18], [0.92, 1]);
-  const perfRingOpacity = useTransform(perfProgress, [0.08, 0.20], [0, 1]);
-
   const [hoveredFase, setHoveredFase] = useState<number | null>(null);
-
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -247,15 +244,28 @@ export default function SobreNos() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  const perfCenterOpacity = useTransform(perfProgress, isMobile ? [0.10, 0.20] : [0.05, 0.18], [0, 1]);
+  const perfCenterScale = useTransform(perfProgress, isMobile ? [0.10, 0.20] : [0.05, 0.18], [0.92, 1]);
+  const perfRingOpacity = useTransform(perfProgress, isMobile ? [0.10, 0.20] : [0.08, 0.20], [0, 1]);
+
+  // No mobile a descida da primeira bolinha começa mais tarde e todo o
+  // conjunto fecha mais cedo, para tudo estar 100% visível antes do meio da tela.
+  const dropStart = isMobile ? 0.08 : 0.01;
+  const dropEnd = isMobile ? 0.18 : 0.20;
+
   const logoTranslateY = useTransform(
     perfProgress,
-    [0.01, 0.20],
+    [dropStart, dropEnd],
     [isMobile ? -210 : -380, 0]
   );
-  const logoScale = useTransform(perfProgress, [0.01, 0.20], [0.8, 1.0]);
-  const logoOpacity = useTransform(perfProgress, [0.01, 0.10], [1, 0]);
-  const textOpacity = useTransform(perfProgress, [0.08, 0.20], [0, 1]);
-  const descOpacity = useTransform(perfProgress, [0.18, 0.30], [0, 1]);
+  const logoScale = useTransform(perfProgress, [dropStart, dropEnd], [0.8, 1.0]);
+  const logoOpacity = useTransform(
+    perfProgress,
+    [dropStart, dropStart + (dropEnd - dropStart) * 0.45],
+    [1, 0]
+  );
+  const textOpacity = useTransform(perfProgress, isMobile ? [0.14, 0.20] : [0.08, 0.20], [0, 1]);
+  const descOpacity = useTransform(perfProgress, isMobile ? [0.16, 0.22] : [0.18, 0.30], [0, 1]);
 
   // Método Brinde (pg 13)
   const metodoRef = useRef<HTMLElement>(null);
@@ -458,7 +468,7 @@ export default function SobreNos() {
       </section>
 
       {/* ─── FOTOS FIXAS (overlay) ─── */}
-      <div className="fixed inset-0 pointer-events-none z-30">
+      <div className="hidden md:block fixed inset-0 pointer-events-none z-30">
         {/* Imagem esquerda */}
         <motion.div
           style={{ opacity: leftImgOpacity, x: leftImgX }}
@@ -602,8 +612,11 @@ export default function SobreNos() {
                   rowIndex={rowIndex}
                   totalRows={totalRows}
                   progress={perfProgress}
-                  startProgress={0.15}
-                  endProgress={0.40}
+                  // No mobile a seção é mais alta, então o mesmo range terminava
+                  // depois do meio da tela: antecipa para tudo estar 100% visível
+                  // quando a seção está centralizada.
+                  startProgress={isMobile ? 0.10 : 0.15}
+                  endProgress={isMobile ? 0.24 : 0.40}
                 />
               );
             });
