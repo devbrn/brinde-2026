@@ -300,6 +300,32 @@ export default function Home() {
           />
 
           <div className="absolute inset-0 bg-[#050a30]/70" />
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="relative z-10 flex flex-col items-center justify-center text-center w-full px-4 gap-1 md:gap-4"
+          >
+            <p
+              className="text-white drop-shadow-md"
+              style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(1rem, 2vw, 1.5rem)' }}
+            >
+              o que sua marca diz
+            </p>
+            <h1
+              className="font-black text-white leading-none tracking-tighter drop-shadow-xl uppercase -mb-2 md:-mb-4"
+              style={{ fontFamily: 'Aileron, sans-serif', fontSize: 'clamp(2rem, 6.6vw, 7.2rem)' }}
+            >
+              Ganha Corpo
+            </h1>
+            <span
+              className="text-white drop-shadow-xl"
+              style={{ fontFamily: '"Tan Pearl", serif', fontSize: 'clamp(2.5rem, 8vw, 9rem)' }}
+            >
+              Voz e Ritmo
+            </span>
+          </motion.div>
         </section>
 
         {/* ─── 2. SOBRE NÓS ─── */}
