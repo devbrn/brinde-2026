@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { Resend } from 'resend';
 import { db } from '@/lib/db';
 import { contacts } from '@/lib/db/schema';
+import { sendLeadEvent } from '@/lib/meta/capi';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -25,6 +26,8 @@ const contactSchema = z.object({
   utm_content: z.string().max(255).optional(),
   gclid: z.string().max(255).optional(),
   fbclid: z.string().max(255).optional(),
+  event_id: z.string().max(64).optional(),
+  event_source_url: z.string().url().max(500).optional(),
 });
 
 type ContactData = z.infer<typeof contactSchema>;
@@ -131,6 +134,22 @@ export async function submitContact(formData: unknown) {
       }
     } catch (mailError) {
       console.error('[contact] falha ao enviar e-mail:', mailError);
+    }
+
+    // Mesma regra do e-mail: o lead já está salvo, então uma falha no envio
+    // para o Meta não deve virar erro para quem preencheu o formulário.
+    if (data.event_id && data.event_source_url) {
+      try {
+        await sendLeadEvent({
+          eventId: data.event_id,
+          eventSourceUrl: data.event_source_url,
+          email: data.email,
+          phone: data.phone,
+          fbclid: data.fbclid,
+        });
+      } catch (capiError) {
+        console.error('[contact] falha ao enviar evento Lead:', capiError);
+      }
     }
 
     return { success: true, message: 'Orçamento solicitado com sucesso!' };

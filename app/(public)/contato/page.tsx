@@ -4,6 +4,17 @@ import { useEffect, useRef, useState } from 'react';
 import { submitContact } from '@/lib/actions/contact';
 import { captureCampaignParams, type CampaignParams } from '@/lib/campaign-params';
 
+declare global {
+  interface Window {
+    fbq?: (
+      command: string,
+      event: string,
+      params?: Record<string, unknown>,
+      options?: { eventID: string }
+    ) => void;
+  }
+}
+
 export default function Contato() {
   const [formData, setFormData] = useState({
     name: '',
@@ -37,9 +48,19 @@ export default function Contato() {
     e.preventDefault();
     setStatus({ type: 'loading' });
 
-    const result = await submitContact({ ...formData, ...campaign.current });
+    // O mesmo id vai para o pixel do navegador e para a Conversions API, que é
+    // como o Meta reconhece os dois envios como um único Lead.
+    const eventId = crypto.randomUUID();
+
+    const result = await submitContact({
+      ...formData,
+      ...campaign.current,
+      event_id: eventId,
+      event_source_url: window.location.href,
+    });
 
     if (result.success) {
+      window.fbq?.('track', 'Lead', {}, { eventID: eventId });
       setStatus({
         type: 'success',
         message: result.message,
