@@ -22,6 +22,9 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: 'Brinde — Marketing & Publicidade',
   description: 'Agência full-service de estratégia, criação e execução',
+  icons: {
+    icon: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1786733556/brinde-favicon_doyhvi.webp',
+  },
 };
 
 export default function RootLayout({

@@ -27,6 +27,7 @@ const clients = [
   { name: 'MBPS', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016236/mbps_z32olt.webp' },
   { name: 'PedraShop', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016237/pedrashop_qxp3fe.png' },
   { name: 'RMG', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1781016238/rmg_ozpwr2.png' },
+  { name: 'Status Líder', logo: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1786733556/status-lider-logo_g7hxvi.svg', scale: '45%' },
 ];
 
 const clientStories = [
@@ -487,8 +488,8 @@ export default function Home() {
                         maskRepeat: 'no-repeat',
                         WebkitMaskPosition: 'center',
                         maskPosition: 'center',
-                        WebkitMaskSize: 'contain',
-                        maskSize: 'contain',
+                        WebkitMaskSize: client.scale ?? 'contain',
+                        maskSize: client.scale ?? 'contain',
                       }}
                     />
                   </div>
@@ -509,8 +510,8 @@ export default function Home() {
                         maskRepeat: 'no-repeat',
                         WebkitMaskPosition: 'center',
                         maskPosition: 'center',
-                        WebkitMaskSize: 'contain',
-                        maskSize: 'contain',
+                        WebkitMaskSize: client.scale ?? 'contain',
+                        maskSize: client.scale ?? 'contain',
                       }}
                     />
                   </div>
