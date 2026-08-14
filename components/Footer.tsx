@@ -25,8 +25,9 @@ export function Footer() {
             { label: 'Início', href: '/' },
             { label: 'Sobre Nós', href: '/sobre-nos' },
             { label: 'Prêmio', href: '/premio' },
-            { label: 'Fizemos', href: '/fizemos' },
             { label: 'Serviços', href: '/servicos' },
+            { label: 'Produtora Audiovisual', href: '/produtora' },
+            { label: 'Solicite um orçamento', href: '/contato' },
           ].map(({ label, href }) => (
             <div key={href}>
               <a
