@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { submitContact } from '@/lib/actions/contact';
+import { captureCampaignParams, type CampaignParams } from '@/lib/campaign-params';
 
 export default function Contato() {
   const [formData, setFormData] = useState({
@@ -16,6 +17,11 @@ export default function Contato() {
     type: 'idle' | 'loading' | 'success' | 'error';
     message?: string;
   }>({ type: 'idle' });
+  const campaign = useRef<CampaignParams>({});
+
+  useEffect(() => {
+    campaign.current = captureCampaignParams();
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -31,7 +37,7 @@ export default function Contato() {
     e.preventDefault();
     setStatus({ type: 'loading' });
 
-    const result = await submitContact(formData);
+    const result = await submitContact({ ...formData, ...campaign.current });
 
     if (result.success) {
       setStatus({

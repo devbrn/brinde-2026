@@ -4,10 +4,17 @@ import { useEffect } from 'react';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { captureCampaignParams } from '@/lib/campaign-params';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function LenisProvider({ children }: { children: React.ReactNode }) {
+  // O anúncio costuma cair em qualquer página, não em /contato: guarda os
+  // parâmetros de campanha logo na entrada, antes da navegação apagá-los.
+  useEffect(() => {
+    captureCampaignParams();
+  }, []);
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,

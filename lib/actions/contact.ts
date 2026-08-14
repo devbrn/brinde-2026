@@ -18,6 +18,13 @@ const contactSchema = z.object({
   company: z.string().optional(),
   service: z.string().min(1, 'Selecione um serviço'),
   message: z.string().min(1, 'Mensagem é obrigatória'),
+  utm_source: z.string().max(255).optional(),
+  utm_medium: z.string().max(255).optional(),
+  utm_campaign: z.string().max(255).optional(),
+  utm_term: z.string().max(255).optional(),
+  utm_content: z.string().max(255).optional(),
+  gclid: z.string().max(255).optional(),
+  fbclid: z.string().max(255).optional(),
 });
 
 type ContactData = z.infer<typeof contactSchema>;
@@ -53,7 +60,38 @@ function renderNotification(data: ContactData) {
       <table style="border-collapse:collapse;font-size:14px;">${rows}</table>
       <p style="margin:20px 0 6px;color:#666;font-size:14px;">Mensagem</p>
       <p style="margin:0;color:#050a30;font-size:14px;line-height:1.6;white-space:pre-wrap;">${escapeHtml(data.message)}</p>
+      ${renderOrigin(data)}
     </div>
+  `;
+}
+
+function renderOrigin(data: ContactData) {
+  const origin = [
+    ['Origem', data.utm_source],
+    ['Mídia', data.utm_medium],
+    ['Campanha', data.utm_campaign],
+    ['Termo', data.utm_term],
+    ['Conteúdo', data.utm_content],
+    ['Google Ads (gclid)', data.gclid],
+    ['Meta Ads (fbclid)', data.fbclid],
+  ].filter(([, value]) => Boolean(value)) as [string, string][];
+
+  // Acesso direto ou orgânico não traz parâmetros: sem bloco de origem.
+  if (origin.length === 0) return '';
+
+  const rows = origin
+    .map(
+      ([label, value]) =>
+        `<tr>
+           <td style="padding:4px 12px 4px 0;color:#666;">${label}</td>
+           <td style="padding:4px 0;color:#050a30;word-break:break-all;">${escapeHtml(value)}</td>
+         </tr>`
+    )
+    .join('');
+
+  return `
+    <p style="margin:24px 0 6px;color:#666;font-size:14px;">Origem do lead</p>
+    <table style="border-collapse:collapse;font-size:13px;">${rows}</table>
   `;
 }
 
@@ -68,6 +106,13 @@ export async function submitContact(formData: unknown) {
       company: data.company,
       service: data.service,
       message: data.message,
+      utmSource: data.utm_source,
+      utmMedium: data.utm_medium,
+      utmCampaign: data.utm_campaign,
+      utmTerm: data.utm_term,
+      utmContent: data.utm_content,
+      gclid: data.gclid,
+      fbclid: data.fbclid,
     });
 
     // O lead já está salvo. Uma falha no e-mail não deve devolver erro para
@@ -96,6 +141,7 @@ export async function submitContact(formData: unknown) {
         message: error.issues[0]?.message || 'Erro de validação',
       };
     }
+    console.error('[contact] falha ao registrar contato:', error);
     return {
       success: false,
       message: 'Erro ao enviar formulário. Tente novamente.',
