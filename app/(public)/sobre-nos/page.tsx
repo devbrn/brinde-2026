@@ -302,7 +302,7 @@ export default function SobreNos() {
           hidden: {},
           visible: { transition: { staggerChildren: 0.18, delayChildren: 0.15 } },
         }}
-        className="bg-white py-20 md:py-28 px-6 md:px-12"
+        className="bg-white pt-20 md:pt-28 pb-10 px-6 md:px-12"
       >
         <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 mb-14 md:mb-20">
@@ -437,18 +437,18 @@ export default function SobreNos() {
       </motion.section>
 
       {/* ─── UM BRINDE E BONS NEGÓCIOS (pg 9) ─── */}
-      <section ref={brindeRef} className="bg-white py-16 md:py-24 px-6 md:px-12 overflow-hidden">
-        {/* Vídeo em banner largo (~3.64:1), full-bleed: as margens negativas
+      <section ref={brindeRef} className="bg-white pt-0 pb-16 md:pb-24 px-6 md:px-12 overflow-hidden">
+        {/* Vídeo em banner largo (~3.6:1), full-bleed: as margens negativas
             anulam o px da section para ocupar 100% da largura da viewport.
             O player do YouTube é sempre 16:9, então dimensionamos o iframe pela
             largura e cortamos as faixas pretas de cima/baixo com overflow-hidden. */}
         <div
           className="relative overflow-hidden mb-12 -mx-6 md:-mx-12"
-          style={{ aspectRatio: '1440 / 396' }}
+          style={{ aspectRatio: '1280 / 356' }}
         >
           <iframe
-            src="https://www.youtube.com/embed/rVLJD_kPlDc?autoplay=1&mute=1&loop=1&playlist=rVLJD_kPlDc&controls=0&showinfo=0&rel=0&modestbranding=1&cc_load_policy=0&cc_lang_pref=pt&iv_load_policy=3&disablekb=1&fs=0&playsinline=1&vq=hd1080&hd=1"
-            className="absolute left-1/2 top-1/2 pointer-events-none w-full h-[calc(100%*1440/396*9/16)] max-w-none -translate-x-1/2 -translate-y-1/2"
+            src="https://www.youtube.com/embed/KqF21BljIVo?autoplay=1&mute=1&loop=1&playlist=KqF21BljIVo&controls=0&showinfo=0&rel=0&modestbranding=1&cc_load_policy=0&cc_lang_pref=pt&iv_load_policy=3&disablekb=1&fs=0&playsinline=1&vq=hd1080&hd=1"
+            className="absolute left-1/2 top-1/2 pointer-events-none w-full h-[calc(100%*1280/356*9/16)] max-w-none -translate-x-1/2 -translate-y-1/2"
             style={{ border: 'none' }}
             allow="autoplay; mute"
             title="Um Brinde e Bons Negócios"
