@@ -3,20 +3,122 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import {
+  DEFAULT_LOCALE,
+  LOCALES,
+  ROUTES,
+  href,
+  routeKeyFromSlug,
+  type Locale,
+  type RouteKey,
+} from '@/lib/i18n/config';
+import type { Dictionary } from '@/lib/i18n';
 
 const LOGO_CLARA = 'https://res.cloudinary.com/dyezpmorm/image/upload/v1786458875/logo-brinde-clara_qxcelo.svg';
 const LOGO_ESCURA = 'https://res.cloudinary.com/dyezpmorm/image/upload/v1786458874/logo-brinde-escura_u6zis5.svg';
 
-const MENU_LINKS = [
-  { href: '/', label: 'Início' },
-  { href: '/sobre-nos', label: 'Sobre Nós' },
-  { href: '/premio', label: 'Prêmio' },
-  { href: '/servicos', label: 'Serviços' },
-  { href: '/produtora', label: 'Produtora Audiovisual' },
-  { href: '/contato', label: 'Solicite um orçamento' },
-];
+const MENU_KEYS = ['home', 'sobreNos', 'premio', 'servicos', 'produtora', 'contato'] as const;
 
-export function Nav() {
+/** Traduz a URL atual para o mesmo conteúdo em outro idioma. */
+function translatePath(pathname: string, from: Locale, to: Locale): string {
+  const segments = pathname.split('/').filter(Boolean);
+  const slug = from === DEFAULT_LOCALE ? segments[0] : segments[1];
+
+  if (!slug) return href('home', to);
+
+  const key = routeKeyFromSlug(slug, from);
+  return key ? href(key, to) : href('home', to);
+}
+
+
+const FLAGS: Record<Locale, React.ReactNode> = {
+  pt: (
+          <svg width="20" height="14" viewBox="0 0 27 18" className="rounded-[3px]">
+            <rect width="27" height="18" fill="#009B3A" />
+            <path d="M13.5 2.5 L25.5 9 L13.5 15.5 L1.5 9 Z" fill="#FEDF00" />
+            <circle cx="13.5" cy="9" r="5.2" fill="#002776" />
+            <path d="M8.2 8.5 Q13.5 11.3 18.8 8.5 L18.8 9.5 Q13.5 12.3 8.2 9.5 Z" fill="#FFFFFF" />
+          </svg>
+  ),
+  en: (
+          <svg width="20" height="14" viewBox="0 0 27 18" className="rounded-[3px]">
+            <rect width="27" height="18" fill="#FFFFFF" />
+            <g fill="#B22234">
+              <rect y="0" width="27" height="1.385" />
+              <rect y="2.769" width="27" height="1.385" />
+              <rect y="5.538" width="27" height="1.385" />
+              <rect y="8.308" width="27" height="1.385" />
+              <rect y="11.077" width="27" height="1.385" />
+              <rect y="13.846" width="27" height="1.385" />
+              <rect y="16.615" width="27" height="1.385" />
+            </g>
+            <rect width="12" height="9.23" fill="#3C3B6E" />
+            <g fill="#FFFFFF">
+              <circle cx="1" cy="0.923" r="0.32" /><circle cx="3" cy="0.923" r="0.32" /><circle cx="5" cy="0.923" r="0.32" /><circle cx="7" cy="0.923" r="0.32" /><circle cx="9" cy="0.923" r="0.32" /><circle cx="11" cy="0.923" r="0.32" />
+              <circle cx="2" cy="2.769" r="0.32" /><circle cx="4" cy="2.769" r="0.32" /><circle cx="6" cy="2.769" r="0.32" /><circle cx="8" cy="2.769" r="0.32" /><circle cx="10" cy="2.769" r="0.32" />
+              <circle cx="1" cy="4.615" r="0.32" /><circle cx="3" cy="4.615" r="0.32" /><circle cx="5" cy="4.615" r="0.32" /><circle cx="7" cy="4.615" r="0.32" /><circle cx="9" cy="4.615" r="0.32" /><circle cx="11" cy="4.615" r="0.32" />
+              <circle cx="2" cy="6.462" r="0.32" /><circle cx="4" cy="6.462" r="0.32" /><circle cx="6" cy="6.462" r="0.32" /><circle cx="8" cy="6.462" r="0.32" /><circle cx="10" cy="6.462" r="0.32" />
+              <circle cx="1" cy="8.308" r="0.32" /><circle cx="3" cy="8.308" r="0.32" /><circle cx="5" cy="8.308" r="0.32" /><circle cx="7" cy="8.308" r="0.32" /><circle cx="9" cy="8.308" r="0.32" /><circle cx="11" cy="8.308" r="0.32" />
+            </g>
+          </svg>
+  ),
+  es: (
+          <svg width="20" height="14" viewBox="0 0 27 18" className="rounded-[3px]">
+            <rect width="27" height="18" fill="#AA151B" />
+            <rect y="4.5" width="27" height="9" fill="#F1BF00" />
+            <path d="M12 5.6 q2.7 0.8 2.7 3.5 v2.1 q0 1.9 -2.7 2.7 q-2.7 -0.8 -2.7 -2.7 V9.1 q0 -2.7 2.7 -3.5 z" fill="#AA151B" />
+            <path d="M10.5 6.2 q2.9 0.8 2.9 2.9 q-2.9 0.1 -2.9 -2.9 z" fill="#F1BF00" />
+          </svg>
+  ),
+};
+
+function LocaleSwitcher({
+  current,
+  pathname,
+  labels,
+  className = '',
+}: {
+  current: Locale;
+  pathname: string;
+  labels: Record<Locale, string>;
+  className?: string;
+}) {
+  return (
+    <div className={`flex gap-2 items-center ${className}`}>
+      {LOCALES.map((target) => (
+        <Link
+          key={target}
+          href={translatePath(pathname, current, target)}
+          hrefLang={target}
+          title={labels[target]}
+          aria-label={labels[target]}
+          aria-current={target === current ? 'true' : undefined}
+          className={`transition-opacity hover:opacity-100 ${
+            target === current ? 'opacity-100' : 'opacity-40'
+          }`}
+        >
+          {FLAGS[target]}
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+export function Nav({ dict, locale }: { dict: Dictionary; locale: Locale }) {
+  const t = dict.nav;
+  const menuLabels: Record<(typeof MENU_KEYS)[number], string> = {
+    home: t.home,
+    sobreNos: t.about,
+    premio: t.award,
+    servicos: t.services,
+    produtora: t.production,
+    contato: t.contact,
+  };
+  const localeLabels: Record<Locale, string> = {
+    pt: t.languagePt,
+    en: t.languageEn,
+    es: t.languageEs,
+  };
   const [dark, setDark] = useState(false);
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState(false);
@@ -112,7 +214,7 @@ export function Nav() {
           : 'bg-transparent backdrop-blur-0'
       }`}
     >
-      <Link href="/" className="relative z-[70] grid shrink-0" aria-label="Brinde">
+      <Link href={href('home', locale)} className="relative z-[70] grid shrink-0" aria-label="Brinde">
         {/* eslint-disable @next/next/no-img-element */}
         <img
           src={LOGO_ESCURA}
@@ -130,20 +232,20 @@ export function Nav() {
       </Link>
 
       <div className="hidden md:flex items-center gap-8 ml-auto" style={{ fontFamily: 'var(--font-poppins), sans-serif', fontWeight: 700 }}>
-        <Link href="/" className={`transition ${textCls} ${hoverCls} text-sm`}>
-          Início
+        <Link href={href('home', locale)} className={`transition ${textCls} ${hoverCls} text-sm`}>
+          {t.home}
         </Link>
-        <Link href="/sobre-nos" className={`transition ${textCls} ${hoverCls} text-sm`}>
-          Sobre Nós
+        <Link href={href('sobreNos', locale)} className={`transition ${textCls} ${hoverCls} text-sm`}>
+          {t.about}
         </Link>
-        <Link href="/premio" className={`transition ${textCls} ${hoverCls} text-sm`}>
-          Prêmio
+        <Link href={href('premio', locale)} className={`transition ${textCls} ${hoverCls} text-sm`}>
+          {t.award}
         </Link>
-        <Link href="/servicos" className={`transition ${textCls} ${hoverCls} text-sm`}>
-          Serviços
+        <Link href={href('servicos', locale)} className={`transition ${textCls} ${hoverCls} text-sm`}>
+          {t.services}
         </Link>
-        <Link href="/produtora" className={`transition ${textCls} ${hoverCls} text-sm`}>
-          Produtora Audiovisual
+        <Link href={href('produtora', locale)} className={`transition ${textCls} ${hoverCls} text-sm`}>
+          {t.production}
         </Link>
 
         <span className={textCls}>|</span>
@@ -161,57 +263,18 @@ export function Nav() {
           </a>
         </div>
 
-        <Link href="/contato" className={`transition ${textCls} ${hoverCls} text-sm`}>
-          Solicite um orçamento
+        <Link href={href('contato', locale)} className={`transition ${textCls} ${hoverCls} text-sm`}>
+          {t.contact}
         </Link>
 
-        <div className="flex gap-2 items-center">
-          <span title="Português (BR)" aria-label="Português (BR)">
-            <svg width="20" height="14" viewBox="0 0 27 18" className="rounded-[3px]">
-              <rect width="27" height="18" fill="#009B3A" />
-              <path d="M13.5 2.5 L25.5 9 L13.5 15.5 L1.5 9 Z" fill="#FEDF00" />
-              <circle cx="13.5" cy="9" r="5.2" fill="#002776" />
-              <path d="M8.2 8.5 Q13.5 11.3 18.8 8.5 L18.8 9.5 Q13.5 12.3 8.2 9.5 Z" fill="#FFFFFF" />
-            </svg>
-          </span>
-          <span title="English (US)" aria-label="English (US)" className="opacity-40">
-            <svg width="20" height="14" viewBox="0 0 27 18" className="rounded-[3px]">
-              <rect width="27" height="18" fill="#FFFFFF" />
-              <g fill="#B22234">
-                <rect y="0" width="27" height="1.385" />
-                <rect y="2.769" width="27" height="1.385" />
-                <rect y="5.538" width="27" height="1.385" />
-                <rect y="8.308" width="27" height="1.385" />
-                <rect y="11.077" width="27" height="1.385" />
-                <rect y="13.846" width="27" height="1.385" />
-                <rect y="16.615" width="27" height="1.385" />
-              </g>
-              <rect width="12" height="9.23" fill="#3C3B6E" />
-              <g fill="#FFFFFF">
-                <circle cx="1" cy="0.923" r="0.32" /><circle cx="3" cy="0.923" r="0.32" /><circle cx="5" cy="0.923" r="0.32" /><circle cx="7" cy="0.923" r="0.32" /><circle cx="9" cy="0.923" r="0.32" /><circle cx="11" cy="0.923" r="0.32" />
-                <circle cx="2" cy="2.769" r="0.32" /><circle cx="4" cy="2.769" r="0.32" /><circle cx="6" cy="2.769" r="0.32" /><circle cx="8" cy="2.769" r="0.32" /><circle cx="10" cy="2.769" r="0.32" />
-                <circle cx="1" cy="4.615" r="0.32" /><circle cx="3" cy="4.615" r="0.32" /><circle cx="5" cy="4.615" r="0.32" /><circle cx="7" cy="4.615" r="0.32" /><circle cx="9" cy="4.615" r="0.32" /><circle cx="11" cy="4.615" r="0.32" />
-                <circle cx="2" cy="6.462" r="0.32" /><circle cx="4" cy="6.462" r="0.32" /><circle cx="6" cy="6.462" r="0.32" /><circle cx="8" cy="6.462" r="0.32" /><circle cx="10" cy="6.462" r="0.32" />
-                <circle cx="1" cy="8.308" r="0.32" /><circle cx="3" cy="8.308" r="0.32" /><circle cx="5" cy="8.308" r="0.32" /><circle cx="7" cy="8.308" r="0.32" /><circle cx="9" cy="8.308" r="0.32" /><circle cx="11" cy="8.308" r="0.32" />
-              </g>
-            </svg>
-          </span>
-          <span title="Español (ES)" aria-label="Español (ES)" className="opacity-40">
-            <svg width="20" height="14" viewBox="0 0 27 18" className="rounded-[3px]">
-              <rect width="27" height="18" fill="#AA151B" />
-              <rect y="4.5" width="27" height="9" fill="#F1BF00" />
-              <path d="M12 5.6 q2.7 0.8 2.7 3.5 v2.1 q0 1.9 -2.7 2.7 q-2.7 -0.8 -2.7 -2.7 V9.1 q0 -2.7 2.7 -3.5 z" fill="#AA151B" />
-              <path d="M10.5 6.2 q2.9 0.8 2.9 2.9 q-2.9 0.1 -2.9 -2.9 z" fill="#F1BF00" />
-            </svg>
-          </span>
-        </div>
+        <LocaleSwitcher current={locale} pathname={pathname} labels={localeLabels} />
       </div>
 
       {/* ─── Hambúrguer (mobile) ─── */}
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? 'Fechar menu' : 'Abrir menu'}
+        aria-label={open ? t.closeMenu : t.openMenu}
         aria-expanded={open}
         className="md:hidden relative z-[70] ml-auto flex h-10 w-10 shrink-0 flex-col items-center justify-center gap-[5px]"
       >
@@ -240,20 +303,27 @@ export function Nav() {
       >
         <div className="flex h-full flex-col justify-center px-8 pb-16 pt-28">
           <div className="flex flex-col gap-6">
-            {MENU_LINKS.map(({ href, label }) => (
+            {MENU_KEYS.map((key) => (
               <Link
-                key={href}
-                href={href}
+                key={key}
+                href={href(key, locale)}
                 onClick={() => setOpen(false)}
                 className="text-2xl font-bold text-white transition-opacity hover:opacity-70"
                 style={{ fontFamily: 'var(--font-poppins), sans-serif' }}
               >
-                {label}
+                {menuLabels[key]}
               </Link>
             ))}
           </div>
 
-          <div className="mt-12 flex items-center gap-6 border-t border-white/15 pt-8">
+          <LocaleSwitcher
+            current={locale}
+            pathname={pathname}
+            labels={localeLabels}
+            className="mt-12 gap-4"
+          />
+
+          <div className="mt-8 flex items-center gap-6 border-t border-white/15 pt-8">
             <a
               href="https://www.instagram.com/agenciabrinde/"
               target="_blank"

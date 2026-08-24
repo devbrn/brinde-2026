@@ -1,11 +1,21 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import Script from 'next/script';
 import { Playfair_Display, Inter, Poppins } from 'next/font/google';
 import './globals.css';
 import { LenisProvider } from '@/components/LenisProvider';
 import { MetaPixel } from '@/components/MetaPixel';
+import {
+  getDictionary,
+  DEFAULT_LOCALE,
+  HTML_LANG,
+  LOCALES,
+  LOCALE_HEADER,
+  type Locale,
+} from '@/lib/i18n';
 
 const GTM_ID = 'GTM-KZTNHGSZ';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.agenciabrinde.com.br';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -23,21 +33,36 @@ const poppins = Poppins({
   variable: '--font-poppins',
 });
 
-export const metadata: Metadata = {
-  title: 'Brinde — Marketing & Publicidade',
-  description: 'Agência full-service de estratégia, criação e execução',
-  icons: {
-    icon: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1786733556/brinde-favicon_doyhvi.webp',
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const dict = getDictionary(await currentLocale());
+  return {
+    // Torna canonical e hreflang absolutos, como o Google exige.
+    metadataBase: new URL(SITE_URL),
+    title: dict.metadata.title,
+    description: dict.metadata.description,
+    icons: {
+      icon: 'https://res.cloudinary.com/dyezpmorm/image/upload/v1786733556/brinde-favicon_doyhvi.webp',
+    },
+  };
+}
 
-export default function RootLayout({
+/** Idioma da requisição, escrito pelo proxy a partir do prefixo da URL. */
+async function currentLocale(): Promise<Locale> {
+  const value = (await headers()).get(LOCALE_HEADER);
+  return (LOCALES as readonly string[]).includes(value ?? '')
+    ? (value as Locale)
+    : DEFAULT_LOCALE;
+}
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const locale = await currentLocale();
+
   return (
-    <html lang="pt-BR" className={`${playfair.variable} ${inter.variable} ${poppins.variable}`}>
+    <html lang={HTML_LANG[locale]} className={`${playfair.variable} ${inter.variable} ${poppins.variable}`}>
       <head>
         <Script id="gtm" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

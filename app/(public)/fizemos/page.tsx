@@ -1,63 +1,20 @@
-export default function Fizemos() {
-  const cases = [
-    {
-      id: 1,
-      name: 'Infomídia',
-      category: 'Branding',
-      year: 2021,
-    },
-    {
-      id: 2,
-      name: 'Infomídia Soluções Digitais',
-      category: 'Rebranding',
-      year: 2022,
-    },
-    {
-      id: 3,
-      name: 'Brinde Marketing & Publicidade',
-      category: 'Full Service',
-      year: 2023,
-    },
-  ];
+import type { Metadata } from 'next';
+import { WorkPage } from '@/components/pages/WorkPage';
+import { getDictionary, DEFAULT_LOCALE, href } from '@/lib/i18n';
+import { PREFIXED_LOCALES } from '@/lib/i18n/config';
 
-  return (
-    <div className="pt-20">
-      {/* Hero */}
-      <section className="bg-[#050a30] text-white py-24 px-6">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-playfair mb-8">Fizemos</h1>
-          <p className="text-xl text-gray-300">
-            Projetos que unem estratégia, criação e execução
-          </p>
-        </div>
-      </section>
+const ROUTE_KEY = 'fizemos' as const;
 
-      {/* Cases Grid */}
-      <section className="bg-white py-16 px-6" data-nav-light>
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {cases.map((caseItem) => (
-              <div
-                key={caseItem.id}
-                className="border-2 border-gray-200 rounded p-8 hover:border-[#c51618] transition"
-              >
-                <span className="text-sm text-[#c51618] font-bold">{caseItem.category}</span>
-                <h3 className="text-2xl font-playfair mt-3 mb-4">{caseItem.name}</h3>
-                <p className="text-gray-500 text-sm">{caseItem.year}</p>
-                <button className="mt-6 text-[#c51618] font-bold hover:underline">
-                  Saiba mais →
-                </button>
-              </div>
-            ))}
-          </div>
+export const metadata: Metadata = {
+  alternates: {
+    canonical: href(ROUTE_KEY, DEFAULT_LOCALE),
+    languages: Object.fromEntries([
+      ['pt-BR', href(ROUTE_KEY, DEFAULT_LOCALE)],
+      ...PREFIXED_LOCALES.map((locale) => [locale, href(ROUTE_KEY, locale)]),
+    ]),
+  },
+};
 
-          <div className="mt-16 p-8 bg-gray-50 rounded text-center">
-            <p className="text-gray-600 text-lg">
-              Cada projeto é uma história de transformação. Trazemos estratégia, criatividade e execução para criar soluções que movem o mercado.
-            </p>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
+export default function Page() {
+  return <WorkPage dict={getDictionary(DEFAULT_LOCALE)} />;
 }
