@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, boolean, serial } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, boolean, serial, jsonb } from 'drizzle-orm/pg-core';
 
 export const posts = pgTable('posts', {
   id: serial('id').primaryKey(),
@@ -38,5 +38,15 @@ export const contacts = pgTable('contacts', {
   utmContent: text('utm_content'),
   gclid: text('gclid'),
   fbclid: text('fbclid'),
+  createdAt: timestamp('created_at').defaultNow(),
+});
+
+export const emailEvents = pgTable('email_events', {
+  id: serial('id').primaryKey(),
+  eventId: text('event_id').notNull().unique(),
+  eventType: text('event_type').notNull(),
+  emailId: text('email_id'),
+  recipient: text('recipient'),
+  payload: jsonb('payload').notNull(),
   createdAt: timestamp('created_at').defaultNow(),
 });
