@@ -12,6 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 type ServiceStyle = {
   id: string;
+  analyticsName: string;
   tagColor: string;
   tagTextColor: string;
   modalBg: string;
@@ -25,6 +26,7 @@ type ServiceData = ServiceStyle & Dictionary['services']['items'][number];
 const serviceStyles: ServiceStyle[] = [
   {
     id: 'rotulo-branco',
+    analyticsName: 'construlead_essencial',
     tagColor: '#c6f135',
     tagTextColor: '#111111',
     modalBg: '#c6f135',
@@ -34,6 +36,7 @@ const serviceStyles: ServiceStyle[] = [
   },
   {
     id: 'reserva-especial',
+    analyticsName: 'construlead_performance',
     tagColor: '#c51618',
     tagTextColor: '#ffffff',
     modalBg: '#c51618',
@@ -43,6 +46,7 @@ const serviceStyles: ServiceStyle[] = [
   },
   {
     id: 'edicao-limitada',
+    analyticsName: 'construlead_expansao',
     tagColor: '#c9b8e8',
     tagTextColor: '#111111',
     modalBg: '#c9b8e8',
@@ -65,12 +69,17 @@ function ServiceModal({
 }) {
   const t = dict.services;
   useEffect(() => {
+    window.dataLayer?.push({
+      event: 'service_detail_open',
+      service_name: service.analyticsName,
+    });
+
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [onClose]);
+  }, [onClose, service.analyticsName]);
 
   return (
     <motion.div

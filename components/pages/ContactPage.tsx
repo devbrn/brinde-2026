@@ -7,6 +7,7 @@ import type { Dictionary } from '@/lib/i18n';
 
 declare global {
   interface Window {
+    dataLayer?: Array<Record<string, unknown>>;
     fbq?: (
       command: string,
       event: string,
@@ -35,6 +36,14 @@ export function ContactPage({ dict }: { dict: Dictionary }) {
   useEffect(() => {
     campaign.current = captureCampaignParams();
   }, []);
+
+  useEffect(() => {
+    if (status.type === 'success') {
+      window.dataLayer?.push({
+        event: 'lead_form_success',
+      });
+    }
+  }, [status.type]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
