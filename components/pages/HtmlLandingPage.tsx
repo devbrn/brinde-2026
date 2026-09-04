@@ -5,7 +5,7 @@ import Script from 'next/script';
 type HtmlLandingPageProps = {
   sourcePath: string;
   scriptId: string;
-  assetBasePath?: string;
+  assetReplacements?: Record<string, string>;
 };
 
 function readLandingFile(sourcePath: string) {
@@ -15,7 +15,7 @@ function readLandingFile(sourcePath: string) {
 export function HtmlLandingPage({
   sourcePath,
   scriptId,
-  assetBasePath,
+  assetReplacements,
 }: HtmlLandingPageProps) {
   const source = readLandingFile(sourcePath);
   const styles = [...source.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)]
@@ -27,8 +27,8 @@ export function HtmlLandingPage({
   let body = source.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? '';
   body = body.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
 
-  if (assetBasePath) {
-    body = body.replaceAll('assets/videos/', `${assetBasePath}/`);
+  for (const [localPath, hostedUrl] of Object.entries(assetReplacements ?? {})) {
+    body = body.replaceAll(localPath, hostedUrl);
   }
 
   return (
