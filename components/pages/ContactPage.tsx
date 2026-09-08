@@ -24,7 +24,7 @@ export function ContactPage({ dict }: { dict: Dictionary }) {
     email: '',
     phone: '',
     company: '',
-    service: '',
+    challenge: '',
     message: '',
   });
   const [status, setStatus] = useState<{
@@ -81,7 +81,7 @@ export function ContactPage({ dict }: { dict: Dictionary }) {
         email: '',
         phone: '',
         company: '',
-        service: '',
+        challenge: '',
         message: '',
       });
     } else {
@@ -203,8 +203,8 @@ export function ContactPage({ dict }: { dict: Dictionary }) {
                 {t.service}
               </label>
               <select
-                name="service"
-                value={formData.service}
+                name="challenge"
+                value={formData.challenge}
                 onChange={handleChange}
                 required
                 className="w-full px-4 py-3 border border-gray-300 rounded-xl text-[#050a30] placeholder:text-gray-400 focus:outline-none focus:border-[#c51618] transition-colors"

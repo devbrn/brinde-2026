@@ -37,8 +37,7 @@ export const es: Dictionary = {
 
   whatsapp: {
     label: 'Habla con nosotros por WhatsApp',
-    message:
-      'Hola, los contacto a través del sitio web de Brinde y me gustaría solicitar un presupuesto',
+    message: 'Quero brindar os novos negócios com a agência Brinde',
   },
 
   home: {
@@ -335,14 +334,19 @@ export const es: Dictionary = {
     phonePlaceholder: '+34 600 000 000',
     company: 'Empresa',
     companyPlaceholder: 'Tu empresa',
-    service: 'Servicio',
-    servicePlaceholder: 'Selecciona un servicio',
+    service: '¿Cuál es tu principal desafío?',
+    servicePlaceholder: 'Selecciona un desafío',
     serviceOptions: {
-      branding: 'Branding',
-      conteudo: 'Contenido',
-      digital: 'Digital',
-      audiovisual: 'Audiovisual',
-      social: 'Social Media',
+      indicacoes: 'Dependemos demais de indicações.',
+      torneira: 'Tem mês que entra orçamento; no outro, a torneira fecha.',
+      fechamento: 'Fazemos muito orçamento e fechamos pouco.',
+      preco: 'Perdemos tempo com quem só quer saber o preço.',
+      disputa: 'Nosso diferencial acaba virando disputa de preço.',
+      retorno: 'Enviamos o orçamento e o retorno acaba se perdendo.',
+      tarde: 'Entramos nos projetos tarde demais.',
+      clientes: 'Crescer ainda depende dos mesmos clientes ou mercados.',
+      vendas: 'Não sabemos o que realmente está virando venda.',
+      produtos: 'Só vendemos Verde Ubatuba e Preto São Gabriel',
       outro: 'Otro',
     },
     message: 'Mensaje',

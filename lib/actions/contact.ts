@@ -17,7 +17,7 @@ const contactSchema = z.object({
   email: z.string().email('Email inválido'),
   phone: z.string().optional(),
   company: z.string().optional(),
-  service: z.string().min(1, 'Selecione um serviço'),
+  challenge: z.string().min(1, 'Selecione um desafio'),
   message: z.string().min(1, 'Mensagem é obrigatória'),
   utm_source: z.string().max(255).optional(),
   utm_medium: z.string().max(255).optional(),
@@ -46,7 +46,7 @@ function renderNotification(data: ContactData) {
     ['E-mail', data.email],
     ['Telefone', data.phone || '—'],
     ['Empresa', data.company || '—'],
-    ['Serviço', data.service],
+    ['Principal desafio', data.challenge],
   ]
     .map(
       ([label, value]) =>
@@ -98,7 +98,7 @@ function renderOrigin(data: ContactData) {
   `;
 }
 
-export async function submitContact(formData: unknown) {
+export async function submitContact(formData: unknown, subjectPrefix = 'Novo orçamento') {
   try {
     const data = contactSchema.parse(formData);
 
@@ -107,7 +107,7 @@ export async function submitContact(formData: unknown) {
       email: data.email,
       phone: data.phone,
       company: data.company,
-      service: data.service,
+      challenge: data.challenge,
       message: data.message,
       utmSource: data.utm_source,
       utmMedium: data.utm_medium,
@@ -125,7 +125,7 @@ export async function submitContact(formData: unknown) {
         from: NOTIFICATION_FROM,
         to: NOTIFICATION_TO,
         replyTo: data.email,
-        subject: `Novo orçamento: ${data.name} — ${data.service}`,
+        subject: `${subjectPrefix}: ${data.name}`,
         html: renderNotification(data),
       });
 

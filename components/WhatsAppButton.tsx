@@ -6,7 +6,7 @@ export function WhatsAppButton({ dict }: { dict: Dictionary }) {
   const t = dict.whatsapp;
   return (
     <a
-      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t.message)}`}
+      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Quero brindar os novos negócios com a agência Brinde')}`}
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full overflow-visible shadow-2xl hover:scale-105 transition-transform"

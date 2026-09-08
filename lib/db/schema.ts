@@ -27,7 +27,7 @@ export const contacts = pgTable('contacts', {
   email: text('email').notNull(),
   phone: text('phone'),
   company: text('company'),
-  service: text('service'),
+  challenge: text('challenge'),
   message: text('message').notNull(),
   // Origem do lead: preenchido a partir da query string quando a visita vem
   // de anúncio (Google Ads envia gclid, Meta envia fbclid).

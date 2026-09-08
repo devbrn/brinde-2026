@@ -35,8 +35,7 @@ export const pt = {
 
   whatsapp: {
     label: 'Fale conosco no WhatsApp',
-    message:
-      'Olá, estou entrando em contato através do site da Brinde e gostaria de um orçamento',
+    message: 'Quero brindar os novos negócios com a agência Brinde',
   },
 
   home: {
@@ -333,14 +332,19 @@ export const pt = {
     phonePlaceholder: '(11) 99999-9999',
     company: 'Empresa',
     companyPlaceholder: 'Sua empresa',
-    service: 'Serviço',
-    servicePlaceholder: 'Selecione um serviço',
+    service: 'Qual é o seu principal desafio?',
+    servicePlaceholder: 'Selecione um desafio',
     serviceOptions: {
-      branding: 'Branding',
-      conteudo: 'Conteúdo',
-      digital: 'Digital',
-      audiovisual: 'Audiovisual',
-      social: 'Social Media',
+      indicacoes: 'Dependemos demais de indicações.',
+      torneira: 'Tem mês que entra orçamento; no outro, a torneira fecha.',
+      fechamento: 'Fazemos muito orçamento e fechamos pouco.',
+      preco: 'Perdemos tempo com quem só quer saber o preço.',
+      disputa: 'Nosso diferencial acaba virando disputa de preço.',
+      retorno: 'Enviamos o orçamento e o retorno acaba se perdendo.',
+      tarde: 'Entramos nos projetos tarde demais.',
+      clientes: 'Crescer ainda depende dos mesmos clientes ou mercados.',
+      vendas: 'Não sabemos o que realmente está virando venda.',
+      produtos: 'Só vendemos Verde Ubatuba e Preto São Gabriel',
       outro: 'Outro',
     },
     message: 'Mensagem',

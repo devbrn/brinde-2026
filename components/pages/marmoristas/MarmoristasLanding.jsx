@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 const WHATSAPP_URL =
-  'https://wa.me/5511942424377?text=Ol%C3%A1%2C%20vim%20pela%20nova%20landing%20page%20para%20marmoristas%20e%20quero%20solicitar%20minha%20An%C3%A1lise%20Estrat%C3%A9gica%20Gratuita.'
+  `https://wa.me/5511942424377?text=${encodeURIComponent('Quero brindar os novos negócios com a agência Brinde')}`
 
 function ArrowIcon() {
   return (

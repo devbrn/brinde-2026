@@ -196,16 +196,17 @@ footer{background:#07162C;color:#8C97A8;padding:40px 0;font-size:13px;text-align
       </ul>
       <p style="font-size:13.5px;color:#8B96A8">Atendemos marmorarias com faturamento acima de R$ 100 mil por mês.</p>
     </div>
-    <form class="card" id="form" onsubmit="return false;">
+    <form class="card" id="form" onsubmit="return submitDiagnosis(event);">
       <h3>Diagnóstico gratuito de 40 minutos</h3>
       <p class="sub">Analisamos seu funil, ticket médio e concorrência regional. Saída com um plano definido, com ou sem contrato.</p>
-      <div class="field"><label>Nome completo</label><input required placeholder="Seu nome"></div>
-      <div class="field"><label>WhatsApp</label><input required placeholder="(11) 90000-0000"></div>
-      <div class="field"><label>E-mail</label><input type="email" required placeholder="voce@empresa.com"></div>
-      <div class="field"><label>Nome da marmoraria</label><input required placeholder="Razão social ou fantasia"></div>
-      <div class="field"><label>Cidade e estado</label><input required placeholder="Ex: Barueri, SP"></div>
+      <div class="field"><label>Nome completo</label><input name="name" required placeholder="Seu nome"></div>
+      <div class="field"><label>WhatsApp</label><input name="phone" required placeholder="(11) 90000-0000"></div>
+      <div class="field"><label>E-mail</label><input name="email" type="email" required placeholder="voce@empresa.com"></div>
+      <div class="field"><label>Nome da marmoraria</label><input name="company" required placeholder="Razão social ou fantasia"></div>
+      <div class="field"><label>Cidade e estado</label><input name="message" required placeholder="Ex: Barueri, SP"></div>
+      <input type="hidden" name="challenge" value="Diagnóstico para marmoraria">
       <div class="field"><label>Faturamento mensal</label>
-        <select required>
+        <select name="revenue" required>
           <option value="">Selecione</option>
           <option>Até R$ 100 mil</option>
           <option>R$ 100 mil a R$ 300 mil</option>
@@ -217,7 +218,7 @@ footer{background:#07162C;color:#8C97A8;padding:40px 0;font-size:13px;text-align
           <option>Acima de R$ 30 milhões</option>
         </select>
       </div>
-      <button class="btn">Quero verificar minha região</button>
+      <button type="submit" class="btn">Quero verificar minha região</button>
       <p class="legal">Sem custo. Sem compromisso. Resposta em até 1 dia útil.</p>
     </form>
   </div>
@@ -413,6 +414,31 @@ footer{background:#07162C;color:#8C97A8;padding:40px 0;font-size:13px;text-align
 </footer>
 
 <script>
+async function submitDiagnosis(event) {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const button = form.querySelector('button[type="submit"]');
+  button.disabled = true;
+  try {
+    const response = await fetch('/api/marmorarias-diagnostico', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.fromEntries(new FormData(form))),
+    });
+    if (!response.ok) throw new Error('submit failed');
+    const toast = document.createElement('div');
+    toast.textContent = 'Enviado com Sucesso! Você receberá sua resposta em até 1 dia útil';
+    toast.style.cssText = 'position:fixed;right:24px;bottom:24px;z-index:20;max-width:calc(100% - 48px);padding:16px 20px;background:#050a30;color:#fff;border-radius:10px;font:600 14px Arial,sans-serif;box-shadow:0 12px 30px rgba(5,10,48,.25)';
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 6000);
+    form.innerHTML = '<h3>Diagnóstico solicitado</h3><p>Recebemos seus dados. A Brinde entrará em contato em breve.</p>';
+  } catch {
+    button.disabled = false;
+    alert('Não foi possível enviar. Tente novamente.');
+  }
+  return false;
+}
+
 // REVEAL (com fallback de segurança para mobile)
 const revealEls = document.querySelectorAll('.reveal');
 function showAllReveal(){ revealEls.forEach(el=>el.classList.add('on')); }
