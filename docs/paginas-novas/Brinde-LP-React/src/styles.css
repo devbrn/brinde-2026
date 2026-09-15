@@ -463,6 +463,13 @@ h1 em {
   box-shadow: 32px 34px 0 rgba(7, 20, 59, 0.22);
 }
 
+.reel-frame video {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  background: #050505;
+}
+
 .reel-frame::after {
   content: 'REGISTRO REAL';
   position: absolute;
@@ -884,15 +891,11 @@ footer {
 
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition:
-    opacity 0.7s ease,
-    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition: opacity 0.35s ease;
 }
 
 .reveal.in {
   opacity: 1;
-  transform: none;
 }
 
 .mobile-play,
