@@ -18,21 +18,34 @@ export function HtmlLandingPage({
   assetReplacements,
 }: HtmlLandingPageProps) {
   const source = readLandingFile(sourcePath);
-  const styles = [...source.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)]
+  let styles = [...source.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)]
     .map((match) => match[1])
     .join('\n');
-  const script = [...source.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/gi)]
-    .map((match) => match[1])
+  const scripts = [...source.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)];
+  const jsonLd = scripts
+    .filter(([, attributes]) => /\btype=["']application\/ld\+json["']/i.test(attributes))
+    .map(([, , content]) => content)
+    .join('\n');
+  const script = scripts
+    .filter(([, attributes]) => !/\btype=["']application\/ld\+json["']/i.test(attributes))
+    .map(([, , content]) => content)
     .join('\n');
   let body = source.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? '';
   body = body.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
 
   for (const [localPath, hostedUrl] of Object.entries(assetReplacements ?? {})) {
+    styles = styles.replaceAll(localPath, hostedUrl);
     body = body.replaceAll(localPath, hostedUrl);
   }
 
   return (
     <>
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLd }}
+        />
+      )}
       <style dangerouslySetInnerHTML={{ __html: styles }} />
       <div
         suppressHydrationWarning
