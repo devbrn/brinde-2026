@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function MobileLandingPage() {
   return (
     <HtmlLandingPage
-      sourcePath="docs/paginas-novas/brinde-lp-mobile/index.html"
+      sourcePath="docs/paginas-antigas/brinde-lp-mobile/index.html"
       scriptId="landing-mobile-script"
       assetReplacements={{
         'assets/videos/ana-dias.mp4':

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function MarmorariasLandingPage() {
   return (
     <HtmlLandingPage
-      sourcePath="docs/paginas-novas/brinde-lp-marmorarias.html"
+      sourcePath="docs/paginas-antigas/brinde-lp-marmorarias.html"
       scriptId="landing-marmorarias-script"
     />
   );

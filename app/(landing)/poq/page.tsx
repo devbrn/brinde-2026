@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function PoqPage() {
   return (
     <HtmlLandingPage
-      sourcePath="docs/paginas-novas/poq.html"
+      sourcePath="docs/paginas-antigas/poq.html"
       scriptId="poq-landing-script"
     />
   );

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function ConversaoLandingPage() {
   return (
     <HtmlLandingPage
-      sourcePath="docs/paginas-novas/brinde-lp-conversao.html"
+      sourcePath="docs/paginas-antigas/brinde-lp-conversao.html"
       scriptId="landing-conversao-script"
     />
   );
