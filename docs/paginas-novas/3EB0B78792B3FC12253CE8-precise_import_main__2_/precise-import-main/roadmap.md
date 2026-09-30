@@ -1,0 +1,2 @@
+- [x] Final audit (report)
+- [x] Mobile-only background zoom fix

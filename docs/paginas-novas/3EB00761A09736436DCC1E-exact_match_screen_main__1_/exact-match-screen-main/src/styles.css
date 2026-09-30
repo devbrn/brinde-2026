@@ -1,0 +1,208 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Agência Brinde — ConstruLead
+ * Estética: preto profundo, off-white, dourado quente, vermelho Brinde em CTAs.
+ * Todos os valores de cor em oklch. Nunca usar cores hardcoded em componentes.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-copper: var(--copper);
+  --color-mineral: var(--mineral);
+  --color-stone: var(--stone);
+  --color-stone-ink: var(--stone-ink);
+  --color-stone-muted: var(--stone-muted);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  --radius: 0.25rem;
+
+  /* Blue Roma — azul-petróleo mineral */
+  --background: #071116;
+  --foreground: #f4f0e8;
+  --surface: #101b20;
+  --surface-2: #17252c;
+  --mineral: #304752;
+
+  --card: #101b20;
+  --card-foreground: #f4f0e8;
+  --popover: #0b161b;
+  --popover-foreground: #f4f0e8;
+
+  /* Vermelho Brinde — apenas CTAs */
+  --primary: #ed1526;
+  --primary-foreground: #ffffff;
+
+  --secondary: #17252c;
+  --secondary-foreground: #f4f0e8;
+
+  --muted: #17252c;
+  --muted-foreground: #c9c4bc;
+
+  --accent: #d6a35c;
+  --accent-foreground: #071116;
+
+  --gold: #d6a35c;
+  --gold-soft: #e6c48f;
+  --copper: #b97745;
+
+  /* Pedra clara */
+  --stone: #ece5d8;
+  --stone-ink: #152127;
+  --stone-muted: #4c5a60;
+
+  --destructive: oklch(0.63 0.2 25);
+  --destructive-foreground: oklch(0.98 0.005 85);
+
+  --border: oklch(0.9 0.02 80 / 11%);
+  --border-strong: oklch(0.9 0.02 80 / 24%);
+  --input: oklch(0.9 0.02 80 / 14%);
+  --ring: #d6a35c;
+
+  --shadow-elevate: 0 24px 60px -24px oklch(0 0 0 / 80%);
+  --gradient-fade-bottom: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in oklab, var(--background) 65%, transparent) 55%,
+    var(--background) 100%
+  );
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+    min-width: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+}
+
+@utility section-x {
+  padding-inline: 1.25rem;
+  @media (min-width: 768px) {
+    padding-inline: 2.5rem;
+  }
+  @media (min-width: 1280px) {
+    padding-inline: 4rem;
+  }
+}
+
+@utility shell {
+  width: 100%;
+  max-width: 78rem;
+  margin-inline: auto;
+}
+
+@utility kicker {
+  font-size: 0.6875rem;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+@utility rule-gold {
+  background: linear-gradient(
+    to right,
+    var(--color-gold),
+    color-mix(in oklab, var(--color-gold) 10%, transparent)
+  );
+}
+
+@utility fade-black-bottom {
+  background-image: var(--gradient-fade-bottom);
+}
+
+@utility reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes formStep {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
