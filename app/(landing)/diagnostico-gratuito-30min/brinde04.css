@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+/* brinde-04 — ConstruLead Blue Roma (portado do Lovable exact-match-screen)
+   Tokens escopados em .brinde04-root para não colidir com o tema do site. */
+
+.brinde04-root {
+  /* Blue Roma — azul-petróleo mineral */
+  --background: #071116;
+  --foreground: #f4f0e8;
+  --surface: #101b20;
+  --surface-2: #17252c;
+  --mineral: #304752;
+
+  /* Vermelho Brinde — apenas CTAs */
+  --primary: #ed1526;
+  --primary-foreground: #ffffff;
+
+  --muted: #17252c;
+  --muted-foreground: #c9c4bc;
+
+  --gold: #d6a35c;
+  --gold-soft: #e6c48f;
+  --copper: #b97745;
+
+  /* Pedra clara */
+  --stone: #ece5d8;
+  --stone-ink: #152127;
+  --stone-muted: #4c5a60;
+
+  --destructive: oklch(0.63 0.2 25);
+
+  --border: oklch(0.9 0.02 80 / 11%);
+  --border-strong: oklch(0.9 0.02 80 / 24%);
+  --input: oklch(0.9 0.02 80 / 14%);
+  --ring: #d6a35c;
+
+  --shadow-elevate: 0 24px 60px -24px oklch(0 0 0 / 80%);
+
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-width: 0;
+}
+
+.brinde04-root *,
+.brinde04-root *::before,
+.brinde04-root *::after {
+  border-color: var(--border);
+  min-width: 0;
+}
+
+.brinde04-root h1,
+.brinde04-root h2,
+.brinde04-root h3 {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.brinde04-root p {
+  text-wrap: pretty;
+}
+
+/* Preflight do Tailwind v4 deixa button/label com cursor default */
+.brinde04-root button:not(:disabled),
+.brinde04-root label:has(input[type='radio']),
+.brinde04-root label[for] {
+  cursor: pointer;
+}
+
+.brinde04-root :focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+html:has(.brinde04-root) {
+  scroll-behavior: smooth;
+}
+
+/* Utilitários de layout da página (nomes locais, escopados) */
+.brinde04-root .b4-shell {
+  width: 100%;
+  max-width: 78rem;
+  margin-inline: auto;
+}
+
+.brinde04-root .b4-section-x {
+  padding-inline: 1.25rem;
+}
+@media (min-width: 768px) {
+  .brinde04-root .b4-section-x {
+    padding-inline: 2.5rem;
+  }
+}
+@media (min-width: 1280px) {
+  .brinde04-root .b4-section-x {
+    padding-inline: 4rem;
+  }
+}
+
+.brinde04-root .b4-kicker {
+  font-size: 0.6875rem;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* Reveal on scroll */
+.brinde04-root .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.brinde04-root .reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brinde04-root *,
+  .brinde04-root *::before,
+  .brinde04-root *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  html:has(.brinde04-root) {
+    scroll-behavior: auto;
+  }
+}
+
+@keyframes formStep {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

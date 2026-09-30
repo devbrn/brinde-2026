@@ -19,6 +19,23 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  /* Landing pages (ex.: /diagnostico-gratuito-30min): resolvem em runtime via vars escopadas */
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-copper: var(--copper);
+  --color-mineral: var(--mineral);
+  --color-stone: var(--stone);
+  --color-stone-ink: var(--stone-ink);
+  --color-stone-muted: var(--stone-muted);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-destructive: var(--destructive);
 }
 
 @keyframes marquee {
