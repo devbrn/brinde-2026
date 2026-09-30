@@ -10,10 +10,12 @@ export const metadata: Metadata = {
 export default function AnaliseEstrategicaGratuitaPage() {
   return (
     <HtmlLandingPage
-      sourcePath="docs/paginas-novas/3EB0B528334F07415DA4DD-pixel_perfect_replica_main/pixel-perfect-replica-main/public/construlead-canonical.html"
+      sourcePath="docs/paginas-novas/3EB0B78792B3FC12253CE8-precise_import_main__2_/precise-import-main/public/construlead-canonical.html"
       scriptId="analise-estrategica-gratuita-script"
       assetReplacements={{
-        '/assets/hero-bg-1920.jpg': '/marmoristas/brinde-02/assets/hero-bg-1920.jpg',
+        '/images/nero-texture.jpg': '/marmoristas/brinde-02/assets/nero-texture.jpg',
+        '/images/nero-hero.jpg': '/marmoristas/brinde-02/assets/nero-hero.jpg',
+        '/images/nero-hero-mobile.jpg': '/marmoristas/brinde-02/assets/nero-hero-mobile.jpg',
         '/videos/video-principal-construlead.mp4':
           '/marmoristas/brinde-02/videos/video-principal-construlead.mp4',
         '/videos/depoimento-ana-dias.mp4':
