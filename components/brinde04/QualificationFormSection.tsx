@@ -111,7 +111,7 @@ export function QualificationFormSection() {
             `Situação atual: ${answers.situation ?? '—'}`,
             `Investimento mensal disponível: ${answers.investment ?? '—'}`,
             `Cidade / UF: ${contact.cityState.trim()}`,
-            'Origem: Landing Page ConstruLead Blue Roma (/diagnostico-gratuito-30min)',
+            'Origem: /diagnostico-gratuito-30min',
           ].join('\n'),
         }),
       });
