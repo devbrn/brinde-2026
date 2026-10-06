@@ -54,7 +54,8 @@ test('analise-estrategica-gratuita aplica a matriz aos values data-value existen
     data.capacidade = capacityValue;
     return check();
   }, { revenue, capacity }, '/analise-estrategica-gratuita');
-  assert.ok(source.includes(officialText.split('\n\n').join('</p><p>')));
+  assert.ok(officialText.split('\n\n').every((paragraph) => source.includes(paragraph)));
+  assert.match(source, /href="https:\/\/agenciabrinde\.com\.br\/"[^>]*>Visite o nosso site<\/a>/);
   assert.match(source, /disqualified\|\|shouldDisqualify\(\)\|\|cur!==5/);
   assert.match(source, /if\(shouldDisqualify\(\)\)showDisqualified\(\)/);
 });
@@ -78,7 +79,8 @@ test('/poq aplica a matriz aos values de radio fat e cap existentes', () => {
     answers.cap = capacityValue;
     return check();
   }, { revenue: ['59', '99', '199'], capacity: ['sim', 'ajustes', 'nao'] }, '/poq');
-  assert.ok(script.includes(officialText.split('\n\n').join('</p><p>')));
+  assert.ok(officialText.split('\n\n').every((paragraph) => script.includes(paragraph)));
+  assert.match(script, /href="https:\/\/agenciabrinde\.com\.br\/"[^>]*>Visite o nosso site<\/a>/);
   assert.match(script, /if\(disqualified\|\|isDisqualified\(\)\)\{showDisqualified\(\);return\}/);
 });
 
@@ -94,7 +96,9 @@ test('/diagnostico-gratuito-30min aplica a matriz aos values dos options reais',
   assert.deepEqual(capacity, ['Sim', 'Sim, com alguns ajustes', 'Não neste momento']);
   const check = policyFunction(policy, 'isLeadDisqualified', { REVENUE_OPTIONS: revenue, CAPACITY_OPTIONS: capacity });
   assertScenarios(check, { revenue, capacity }, '/diagnostico-gratuito-30min');
-  assert.ok(policy.includes(officialText.split('\n\n').join("',\n  '")));
+  assert.ok(officialText.split('\n\n').every((paragraph) => policy.includes(paragraph)));
+  assert.match(policy, /SITE_URL = 'https:\/\/agenciabrinde\.com\.br\/'/);
+  assert.match(component, /href=\{SITE_URL\}[^>]*>\s*Visite o nosso site/);
   assert.match(component, /if \(disqualified \|\| isLeadDisqualified\(answers\.revenue, answers\.capacity\)\)/);
   assert.match(component, /isLeadDisqualified\(nextAnswers\.revenue, nextAnswers\.capacity\)/);
   assert.match(component, /onClick=\{\(\) => \{[\s\S]*?isLeadDisqualified\(answers\.revenue, answers\.capacity\)[\s\S]*?setStep/);

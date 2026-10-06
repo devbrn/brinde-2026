@@ -1,4 +1,5 @@
 export const SCHEDULING_URL = 'https://calendar.app.google/c5ZZZmtLTyqbR9WM6';
+export const SITE_URL = 'https://agenciabrinde.com.br/';
 export const QUALIFICATION_FORM_ID = 'diagnostico-formulario';
 
 export const REVENUE_OPTIONS = [

@@ -23,6 +23,7 @@ function setup(response = async () => ({ ok: true, json: async () => ({ success:
     } };
   }
   const ids = Object.fromEntries(['prev', 'next', 'qform', 'ok', 'no', 'form-error'].map((id) => [id, element()]));
+  const floating = element();
   ids.qform.querySelector = (selector) => {
     const name = selector.match(/name="([^"]+)"/)?.[1];
     return selector.includes(':checked') ? radios.find((input) => input.name === name && input.checked) : fields.find((input) => input.name === name);
@@ -34,16 +35,17 @@ function setup(response = async () => ({ ok: true, json: async () => ({ success:
   runInNewContext(script, {
     document: {
       getElementById: (id) => ids[id],
+      querySelector: (selector) => selector === '.floating' ? floating : null,
       querySelectorAll: (selector) => selector === '.question' ? questions : selector === '.steps i' ? questions.map(element) : [],
     },
     alert: () => {},
     fetch: async (url, options) => { calls.push({ url, ...options }); return response(); },
   });
   for (let i = 0; i < 4; i++) ids.next.onclick();
-  return { ids, calls, fields, questions };
+  return { ids, calls, fields, questions, floating };
 }
 
-const officialMessage = '<p>Obrigado por nos contar um pouco mais sobre sua marmoraria.</p><p>A proposta foi desenhada para marmorarias em uma fase específica de operação e crescimento, por isso preferimos ser criteriosos antes de recomendar qualquer próximo passo.</p><p>Neste momento, nossa avaliação é que o ConstruLead não seria a recomendação mais adequada para o estágio atual da sua operação.</p><p>Um Brinde e Bons Negócios 🥂</p>';
+const officialMessage = '<p>Obrigado por nos contar um pouco mais sobre sua marmoraria.</p><p>A proposta foi desenhada para marmorarias em uma fase específica de operação e crescimento, por isso preferimos ser criteriosos antes de recomendar qualquer próximo passo.</p><p>Neste momento, nossa avaliação é que o ConstruLead não seria a recomendação mais adequada para o estágio atual da sua operação.</p><p>Um Brinde e Bons Negócios 🥂</p><a class="btn" href="https://agenciabrinde.com.br/" target="_blank" rel="noopener noreferrer">Visite o nosso site</a>';
 
 test('POQ envia os dados ao endpoint de e-mail antes de liberar o resultado', async () => {
   let resolve;
@@ -102,7 +104,7 @@ test('POQ aplica os seis cenários de faturamento e capacidade antes do envio', 
     { revenue: '199', capacity: 'nao', blocked: false, label: '100k+ mantém o fluxo normal' },
   ];
   for (const scenario of scenarios) {
-    const { ids, calls, questions } = setup(undefined, scenario.revenue, scenario.capacity);
+    const { ids, calls, questions, floating } = setup(undefined, scenario.revenue, scenario.capacity);
     assert.equal(ids.no.classList.contains('show'), scenario.blocked, scenario.label);
     assert.equal(calls.length, 0, `${scenario.label}: nenhuma chamada antes dos dados de contato`);
     assert.equal(ids.no.innerHTML, scenario.blocked ? officialMessage : '', scenario.label);
@@ -113,6 +115,7 @@ test('POQ aplica os seis cenários de faturamento e capacidade antes do envio', 
       assert.equal(questions[4].classList.contains('active'), false, `${scenario.label}: não alcança a etapa de contato`);
       assert.equal(calls.length, 0, `${scenario.label}: submit não envia o lead`);
       assert.equal(ids.no.innerHTML, officialMessage, `${scenario.label}: callbacks não removem o bloqueio`);
+      assert.equal(floating.style.display, 'none', `${scenario.label}: CTA fixo não cobre a mensagem`);
     } else {
       assert.equal(questions[4].classList.contains('active'), true, `${scenario.label}: alcança a etapa de contato`);
     }

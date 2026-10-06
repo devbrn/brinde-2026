@@ -10,6 +10,7 @@ import {
   QUALIFICATION_FORM_ID,
   REVENUE_OPTIONS,
   SCHEDULING_URL,
+  SITE_URL,
   SITUATION_OPTIONS,
   formatWhatsapp,
   isLeadDisqualified,
@@ -185,6 +186,9 @@ export function QualificationFormSection() {
                     {paragraph}
                   </p>
                 ))}
+                <a href={SITE_URL} target="_blank" rel="noopener noreferrer" className={`${primaryBtn} w-full sm:w-auto`}>
+                  Visite o nosso site
+                </a>
               </div>
             ) : current ? (
               <fieldset>
