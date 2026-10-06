@@ -8,15 +8,15 @@ const script = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)]
   .filter(([, attributes]) => !attributes.includes('application/ld+json'))
   .map((match) => match[2]).join('\n');
 
-function setup(response = async () => ({ ok: true, json: async () => ({ success: true }) }), revenue = '199') {
-  const answers = { fat: revenue, cap: 'sim', sit: 'indicacao', inv: '5999' };
+function setup(response = async () => ({ ok: true, json: async () => ({ success: true }) }), revenue = '199', capacity = 'sim') {
+  const answers = { fat: revenue, cap: capacity, sit: 'indicacao', inv: '5999' };
   const values = { nome: 'Teste POQ', empresa: 'Marmoraria Teste', cidade: 'Campinas / SP', whats: '11999999999', email: 'teste@example.com' };
   const radios = [...html.matchAll(/<label class="choice"><input name="([^"]+)" type="radio" value="([^"]+)"\/>\s*([^<]+)<\/label>/g)]
     .map(([, name, value, label]) => ({ name, value, checked: answers[name] === value, closest: () => ({ textContent: label }) }));
   const fields = Object.entries(values).map(([name, value]) => ({ name, value, checkValidity: () => Boolean(value) }));
   function element() {
     const classes = new Set();
-    return { style: {}, textContent: '', disabled: false, classList: {
+    return { style: {}, textContent: '', innerHTML: '', disabled: false, classList: {
       add: (name) => classes.add(name),
       contains: (name) => classes.has(name),
       toggle: (name, enabled) => enabled ? classes.add(name) : classes.delete(name),
@@ -40,8 +40,10 @@ function setup(response = async () => ({ ok: true, json: async () => ({ success:
     fetch: async (url, options) => { calls.push({ url, ...options }); return response(); },
   });
   for (let i = 0; i < 4; i++) ids.next.onclick();
-  return { ids, calls, fields };
+  return { ids, calls, fields, questions };
 }
+
+const officialMessage = '<p>Obrigado por nos contar um pouco mais sobre sua marmoraria.</p><p>A proposta foi desenhada para marmorarias em uma fase específica de operação e crescimento, por isso preferimos ser criteriosos antes de recomendar qualquer próximo passo.</p><p>Neste momento, nossa avaliação é que o ConstruLead não seria a recomendação mais adequada para o estágio atual da sua operação.</p><p>Um Brinde e Bons Negócios 🥂</p>';
 
 test('POQ envia os dados ao endpoint de e-mail antes de liberar o resultado', async () => {
   let resolve;
@@ -90,12 +92,31 @@ test('POQ mantém os dados e permite repetir quando o envio falha', async () => 
   }
 });
 
-test('POQ registra contatos não elegíveis e preserva a regra de qualificação', async () => {
-  const { ids, calls } = setup(undefined, '59');
-  await ids.next.onclick();
-  assert.equal(calls.length, 1);
-  assert.equal(ids.ok.classList.contains('show'), false);
-  assert.equal(ids.no.classList.contains('show'), true);
+test('POQ aplica os seis cenários de faturamento e capacidade antes do envio', () => {
+  const scenarios = [
+    { revenue: '59', capacity: 'sim', blocked: true, label: 'até 59k bloqueia' },
+    { revenue: '99', capacity: 'sim', blocked: false, label: '60–99k + sim avança' },
+    { revenue: '99', capacity: 'ajustes', blocked: false, label: '60–99k + ajustes avança' },
+    { revenue: '99', capacity: 'nao', blocked: true, label: '60–99k + não bloqueia' },
+    { revenue: '99', capacity: 'nao', blocked: true, label: '60–99k + não neste momento bloqueia' },
+    { revenue: '199', capacity: 'nao', blocked: false, label: '100k+ mantém o fluxo normal' },
+  ];
+  for (const scenario of scenarios) {
+    const { ids, calls, questions } = setup(undefined, scenario.revenue, scenario.capacity);
+    assert.equal(ids.no.classList.contains('show'), scenario.blocked, scenario.label);
+    assert.equal(calls.length, 0, `${scenario.label}: nenhuma chamada antes dos dados de contato`);
+    assert.equal(ids.no.innerHTML, scenario.blocked ? officialMessage : '', scenario.label);
+    if (scenario.blocked) {
+      ids.prev.onclick();
+      ids.next.onclick();
+      ids.qform.onsubmit({ preventDefault() {} });
+      assert.equal(questions[4].classList.contains('active'), false, `${scenario.label}: não alcança a etapa de contato`);
+      assert.equal(calls.length, 0, `${scenario.label}: submit não envia o lead`);
+      assert.equal(ids.no.innerHTML, officialMessage, `${scenario.label}: callbacks não removem o bloqueio`);
+    } else {
+      assert.equal(questions[4].classList.contains('active'), true, `${scenario.label}: alcança a etapa de contato`);
+    }
+  }
 });
 
 test('POQ não envia contatos com campos obrigatórios vazios', async () => {

@@ -15,6 +15,18 @@ export const CAPACITY_OPTIONS = [
   'Não neste momento',
 ] as const;
 
+export const DISQUALIFICATION_MESSAGE = [
+  'Obrigado por nos contar um pouco mais sobre sua marmoraria.',
+  'A proposta foi desenhada para marmorarias em uma fase específica de operação e crescimento, por isso preferimos ser criteriosos antes de recomendar qualquer próximo passo.',
+  'Neste momento, nossa avaliação é que o ConstruLead não seria a recomendação mais adequada para o estágio atual da sua operação.',
+  'Um Brinde e Bons Negócios 🥂',
+] as const;
+
+export function isLeadDisqualified(revenue?: string, capacity?: string): boolean {
+  return revenue === REVENUE_OPTIONS[0] ||
+    (revenue === REVENUE_OPTIONS[1] && capacity === CAPACITY_OPTIONS[2]);
+}
+
 export const SITUATION_OPTIONS = [
   'Dependemos demais de indicações',
   'A entrada de novos orçamentos é irregular',

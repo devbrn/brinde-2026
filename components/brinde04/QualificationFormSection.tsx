@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Check } from 'lucide-react';
 import {
   CAPACITY_OPTIONS,
+  DISQUALIFICATION_MESSAGE,
   EMAIL_REGEX,
   INVESTMENT_OPTIONS,
   QUALIFICATION_FORM_ID,
@@ -11,6 +12,7 @@ import {
   SCHEDULING_URL,
   SITUATION_OPTIONS,
   formatWhatsapp,
+  isLeadDisqualified,
   isValidWhatsapp,
 } from './qualification';
 
@@ -72,6 +74,7 @@ export function QualificationFormSection() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [done, setDone] = useState(false);
+  const [disqualified, setDisqualified] = useState(false);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const firstRender = useRef(true);
@@ -82,7 +85,7 @@ export function QualificationFormSection() {
     titleRef.current?.focus({ preventScroll: true });
     const top = sectionRef.current?.getBoundingClientRect().top ?? 0;
     if (top < -40) sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, [step, done]);
+  }, [step, done, disqualified]);
 
   const errors = validate(contact);
   const contactValid = Object.values(errors).every((e) => !e);
@@ -90,6 +93,10 @@ export function QualificationFormSection() {
   const filled = done ? TOTAL : step + 1;
 
   const handleSubmit = async () => {
+    if (disqualified || isLeadDisqualified(answers.revenue, answers.capacity)) {
+      setDisqualified(true);
+      return;
+    }
     setTouched({ name: true, company: true, cityState: true, whatsapp: true, email: true });
     if (!contactValid || lock.current) return;
     lock.current = true;
@@ -171,6 +178,14 @@ export function QualificationFormSection() {
                   Escolher meu horário <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </a>
               </div>
+            ) : disqualified ? (
+              <div className="space-y-4 text-center sm:text-left" role="status" aria-live="polite">
+                {DISQUALIFICATION_MESSAGE.map((paragraph) => (
+                  <p key={paragraph} className="text-sm leading-relaxed text-muted-foreground sm:text-base">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
             ) : current ? (
               <fieldset>
                 <legend className="w-full">
@@ -194,7 +209,13 @@ export function QualificationFormSection() {
                           name={current.key}
                           value={option}
                           checked={active}
-                          onChange={() => setAnswers((p) => ({ ...p, [current.key]: option }))}
+                          onChange={() => {
+                            const nextAnswers = { ...answers, [current.key]: option };
+                            setAnswers(nextAnswers);
+                            if (isLeadDisqualified(nextAnswers.revenue, nextAnswers.capacity)) {
+                              setDisqualified(true);
+                            }
+                          }}
                           className="sr-only"
                         />
                         <span
@@ -215,7 +236,13 @@ export function QualificationFormSection() {
                   <button
                     type="button"
                     disabled={!answers[current.key]}
-                    onClick={() => setStep((s) => s + 1)}
+                    onClick={() => {
+                      if (disqualified || isLeadDisqualified(answers.revenue, answers.capacity)) {
+                        setDisqualified(true);
+                        return;
+                      }
+                      setStep((s) => s + 1);
+                    }}
                     className={primaryBtn}
                   >
                     Próxima etapa <ArrowRight className="h-4 w-4" aria-hidden="true" />
