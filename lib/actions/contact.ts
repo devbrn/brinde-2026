@@ -1,11 +1,13 @@
 'use server';
 
 import { z } from 'zod';
+import { headers } from 'next/headers';
 import { Resend } from 'resend';
 import { db } from '@/lib/db';
 import { contacts } from '@/lib/db/schema';
 import { sendLeadEvent } from '@/lib/meta/capi';
 import { pt } from '@/lib/i18n/dictionaries/pt';
+import { CAMPAIGN_KEYS } from '@/lib/campaign-params';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -47,7 +49,7 @@ function challengeLabel(challenge: string) {
   return (pt.contact.serviceOptions as Record<string, string>)[challenge] ?? challenge;
 }
 
-function renderNotification(data: ContactData) {
+function renderNotification(data: ContactData, pageUrl?: string) {
   const rows = [
     ['Nome', data.name],
     ['E-mail', data.email],
@@ -70,13 +72,14 @@ function renderNotification(data: ContactData) {
       <table style="border-collapse:collapse;font-size:14px;">${rows}</table>
       <p style="margin:20px 0 6px;color:#666;font-size:14px;">Mensagem</p>
       <p style="margin:0;color:#050a30;font-size:14px;line-height:1.6;white-space:pre-wrap;">${escapeHtml(data.message)}</p>
-      ${renderOrigin(data)}
+      ${renderOrigin(data, pageUrl)}
     </div>
   `;
 }
 
-function renderOrigin(data: ContactData) {
+function renderOrigin(data: ContactData, pageUrl?: string) {
   const origin = [
+    ['Página', pageUrl],
     ['Origem', data.utm_source],
     ['Mídia', data.utm_medium],
     ['Campanha', data.utm_campaign],
@@ -86,7 +89,6 @@ function renderOrigin(data: ContactData) {
     ['Meta Ads (fbclid)', data.fbclid],
   ].filter(([, value]) => Boolean(value)) as [string, string][];
 
-  // Acesso direto ou orgânico não traz parâmetros: sem bloco de origem.
   if (origin.length === 0) return '';
 
   const rows = origin
@@ -108,6 +110,16 @@ function renderOrigin(data: ContactData) {
 export async function submitContact(formData: unknown, subjectPrefix = 'Novo orçamento') {
   try {
     const data = contactSchema.parse(formData);
+
+    // As landings em HTML não enviam URL nem UTMs; o Referer do fetch traz a
+    // página de origem com a query string, então completa o que faltar.
+    const pageUrl = data.event_source_url ?? (await headers()).get('referer') ?? undefined;
+    if (pageUrl) {
+      const search = URL.canParse(pageUrl) ? new URL(pageUrl).searchParams : undefined;
+      for (const key of CAMPAIGN_KEYS) {
+        data[key] ??= search?.get(key)?.trim().slice(0, 255) || undefined;
+      }
+    }
 
     await db.insert(contacts).values({
       name: data.name,
@@ -133,7 +145,7 @@ export async function submitContact(formData: unknown, subjectPrefix = 'Novo or�
         to: NOTIFICATION_TO,
         replyTo: data.email,
         subject: `${subjectPrefix}: ${data.name}`,
-        html: renderNotification(data),
+        html: renderNotification(data, pageUrl),
       });
 
       if (error) {
