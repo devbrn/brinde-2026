@@ -5,6 +5,7 @@ import { Resend } from 'resend';
 import { db } from '@/lib/db';
 import { contacts } from '@/lib/db/schema';
 import { sendLeadEvent } from '@/lib/meta/capi';
+import { pt } from '@/lib/i18n/dictionaries/pt';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -40,13 +41,19 @@ function escapeHtml(value: string) {
     .replace(/"/g, '&quot;');
 }
 
+// O formulário de /contato envia a chave da opção (ex.: "indicacoes"); banco
+// e e-mail guardam o texto completo. Outros formulários já enviam texto livre.
+function challengeLabel(challenge: string) {
+  return (pt.contact.serviceOptions as Record<string, string>)[challenge] ?? challenge;
+}
+
 function renderNotification(data: ContactData) {
   const rows = [
     ['Nome', data.name],
     ['E-mail', data.email],
     ['Telefone', data.phone || '—'],
     ['Empresa', data.company || '—'],
-    ['Principal desafio', data.challenge],
+    ['Principal desafio', challengeLabel(data.challenge)],
   ]
     .map(
       ([label, value]) =>
@@ -107,7 +114,7 @@ export async function submitContact(formData: unknown, subjectPrefix = 'Novo or�
       email: data.email,
       phone: data.phone,
       company: data.company,
-      challenge: data.challenge,
+      challenge: challengeLabel(data.challenge),
       message: data.message,
       utmSource: data.utm_source,
       utmMedium: data.utm_medium,
